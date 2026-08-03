@@ -1,0 +1,34 @@
+{
+  "name": "@vue-pdf/types",
+  "version": "1.0.0",
+  "description": "TypeScript types for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/types"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./index.d.ts",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.d.ts"
+  },
+  "files": [
+    "*.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

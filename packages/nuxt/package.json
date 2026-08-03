@@ -1,0 +1,48 @@
+{
+  "name": "@vue-pdf/nuxt",
+  "version": "1.0.0",
+  "description": "Nuxt module for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/nuxt"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/module.ts",
+  "types": "./src/module.ts",
+  "exports": {
+    ".": "./src/module.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "echo 'No build needed - direct src exports'",
+    "clean": "echo 'Nothing to clean'"
+  },
+  "dependencies": {
+    "@vue-pdf/renderer": "workspace:*",
+    "@nuxt/kit": "^3.12.0",
+    "@vitejs/plugin-vue": "^6.0.8"
+  },
+  "devDependencies": {
+    "nuxt": "^3.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

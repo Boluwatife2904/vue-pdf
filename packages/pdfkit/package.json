@@ -1,0 +1,59 @@
+{
+  "name": "@vue-pdf/pdfkit",
+  "version": "1.0.0",
+  "description": "PDF generation library for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/pdfkit"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./lib/pdfkit.js",
+  "browser": {
+    "./lib/pdfkit.js": "./lib/pdfkit.browser.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rimraf ./lib && node ./src/font/data/compressData.js && rollup -c",
+    "clean": "rimraf ./lib ./src/font/data/*.json"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.20.13",
+    "@noble/ciphers": "^1.0.0",
+    "@noble/hashes": "^1.6.0",
+    "browserify-zlib": "^0.2.0",
+    "fontkit": "^2.0.2",
+    "js-md5": "^0.8.3",
+    "linebreak": "^1.1.0",
+    "png-js": "^2.0.0",
+    "vite-compatible-readable-stream": "^3.6.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "latest",
+    "@rollup/plugin-commonjs": "latest",
+    "@rollup/plugin-json": "latest",
+    "@rollup/plugin-node-resolve": "latest",
+    "@rollup/plugin-replace": "latest",
+    "rimraf": "latest",
+    "rollup": "latest",
+    "rollup-plugin-ignore": "latest",
+    "rollup-plugin-polyfill-node": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

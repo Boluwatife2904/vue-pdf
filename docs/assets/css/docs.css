@@ -1,0 +1,40 @@
+/* ─── Scrollbar & overflow (tailwind doesn't cover) ──────── */
+
+.sidebar-scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding: 0 0 40px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* .toc-panel lives in main.css @layer components — unlayered CSS here would
+   beat the layered `display: block` reveal rule and hide it at every width. */
+
+/* ─── Highlight.js theming ────────────────────────────────── */
+
+.hljs { color: #c9d4e0; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-name, .hljs-tag { color: #79c0ff; }
+.hljs-string, .hljs-attr, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #a5d6a7; }
+.hljs-comment, .hljs-quote, .hljs-deletion { color: #5a6474; font-style: italic; }
+.hljs-number, .hljs-regexp, .hljs-literal { color: #f78c6c; }
+.hljs-title, .hljs-section, .hljs-selector-id { color: #c3e88d; }
+.hljs-type, .hljs-class .hljs-title, .hljs-selector-class { color: #ffd580; }
+.hljs-params { color: #e8b4f8; }
+.hljs-meta { color: #6b7585; }
+.hljs-tag .hljs-name { color: #7dd3fc; }
+.hljs-tag .hljs-attr { color: #c3e88d; }
+
+html.light .hljs { color: #24292f; }
+html.light .hljs-keyword, html.light .hljs-selector-tag,
+html.light .hljs-built_in, html.light .hljs-name, html.light .hljs-tag { color: #cf222e; }
+html.light .hljs-string, html.light .hljs-addition { color: #0a3069; }
+html.light .hljs-attr { color: #0550ae; }
+html.light .hljs-comment, html.light .hljs-quote, html.light .hljs-deletion { color: #6e7781; font-style: italic; }
+html.light .hljs-number, html.light .hljs-literal { color: #953800; }
+html.light .hljs-title, html.light .hljs-section { color: #116329; }
+html.light .hljs-type, html.light .hljs-selector-class { color: #8250df; }
+html.light .hljs-params { color: #24292f; }
+html.light .hljs-tag .hljs-name { color: #116329; }
+html.light .hljs-tag .hljs-attr { color: #0550ae; }
+html.light .hljs-meta { color: #6e7781; }

@@ -1,0 +1,34 @@
+import type { DefineComponent } from 'vue';
+
+type PDFPrimitiveComponent = DefineComponent<Record<string, unknown>, any, any>;
+
+export declare const Document: PDFPrimitiveComponent;
+export declare const Page: PDFPrimitiveComponent;
+export declare const View: PDFPrimitiveComponent;
+export declare const Text: PDFPrimitiveComponent;
+export declare const Link: PDFPrimitiveComponent;
+export declare const Note: PDFPrimitiveComponent;
+export declare const Image: PDFPrimitiveComponent;
+export declare const ImageBackground: PDFPrimitiveComponent;
+export declare const Canvas: PDFPrimitiveComponent;
+export declare const Svg: PDFPrimitiveComponent;
+export declare const G: PDFPrimitiveComponent;
+export declare const Path: PDFPrimitiveComponent;
+export declare const Rect: PDFPrimitiveComponent;
+export declare const Line: PDFPrimitiveComponent;
+export declare const Circle: PDFPrimitiveComponent;
+export declare const Ellipse: PDFPrimitiveComponent;
+export declare const Polygon: PDFPrimitiveComponent;
+export declare const Polyline: PDFPrimitiveComponent;
+export declare const Tspan: PDFPrimitiveComponent;
+export declare const Stop: PDFPrimitiveComponent;
+export declare const Defs: PDFPrimitiveComponent;
+export declare const ClipPath: PDFPrimitiveComponent;
+export declare const LinearGradient: PDFPrimitiveComponent;
+export declare const RadialGradient: PDFPrimitiveComponent;
+export declare const FieldSet: PDFPrimitiveComponent;
+export declare const TextInput: PDFPrimitiveComponent;
+export declare const Select: PDFPrimitiveComponent;
+export declare const Checkbox: PDFPrimitiveComponent;
+export declare const List: PDFPrimitiveComponent;
+export declare const Marker: PDFPrimitiveComponent;

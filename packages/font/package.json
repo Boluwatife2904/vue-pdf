@@ -1,0 +1,51 @@
+{
+  "name": "@vue-pdf/font",
+  "version": "1.0.0",
+  "description": "Font loader for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/font"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/pdfkit": "workspace:*",
+    "@vue-pdf/types": "workspace:*",
+    "fontkit": "^2.0.2",
+    "is-url": "^1.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

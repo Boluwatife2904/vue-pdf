@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@vue-pdf/renderer/components": ["./packages/renderer/src/components/index.d.ts"],
+      "@vue-pdf/renderer/primitives": ["./packages/renderer/src/primitives.d.ts"],
+      "@vue-pdf/*": ["./packages/*/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "**/tests"]
+}

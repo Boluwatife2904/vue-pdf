@@ -1,0 +1,39 @@
+import { SafeNode } from '@vue-pdf/layout';
+import { Context } from '../types';
+import resolveHitSlop from '../utils/resolveHitSlop';
+
+const isString = (value: any): value is string => typeof value === 'string';
+
+const isSrcId = (value: string) => /^#.+/.test(value);
+
+const renderLink = (ctx: Context, node: SafeNode, src: string) => {
+  if (!src || !node.box) return;
+
+  const isId = isSrcId(src);
+  const method = isId ? 'goTo' : 'link';
+  const value = isId ? src.slice(1) : src;
+  const { top, left, width, height } = node.box;
+
+  const props = node.props || {};
+  const slop = resolveHitSlop('hitSlop' in props ? props.hitSlop : undefined);
+
+  ctx[method](
+    left - slop.left,
+    top - slop.top,
+    width + slop.left + slop.right,
+    height + slop.top + slop.bottom,
+    value,
+  );
+};
+
+const setLink = (ctx: Context, node: SafeNode) => {
+  const props = node.props || {};
+
+  if ('src' in props && isString(props.src))
+    return renderLink(ctx, node, props.src);
+
+  if ('href' in props && isString(props.href))
+    return renderLink(ctx, node, props.href);
+};
+
+export default setLink;

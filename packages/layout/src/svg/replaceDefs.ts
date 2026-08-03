@@ -1,0 +1,84 @@
+import * as P from '@vue-pdf/primitives';
+
+import getDefs from './getDefs';
+import { SafeDefs, SafeNode, SafeSvgNode } from '../types';
+
+const isNotDefs = (node: SafeNode) => node.type !== P.Defs;
+
+const detachDefs = (node: SafeSvgNode) => {
+  if (!node.children) return node;
+
+  const children = node.children.filter(isNotDefs);
+
+  return Object.assign({}, node, { children });
+};
+
+const URL_REGEX = /url\(['"]?#([^'"]+)['"]?\)/;
+
+const replaceDef = (defs: SafeDefs, value: string) => {
+  if (!value) return undefined;
+
+  if (!URL_REGEX.test(value)) return value;
+
+  const match = value.match(URL_REGEX);
+
+  return defs[match[1]];
+};
+
+const parseNodeDefs =
+  (defs: SafeDefs) =>
+  (node: SafeNode): SafeNode => {
+    const props = node.props;
+
+    const fill =
+      `fill` in props ? replaceDef(defs, props?.fill as any) : undefined;
+
+    const clipPath =
+      `clipPath` in props
+        ? replaceDef(defs, props?.clipPath as any)
+        : undefined;
+
+    const markerStart =
+      `markerStart` in props
+        ? replaceDef(defs, props?.markerStart as any)
+        : undefined;
+
+    const markerMid =
+      `markerMid` in props
+        ? replaceDef(defs, props?.markerMid as any)
+        : undefined;
+
+    const markerEnd =
+      `markerEnd` in props
+        ? replaceDef(defs, props?.markerEnd as any)
+        : undefined;
+
+    const newProps = Object.assign({}, node.props, {
+      fill,
+      clipPath,
+      markerStart,
+      markerMid,
+      markerEnd,
+    });
+
+    const children = node.children
+      ? node.children.map(parseNodeDefs(defs))
+      : undefined;
+
+    return Object.assign({}, node, { props: newProps, children });
+  };
+
+const parseDefs = (root: SafeSvgNode) => {
+  if (!root.children) return root;
+
+  const defs = getDefs(root);
+  const children = root.children.map(parseNodeDefs(defs));
+
+  return Object.assign({}, root, { children });
+};
+
+const replaceDefs = (node: SafeSvgNode) => {
+  return detachDefs(parseDefs(node));
+};
+
+export default replaceDefs;

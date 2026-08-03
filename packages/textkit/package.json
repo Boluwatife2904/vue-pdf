@@ -1,0 +1,55 @@
+{
+  "name": "@vue-pdf/textkit",
+  "version": "1.0.0",
+  "description": "Text layout engine for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/textkit"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/fns": "workspace:*",
+    "@vue-pdf/font": "workspace:*",
+    "bidi-js": "^1.0.3",
+    "hyphen": "^1.14.1",
+    "unicode-properties": "^1.4.1"
+  },
+  "devDependencies": {
+    "fontkit": "^2.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

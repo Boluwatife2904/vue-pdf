@@ -1,0 +1,181 @@
+import transformUnit from '../utils/units';
+import castFloat from '../utils/castFloat';
+import offsetKeyword from '../utils/offsetKeyword';
+import { Container, Style, StyleKey, Transform } from '../types';
+
+const parse = (transformString: string) => {
+  const transforms = transformString.trim().split(/\)[ ,]|\)/);
+
+  // Handle "initial", "inherit", "unset".
+  if (transforms.length === 1) {
+    return [[transforms[0], true]];
+  }
+
+  const parsed = [];
+
+  for (let i = 0; i < transforms.length; i += 1) {
+    const transform = transforms[i];
+
+    if (transform) {
+      const [name, rawValue] = transform.split('(');
+      const splitChar = rawValue.indexOf(',') >= 0 ? ',' : ' ';
+      const value = rawValue.split(splitChar).map((val) => val.trim());
+      parsed.push({ operation: name.trim(), value });
+    }
+  }
+
+  return parsed;
+};
+
+const parseAngle = (value: string) => {
+  const unitsRegexp = /(-?\d*\.?\d*)(\w*)?/i;
+  const match = unitsRegexp.exec(value);
+  const angle = match?.[1] ?? '';
+  const unit = match?.[2] ?? '';
+  const number = Number.parseFloat(angle);
+
+  return unit === 'rad' ? (number * 180) / Math.PI : number;
+};
+
+type ParsedTransformOperation = {
+  operation: string;
+  value: string[];
+};
+
+const normalizeTransformOperation = ({
+  operation,
+  value,
+}: ParsedTransformOperation): Transform => {
+  switch (operation) {
+    case 'scale': {
+      const [scaleX, scaleY = scaleX] = value.map((num) =>
+        Number.parseFloat(num),
+      );
+      return { operation: 'scale', value: [scaleX, scaleY] };
+    }
+
+    case 'scaleX': {
+      return { operation: 'scale', value: [Number.parseFloat(value[0]), 1] };
+    }
+    case 'scaleY': {
+      return { operation: 'scale', value: [1, Number.parseFloat(value[0])] };
+    }
+
+    case 'rotate': {
+      const angle = parseAngle(value[0]);
+      const cx = value[1] ? Number.parseFloat(value[1]) : 0;
+      const cy = value[2] ? Number.parseFloat(value[2]) : 0;
+
+      return { operation: 'rotate', value: [angle, cx, cy] };
+    }
+
+    case 'translate': {
+      const [x, y] = value.map((num) => Number.parseFloat(num));
+      return { operation: 'translate', value: [x, y] };
+    }
+
+    case 'translateX': {
+      return {
+        operation: 'translate',
+        value: [Number.parseFloat(value[0]), 0],
+      };
+    }
+
+    case 'translateY': {
+      return {
+        operation: 'translate',
+        value: [0, Number.parseFloat(value[0])],
+      };
+    }
+
+    case 'skew': {
+      return {
+        operation: 'skew',
+        value: value.map(parseAngle) as [number, number],
+      };
+    }
+
+    case 'skewX': {
+      return { operation: 'skew', value: [parseAngle(value[0]), 0] };
+    }
+
+    case 'skewY': {
+      return { operation: 'skew', value: [0, parseAngle(value[0])] };
+    }
+
+    default: {
+      // Handle matrix and other potential operations
+      return {
+        operation,
+        value: value.map((num) => Number.parseFloat(num)),
+      } as Transform;
+    }
+  }
+};
+
+const normalize = (operations: ParsedTransformOperation[]): Transform[] => {
+  return operations.map((operation) => normalizeTransformOperation(operation));
+};
+
+const processTransform = (key: 'transform', value: Style['transform']) => {
+  if (typeof value !== 'string') return { [key]: value };
+
+  return { [key]: normalize(parse(value)) };
+};
+
+const Y_AXIS_SHORTHANDS: Record<string, boolean> = { top: true, bottom: true };
+
+const sortTransformOriginPair = (a: string, b: string) => {
+  if (Y_AXIS_SHORTHANDS[a]) return 1;
+  if (Y_AXIS_SHORTHANDS[b]) return -1;
+  return 0;
+};
+
+const getTransformOriginPair = (values: string[]): [string, string] => {
+  if (!values || values.length === 0) return ['center', 'center'];
+
+  const pair: [string, string] =
+    values.length === 1 ? [values[0], 'center'] : [values[0], values[1]];
+
+  return pair.sort(sortTransformOriginPair) as [string, string];
+};
+
+// Transforms shorthand transformOrigin values
+const processTransformOriginShorthand = <K extends StyleKey>(
+  key: K,
+  value: Style[K],
+  container: Container,
+) => {
+  const match = `${value}`.split(' ');
+
+  const pair = getTransformOriginPair(match);
+
+  const transformOriginX = transformUnit(container, pair[0]);
+  const transformOriginY = transformUnit(container, pair[1]);
+
+  return {
+    transformOriginX:
+      offsetKeyword(transformOriginX) || castFloat(transformOriginX),
+    transformOriginY:
+      offsetKeyword(transformOriginY) || castFloat(transformOriginY),
+  };
+};
+
+const processTransformOriginValue = <K extends StyleKey>(
+  key: K,
+  value: Style[K],
+  container: Container,
+) => {
+  const v = transformUnit(container, value);
+  return { [key]: offsetKeyword(v) || castFloat(v) };
+};
+
+const handlers = {
+  transform: processTransform,
+  gradientTransform: processTransform,
+  transformOrigin: processTransformOriginShorthand<'transformOrigin'>,
+  transformOriginX: processTransformOriginValue<'transformOriginX'>,
+  transformOriginY: processTransformOriginValue<'transformOriginY'>,
+};
+
+export default handlers;

@@ -1,0 +1,58 @@
+{
+  "name": "@vue-pdf/layout",
+  "version": "1.0.0",
+  "description": "Layout engine for vue-pdf using yoga-layout",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/layout"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/fns": "workspace:*",
+    "@vue-pdf/font": "workspace:*",
+    "@vue-pdf/image": "workspace:*",
+    "@vue-pdf/primitives": "workspace:*",
+    "@vue-pdf/stylesheet": "workspace:*",
+    "@vue-pdf/textkit": "workspace:*",
+    "@vue-pdf/types": "workspace:*",
+    "buffer": "^6.0.3",
+    "emoji-regex-xs": "^2.0.1",
+    "queue": "^6.0.1",
+    "yoga-layout": "^3.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

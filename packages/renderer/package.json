@@ -1,0 +1,85 @@
+{
+  "name": "@vue-pdf/renderer",
+  "version": "1.0.0",
+  "description": "Create PDF files on the browser and server using Vue",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/renderer"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf",
+    "pdf-generation",
+    "renderer",
+    "react-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "browser": "./dist/browser.mjs",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "development": {
+        "browser": "./src/dom/index.js",
+        "node": "./src/node/index.js",
+        "default": "./src/index.js"
+      },
+      "browser": "./dist/browser.mjs",
+      "node": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    },
+    "./primitives": {
+      "types": "./src/primitives.d.ts",
+      "development": "./src/primitives.js",
+      "default": "./dist/primitives.mjs"
+    },
+    "./components": {
+      "types": "./src/components/index.d.ts",
+      "development": "./src/components/index.js",
+      "default": "./dist/components.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build --config vite.config.build.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/fns": "workspace:*",
+    "@vue-pdf/font": "workspace:*",
+    "@vue-pdf/layout": "workspace:*",
+    "@vue-pdf/pdfkit": "workspace:*",
+    "@vue-pdf/primitives": "workspace:*",
+    "@vue-pdf/reconciler": "workspace:*",
+    "@vue-pdf/render": "workspace:*",
+    "@vue-pdf/tailwind": "workspace:*",
+    "@vue-pdf/types": "workspace:*",
+    "@vue/server-renderer": "^3.4.0",
+    "events": "^3.3.0",
+    "queue": "^6.0.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "vite": "^8.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

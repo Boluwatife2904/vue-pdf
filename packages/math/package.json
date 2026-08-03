@@ -1,0 +1,60 @@
+{
+  "name": "@vue-pdf/math",
+  "version": "1.0.0",
+  "description": "Render LaTeX math expressions in vue-pdf documents",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/math"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "latex",
+    "math",
+    "mathjax"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/primitives": "workspace:*",
+    "@vue-pdf/svg": "workspace:*",
+    "mathjax-full": "^3.2.2"
+  },
+  "peerDependencies": {
+    "@vue-pdf/renderer": "workspace:*",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue-pdf/renderer": "workspace:*",
+    "vue": "^3.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

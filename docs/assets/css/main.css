@@ -1,0 +1,398 @@
+@import "tailwindcss";
+
+/* ─── Light-mode variant (class-based) ──────────────────── */
+@custom-variant light (&:where(.light, .light *));
+
+/* ─── Design tokens ─────────────────────────────────────── */
+
+@theme {
+  --color-bg: #09090c;
+  --color-sidebar: #0c0d10;
+  --color-topbar: #09090c;
+  --color-border: #1a1c22;
+  --color-accent: #dc2626;
+  --color-text: #e8edf2;
+  --color-muted: #6b7585;
+  --color-subtle: #3a3f4a;
+  --color-heading: #ffffff;
+  --color-body: #a8b3c0;
+  --color-code-bg: #0f1117;
+  --color-inline: #151820;
+  --color-link: #a5d8ff;
+  --color-hero-sub: #8a9ab0;
+  --font-ui: "Geist", system-ui, sans-serif;
+  --font-code: "Geist Mono", "Cascadia Code", monospace;
+  --default-font-family: var(--font-ui);
+  --default-mono-font-family: var(--font-code);
+}
+
+/* ─── Light mode overrides ──────────────────────────────── */
+
+html.light {
+  --color-bg: #ffffff;
+  --color-sidebar: #f8f9fb;
+  --color-topbar: #ffffff;
+  --color-border: #e5e7eb;
+  --color-accent: #dc2626;
+  --color-text: #111827;
+  --color-muted: #6b7280;
+  --color-subtle: #9ca3af;
+  --color-heading: #111827;
+  --color-body: #374151;
+  --color-code-bg: #f3f4f6;
+  --color-inline: #f3f4f6;
+  --color-link: #0550ae;
+  --color-hero-sub: #4b5563;
+}
+
+/* ─── Base styles ───────────────────────────────────────── */
+
+/* Kept in @layer base so it can't override @apply utilities declared in
+   @layer components — unlayered CSS wins over any cascade layer regardless of
+   specificity, which was zeroing out things like `.body { @apply ml-[264px] }`. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-bg text-text text-[15px] leading-[1.65];
+}
+
+html.no-transitions * {
+  transition: none !important;
+}
+
+/* ─── Layout components ──────────────────────────────────── */
+
+@layer components {
+  .layout {
+    @apply flex min-h-screen;
+  }
+
+  .sidebar {
+    @apply fixed inset-y-0 left-0 w-[264px] z-[200] border-r border-border bg-sidebar;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .site-logo {
+    @apply flex items-center gap-[11px] py-[22px] px-5 mb-2 border-b border-border;
+  }
+
+  .logo-mark {
+    @apply flex items-center justify-center w-7 h-7 bg-accent rounded-md text-sm font-extrabold text-white shrink-0;
+  }
+
+  .logo-name {
+    @apply text-sm font-bold tracking-[-0.01em] text-text;
+  }
+
+  .logo-sub {
+    @apply text-[11px] text-muted mt-px font-mono;
+  }
+
+  .nav {
+    @apply px-3;
+  }
+
+  .nav-group {
+    @apply mb-1 pb-1;
+  }
+
+  .nav-group + .nav-group {
+    @apply border-t border-border pt-4 mt-3;
+  }
+
+  .nav-group-title {
+    @apply text-[10.5px] font-bold tracking-[0.08em] uppercase text-muted px-2 pb-1.5;
+  }
+
+  .nav-group ul {
+    @apply list-none;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-1.5 px-2 py-1.5 rounded-md text-[13.5px] text-muted leading-[1.3] transition-colors;
+  }
+
+  .nav-link:hover {
+    @apply text-text bg-white/4;
+  }
+
+  .nav-link.active {
+    @apply text-accent bg-accent/12 font-medium;
+  }
+
+  .nav-link-external {
+    @apply text-muted;
+  }
+
+  .nav-link-external svg {
+    @apply opacity-50;
+  }
+
+  .overlay {
+    @apply fixed inset-0 z-[190] bg-black/60 opacity-0 pointer-events-none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .overlay.visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .body {
+    @apply flex-1 flex flex-col min-w-0 ml-[264px];
+  }
+
+  .topbar {
+    @apply sticky top-0 h-[52px] flex items-center px-8 bg-topbar border-b border-border z-30;
+  }
+
+  .menu-btn {
+    @apply hidden bg-transparent border-none text-muted cursor-pointer p-1 rounded mr-auto;
+  }
+
+  .menu-btn:hover {
+    @apply text-text bg-[#808080]/10;
+  }
+
+  .topbar-actions {
+    @apply flex items-center gap-2 ml-auto;
+  }
+
+  .theme-btn {
+    @apply flex items-center justify-center w-8 h-8 bg-transparent border border-border rounded-md text-muted cursor-pointer transition-colors shrink-0;
+  }
+
+  .theme-btn:hover {
+    @apply text-text border-subtle bg-[#808080]/8;
+  }
+
+  .gh-link {
+    @apply flex items-center gap-[7px] text-[13px] font-medium text-muted px-3 py-[5px] border border-border rounded-[20px] transition-colors whitespace-nowrap;
+  }
+
+  .gh-link:hover {
+    @apply text-text border-subtle;
+  }
+
+  .body-inner {
+    @apply flex flex-1 items-start;
+  }
+
+  .content {
+    @apply flex-1 px-12 pt-12 pb-20 min-w-0 max-w-[860px];
+  }
+
+  .toc-panel {
+    display: none;
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 52px;
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding: 52px 24px 48px 8px;
+    scrollbar-width: none;
+  }
+
+  @media (min-width: 1200px) {
+    .toc-panel:has(.toc) {
+      display: block;
+    }
+  }
+
+  .toc-title {
+    @apply text-[11px] font-bold tracking-[0.08em] uppercase text-muted mb-2.5;
+  }
+
+  .toc-list {
+    @apply list-none;
+  }
+
+  .toc-link {
+    @apply block py-1 text-[13px] text-muted leading-[1.45] transition-colors border-l-2 border-transparent pl-2.5;
+  }
+
+  .toc-link:hover {
+    @apply text-text;
+  }
+
+  .toc-link.active {
+    @apply text-accent border-l-accent;
+  }
+
+  .toc-link.toc-h3 {
+    @apply pl-5 text-[12.5px];
+  }
+
+  .content:has(.pg-fullbleed) {
+    @apply max-w-none p-0;
+  }
+
+  .content:has(.pg-fullbleed) .page-footer {
+    @apply mt-0 pt-7 pb-16 px-12;
+  }
+
+  @media (max-width: 768px) {
+    .content:has(.pg-fullbleed) .page-footer {
+      @apply px-5 pt-6 pb-12;
+    }
+  }
+
+  .page-footer {
+    @apply grid grid-cols-2 gap-3 mt-16 pt-8 border-t border-border;
+  }
+
+  .pager {
+    @apply flex items-center gap-2.5 py-3.5 px-5 border border-border rounded-md min-w-0 transition-colors;
+  }
+
+  .pager:hover {
+    @apply border-subtle bg-[#808080]/6;
+  }
+
+  .pager-next {
+    @apply col-start-2 justify-end;
+  }
+
+  .pager svg {
+    @apply shrink-0 text-muted;
+  }
+
+  .pager span {
+    @apply flex flex-col gap-0.5 min-w-0;
+  }
+
+  .pager em {
+    @apply not-italic text-[11px] text-muted tracking-[0.03em];
+  }
+
+  .pager strong {
+    @apply text-sm font-semibold whitespace-nowrap overflow-hidden text-ellipsis;
+  }
+
+  .prose h1 {
+    @apply text-[32px] font-extrabold tracking-[-0.03em] leading-[1.15] mb-4 text-heading break-words;
+  }
+
+  .prose h2 {
+    @apply text-xl font-bold tracking-[-0.02em] mt-12 mb-3.5 text-heading pb-2.5 border-b border-border;
+  }
+
+  .prose h3 {
+    @apply text-base font-semibold mt-7 mb-2.5 text-text;
+  }
+
+  .prose p {
+    @apply text-body leading-[1.75] mb-4;
+  }
+
+  .prose p:last-child {
+    @apply mb-0;
+  }
+
+  .prose a {
+    @apply text-accent;
+  }
+
+  .prose a:hover {
+    @apply underline;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply text-body pl-5 mb-4;
+    list-style-type: georgian
+  }
+
+  .prose li {
+    @apply mb-1.5 leading-[1.7];
+  }
+
+  .prose code {
+    @apply font-mono text-[0.85em] bg-inline border border-border rounded px-1.5 py-px text-[var(--color-link)];
+  }
+
+  .prose pre code {
+    @apply bg-transparent border-none p-0 text-inherit text-inherit;
+  }
+
+  .page-label {
+    @apply inline-flex items-center gap-1.5 text-[11.5px] font-semibold tracking-[0.07em] uppercase text-accent mb-2.5;
+  }
+
+  .page-label::before {
+    content: "";
+    @apply inline-block w-4 h-[1.5px] bg-accent;
+  }
+
+  .callout {
+    @apply px-4 py-3 rounded-md my-6 text-sm leading-[1.65];
+  }
+
+  .callout-info {
+    @apply bg-blue-500/8 text-blue-300;
+  }
+
+  html.light .callout-info {
+    @apply bg-blue-500/6 text-blue-700;
+  }
+
+  .callout-tip {
+    @apply bg-emerald-500/8 text-emerald-300;
+  }
+
+  html.light .callout-tip {
+    @apply bg-emerald-500/6 text-emerald-700;
+  }
+
+  .callout-warn {
+    @apply bg-amber-500/8 text-amber-300;
+  }
+
+  html.light .callout-warn {
+    @apply bg-amber-500/6 text-amber-700;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar:not(.open) {
+      transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+      box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .body {
+      @apply ml-0;
+    }
+
+    .menu-btn {
+      @apply flex;
+    }
+
+    .content {
+      @apply px-5 pt-8 pb-[60px];
+    }
+
+    .topbar {
+      @apply px-5;
+    }
+
+    .toc-panel {
+      display: none !important;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "@vue-pdf/stylesheet",
+  "version": "1.0.0",
+  "description": "Stylesheet engine for vue-pdf",
+  "license": "MIT",
+  "author": "Boluwatife Adewale",
+  "homepage": "https://github.com/Boluwatife2904/vue-pdf#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boluwatife2904/vue-pdf.git",
+    "directory": "packages/stylesheet"
+  },
+  "bugs": {
+    "url": "https://github.com/Boluwatife2904/vue-pdf/issues"
+  },
+  "keywords": [
+    "vue",
+    "pdf",
+    "vue-pdf"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vue-pdf/fns": "workspace:*",
+    "@vue-pdf/types": "workspace:*",
+    "color-string": "^2.1.4",
+    "hsl-to-hex": "^1.0.0",
+    "media-engine": "^1.0.3",
+    "postcss-value-parser": "^4.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,19 @@
+node_modules
+dist
+lib
+*.log
+.env
+.DS_Store
+coverage
+implementations
+
+# vite-plugin-monaco-editor writes worker bundles to an absolute path
+# resolved against cwd, producing a nested Users/... tree at build time.
+docs/Users
+.vercel
+docs/.vercel
+.output
+docs/.output
+.nuxt
+docs/.nuxt
+.pnpm-store
