@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import * as Vue from 'vue'
 import * as pdfComponents from '@vuepdf/renderer/components'
-import { Font } from '@vuepdf/renderer'
+import * as pdfPrimitives from '@vuepdf/renderer/primitives'
+import { Font, StyleSheet } from '@vuepdf/renderer'
 import type * as Monaco from 'monaco-editor'
 import {
   openBlock,
@@ -277,7 +278,8 @@ for (const [name, comp] of Object.entries(pdfComponents)) {
 
 const vuePdfGlobals: Record<string, unknown> = {
   ...playgroundComponents,
-  StyleSheet: { create: (s: any) => s },
+  ...pdfPrimitives,
+  StyleSheet,
   Font,
 }
 
@@ -340,29 +342,36 @@ function transformScriptImports(code: string): string {
       .filter(Boolean)
       .join(', ')
 
+  // Matched against the scope rather than hardcoded per subpath. The previous
+  // form spelled the scope inside regex literals as `@vue-pdf\/…`; the rename
+  // to `@vuepdf` missed them because of the escaped slash, so every vue-pdf
+  // import silently fell through to the generic strip below. `StyleSheet` then
+  // resolved to the DOM interface of the same name — hence the reported
+  // "StyleSheet.create is not a function" rather than a missing-import error.
+  const VUE_PDF = String.raw`@vuepdf\/renderer(?:\/(?:components|primitives))?`
+
   return code
     .replace(
       /import\s+\{([^}]+)\}\s+from\s+['"]vue['"];?/g,
-      (_, names: string) =>
-        `const { ${specifiers(names)} } = __vue__;`,
+      (_, names: string) => `const { ${specifiers(names)} } = __vue__;`,
     )
     .replace(
-      /import\s+\{([^}]+)\}\s+from\s+['"]@vue-pdf\/renderer['"];?/g,
-      (_, names: string) =>
-        `const { ${specifiers(names)} } = __vuePdfRenderer__;`,
+      new RegExp(String.raw`import\s+\{([^}]+)\}\s+from\s+['"]${VUE_PDF}['"];?`, 'g'),
+      (_, names: string) => `const { ${specifiers(names)} } = __vuePdfRenderer__;`,
     )
     .replace(
-      /import\s+\{([^}]+)\}\s+from\s+['"]@vue-pdf\/renderer\/components['"];?/g,
-      (_, names: string) =>
-        `const { ${specifiers(names)} } = __vuePdfRenderer__;`,
+      new RegExp(String.raw`import\s+\*\s+as\s+(\w+)\s+from\s+['"]${VUE_PDF}['"];?`, 'g'),
+      (_, name: string) => `const ${name} = __vuePdfRenderer__;`,
     )
-
+    // Anything else under the scope is unsupported here; say so instead of
+    // dropping the import and failing later with a confusing runtime error.
     .replace(
-      /import\s+\*\s+as\s+(\w+)\s+from\s+['"](@vue-pdf\/\S+)['"];?/g,
-      (_, name: string, mod: string) => {
-        if (mod === '@vuepdf/renderer' || mod === '@vuepdf/renderer/components')
-          return `const ${name} = __vuePdfRenderer__;`
-        return ''
+      /import\s[^'"]*['"](@vuepdf\/[^'"]+)['"];?/g,
+      (_, mod: string) => {
+        throw new Error(
+          `The playground cannot import from "${mod}". Use '@vuepdf/renderer', ` +
+            `'@vuepdf/renderer/components' or '@vuepdf/renderer/primitives'.`,
+        )
       },
     )
     .replace(/import\s+type\s+\{.*?\}\s+from\s+['"][^'"]+['"];?/g, '')
