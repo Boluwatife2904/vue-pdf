@@ -1,6 +1,8 @@
 node_modules
 dist
-lib
+# pdfkit's rollup output only — a bare `lib` also swallowed
+# packages/pdfkit/src/saslprep/lib, which is source.
+packages/pdfkit/lib
 *.log
 .env
 .DS_Store
