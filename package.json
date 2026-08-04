@@ -8,6 +8,7 @@
     "build": "pnpm -r run build",
     "dev": "nuxi dev docs",
     "docs:llms": "node docs/scripts/generate-llms.mjs",
+    "docs:favicon": "node docs/scripts/generate-favicon.mjs",
     "docs:build": "pnpm run docs:llms && NODE_OPTIONS=--max-old-space-size=8192 nuxi build docs",
     "docs:generate": "pnpm run docs:llms && NODE_OPTIONS=--max-old-space-size=8192 nuxi generate docs",
     "test": "vitest",

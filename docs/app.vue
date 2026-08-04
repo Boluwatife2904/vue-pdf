@@ -3,9 +3,10 @@ useSeoMeta({
   ogType: "website",
   twitterCard: "summary_large_image",
 })
+// Icons live in nuxt.config's app.head — declaring one here too emitted a
+// second, duplicate <link rel="icon">.
 useHead({
   htmlAttrs: { lang: "en" },
-  link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 })
 </script>
 
