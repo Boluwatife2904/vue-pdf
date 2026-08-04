@@ -150,7 +150,7 @@ const codeExample5 = `<template>
 
     <h2>Advanced Typography</h2>
     <p>
-      vue-pdf includes a sophisticated text layout engine (<code>@vue-pdf/textkit</code>) that handles:
+      vue-pdf includes a sophisticated text layout engine (<code>@vuepdf/textkit</code>) that handles:
     </p>
 
     <ul>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 usePageSeo(
   "Math & Diagrams",
-  "Render LaTeX math expressions and Mermaid diagrams in vue-pdf with the @vue-pdf/math and @vue-pdf/mermaid packages.",
+  "Render LaTeX math expressions and Mermaid diagrams in vue-pdf with the @vuepdf/math and @vuepdf/mermaid packages.",
 )
 
-const installMath = `npm install @vue-pdf/math`
+const installMath = `npm install @vuepdf/math`
 
 const mathBasic = `<script setup lang="ts">
-import { Math } from '@vue-pdf/math'
+import { Math } from '@vuepdf/math'
 <\/script>
 
 <template>
@@ -39,10 +39,10 @@ const mathBraces = `<template>
 const expression = '\\\\sqrt{{a+b}^2}'
 <\/script>`
 
-const installMermaid = `npm install @vue-pdf/mermaid`
+const installMermaid = `npm install @vuepdf/mermaid`
 
 const mermaidBasic = `<script setup lang="ts">
-import { Mermaid } from '@vue-pdf/mermaid'
+import { Mermaid } from '@vuepdf/mermaid'
 
 const diagram = \`graph TD
   A[Start] --> B{Is it valid?}
@@ -97,7 +97,7 @@ const mermaidTheme = `<template>
 
     <h2>Math Expressions</h2>
     <p>
-      <code>@vue-pdf/math</code> renders LaTeX with MathJax and maps the result onto SVG paths.
+      <code>@vuepdf/math</code> renders LaTeX with MathJax and maps the result onto SVG paths.
     </p>
 
     <DocsCodeBlock lang="bash" :code="installMath" />
@@ -139,7 +139,7 @@ const mermaidTheme = `<template>
 
     <h2>Mermaid Diagrams</h2>
     <p>
-      <code>@vue-pdf/mermaid</code> renders Mermaid definitions — flowcharts, sequence diagrams, class
+      <code>@vuepdf/mermaid</code> renders Mermaid definitions — flowcharts, sequence diagrams, class
       diagrams, state charts, and the rest of Mermaid's grammar.
     </p>
 

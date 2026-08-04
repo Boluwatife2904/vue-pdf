@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { pick, without } from '@vue-pdf/fns';
+import * as P from '@vuepdf/primitives';
+import { pick, without } from '@vuepdf/fns';
 import { SafeNode } from '../types';
 
 const BASE_SVG_INHERITED_PROPS = [

@@ -1,4 +1,4 @@
-import { Font, Fragment } from '@vue-pdf/textkit';
+import { Font, Fragment } from '@vuepdf/textkit';
 
 const IGNORABLE_CODEPOINTS = [
   8232, // LINE_SEPARATOR

@@ -5,7 +5,7 @@ usePageSeo(
 )
 
 const codeExample1 = `<script setup lang="ts">
-import { usePDF } from '@vue-pdf/renderer'
+import { usePDF } from '@vuepdf/renderer'
 
 const [instance] = usePDF({
   document: {
@@ -36,7 +36,7 @@ const [instance] = usePDF({
 </template>`
 
 const codeExample2 = `<script setup lang="ts">
-import { usePDF } from '@vue-pdf/renderer'
+import { usePDF } from '@vuepdf/renderer'
 
 const [instance, update] = usePDF()
 
@@ -65,7 +65,7 @@ watchEffect(() => update(buildTree(invoice.value)))
 <\/script>`
 
 const codeExample3 = `<script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 import InvoiceDoc from './InvoiceDoc.vue'
 <\/script>
 

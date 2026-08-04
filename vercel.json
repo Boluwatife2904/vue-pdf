@@ -1,5 +1,7 @@
 {
-  "buildCommand": "pnpm run build && NITRO_PRESET=vercel pnpm run docs:build && cp -r docs/.vercel/output .vercel/output",
-  "installCommand": "pnpm install",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm -r --filter \"./packages/**\" run build && NITRO_PRESET=vercel NODE_OPTIONS=--max-old-space-size=8192 pnpm exec nuxi build docs && rm -rf .vercel/output && cp -r docs/.vercel/output .vercel/output",
+  "outputDirectory": ".vercel/output",
   "framework": null
 }

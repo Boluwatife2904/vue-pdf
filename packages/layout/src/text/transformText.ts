@@ -1,5 +1,5 @@
-import { capitalize, upperFirst } from '@vue-pdf/fns';
-import { SafeStyle } from '@vue-pdf/stylesheet';
+import { capitalize, upperFirst } from '@vuepdf/fns';
+import { SafeStyle } from '@vuepdf/stylesheet';
 
 /**
  * Apply transformation to text string

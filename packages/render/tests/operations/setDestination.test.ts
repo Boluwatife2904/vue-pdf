@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
-import * as P from '@vue-pdf/primitives';
-import { SafeNode } from '@vue-pdf/layout';
+import * as P from '@vuepdf/primitives';
+import { SafeNode } from '@vuepdf/layout';
 
 import createCTX from '../ctx';
 import setDestination from '../../src/operations/setDestination';

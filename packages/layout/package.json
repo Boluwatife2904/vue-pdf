@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/layout",
+  "name": "@vuepdf/layout",
   "version": "1.0.0",
   "description": "Layout engine for vue-pdf using yoga-layout",
   "license": "MIT",
@@ -40,13 +40,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/font": "workspace:*",
-    "@vue-pdf/image": "workspace:*",
-    "@vue-pdf/primitives": "workspace:*",
-    "@vue-pdf/stylesheet": "workspace:*",
-    "@vue-pdf/textkit": "workspace:*",
-    "@vue-pdf/types": "workspace:*",
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/font": "workspace:*",
+    "@vuepdf/image": "workspace:*",
+    "@vuepdf/primitives": "workspace:*",
+    "@vuepdf/stylesheet": "workspace:*",
+    "@vuepdf/textkit": "workspace:*",
+    "@vuepdf/types": "workspace:*",
     "buffer": "^6.0.3",
     "emoji-regex-xs": "^2.0.1",
     "queue": "^6.0.1",

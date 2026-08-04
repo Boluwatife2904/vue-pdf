@@ -5,7 +5,7 @@ usePageSeo(
 )
 
 const codeExample1 = `<script setup lang="ts">
-import { BlobProvider } from '@vue-pdf/renderer'
+import { BlobProvider } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 <\/script>
 

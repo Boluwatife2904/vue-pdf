@@ -1,4 +1,4 @@
-import { SafeNode } from '@vue-pdf/layout';
+import { SafeNode } from '@vuepdf/layout';
 import { Context } from '../types';
 import resolveHitSlop from '../utils/resolveHitSlop';
 

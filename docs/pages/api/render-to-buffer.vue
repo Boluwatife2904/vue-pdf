@@ -4,7 +4,7 @@ usePageSeo(
   "API reference for renderToBuffer — render a PDF document to a Node Buffer.",
 )
 
-const usage = `import { renderToBuffer } from '@vue-pdf/renderer'
+const usage = `import { renderToBuffer } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 
 const buffer = await renderToBuffer(MyDocument)
@@ -12,7 +12,7 @@ const buffer = await renderToBuffer(MyDocument)
 // Write it, upload it, or attach it
 await fs.promises.writeFile('out.pdf', buffer)`
 
-const email = `import { renderToBuffer } from '@vue-pdf/renderer'
+const email = `import { renderToBuffer } from '@vuepdf/renderer'
 import Invoice from './Invoice.vue'
 
 const buffer = await renderToBuffer(Invoice)
@@ -24,7 +24,7 @@ await transporter.sendMail({
 })`
 
 const nuxtRoute = `// server/api/invoice/[id].get.ts
-import { renderToBuffer } from '@vue-pdf/renderer'
+import { renderToBuffer } from '@vuepdf/renderer'
 import InvoiceDocument from '../../../components/pdf/InvoiceDocument.vue'
 
 export default defineEventHandler(async (event) => {
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
 
 const nuxtDocument = `<!-- components/pdf/InvoiceDocument.vue -->
 <script setup lang="ts">
-import { Document, Page, Text } from '@vue-pdf/renderer/components'
+import { Document, Page, Text } from '@vuepdf/renderer/components'
 
 const props = defineProps<{
   id: string
@@ -71,7 +71,7 @@ const props = defineProps<{
 </template>`
 
 const nuxtCached = `// server/api/report.get.ts
-import { renderToBuffer } from '@vue-pdf/renderer'
+import { renderToBuffer } from '@vuepdf/renderer'
 import ReportDocument from '../../components/pdf/ReportDocument.vue'
 
 // Nitro's cache stores JSON, which does not survive a Buffer — keep base64
@@ -128,7 +128,7 @@ export default defineEventHandler(async (event) => {
       Keep the PDF primitive imports in the document SFC, not the server route. In server routes, import the
       document component and pass props as the second argument to <code>renderToBuffer</code>.
       Importing a <code>.vue</code> document from <code>server/</code> requires the
-      <NuxtLink to="/installation">@vue-pdf/nuxt</NuxtLink> module — see
+      <NuxtLink to="/installation">@vuepdf/nuxt</NuxtLink> module — see
       <NuxtLink to="/api/render-to-stream">renderToStream</NuxtLink> for why.
     </div>
 

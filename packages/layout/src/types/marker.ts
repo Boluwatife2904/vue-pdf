@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import { Viewbox } from './svg';
 import { LineNode, SafeLineNode } from './line';

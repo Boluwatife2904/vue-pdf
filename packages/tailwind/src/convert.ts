@@ -1,4 +1,4 @@
-import type { Style } from '@vue-pdf/stylesheet';
+import type { Style } from '@vuepdf/stylesheet';
 import type { TwTheme, TwOptions } from './types';
 import { defaultTheme } from './theme/defaultTheme';
 import { colors } from './theme/colors';

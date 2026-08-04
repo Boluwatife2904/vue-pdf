@@ -1,5 +1,5 @@
 import { defineComponent, type VNode } from 'vue';
-import { parseSvg } from '@vue-pdf/svg';
+import { parseSvg } from '@vuepdf/svg';
 
 import { latexToSvg } from './mathjax';
 import { mapSvgNode } from './mapSvg';

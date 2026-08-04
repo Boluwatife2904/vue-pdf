@@ -123,7 +123,7 @@ const renderOddPageBanner = (pageNumber: number) =>
 <\/script>`
 
 const dynamicPrimitives = `<script setup lang="ts">
-import * as P from '@vue-pdf/renderer/primitives'
+import * as P from '@vuepdf/renderer/primitives'
 
 // P.View === 'VIEW', P.Text === 'TEXT' — the same strings, but checked
 const renderBanner = (pageNumber: number) => ({
@@ -162,7 +162,7 @@ const debugExample = `<template>
 </template>`
 
 const hyphenExample = `<script setup lang="ts">
-import { Font } from '@vue-pdf/renderer'
+import { Font } from '@vuepdf/renderer'
 import { hyphenateSync as hyphenateDE } from 'hyphen/de'
 
 // Return the syllables of a word as an array
@@ -175,7 +175,7 @@ Font.registerHyphenationCallback((word) =>
 <\/script>`
 
 const expressExample = `import express from 'express'
-import { renderToStream } from '@vue-pdf/renderer'
+import { renderToStream } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 
 const app = express()
@@ -191,7 +191,7 @@ app.get('/report.pdf', async (req, res) => {
 app.listen(3000)`
 
 const workerExample = `// pdf.worker.ts
-import { pdf } from '@vue-pdf/renderer'
+import { pdf } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 
 self.onmessage = async (event) => {
@@ -397,7 +397,7 @@ onMounted(() => {
     <div class="callout callout-warn">
       Node cannot <code>import</code> a <code>.vue</code> file on its own. Outside Nuxt, run the server through
       a build step that compiles SFCs (Vite, tsup, or similar), or skip components entirely and build the
-      document from <code>@vue-pdf/renderer/primitives</code> — see
+      document from <code>@vuepdf/renderer/primitives</code> — see
       <NuxtLink to="#dynamic-content">Dynamic Content</NuxtLink> for that element shape. vue-pdf's own packages
       ship precompiled, so they need no plugin either way.
     </div>
@@ -419,8 +419,8 @@ onMounted(() => {
 
     <h2>Math &amp; Diagrams</h2>
     <p>
-      Two optional packages extend vue-pdf: <code>@vue-pdf/math</code> renders LaTeX expressions as vector
-      paths, and <code>@vue-pdf/mermaid</code> renders Mermaid diagrams. See
+      Two optional packages extend vue-pdf: <code>@vuepdf/math</code> renders LaTeX expressions as vector
+      paths, and <code>@vuepdf/mermaid</code> renders Mermaid diagrams. See
       <NuxtLink to="/guide/math-diagrams">Math &amp; Diagrams</NuxtLink>.
     </p>
   </div>

@@ -10,7 +10,7 @@ import {
   Select,
   TextInput,
   renderToBuffer,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 import { normalizeAttrs } from '../src/components/createPrimitive';
 
 /**

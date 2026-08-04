@@ -5,7 +5,7 @@ import {
   processUnitValue,
 } from './utils';
 
-import { matchPercent } from '@vue-pdf/fns';
+import { matchPercent } from '@vuepdf/fns';
 
 import castInt from '../utils/castInt';
 import transformUnit from '../utils/units';

@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
 
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import createCTX from '../ctx';
 import renderCanvas from '../../src/primitives/renderCanvas';
-import { Box, SafeCanvasNode } from '@vue-pdf/layout';
+import { Box, SafeCanvasNode } from '@vuepdf/layout';
 
 describe('primitive renderCanvas', () => {
   test('should be scoped operation', () => {

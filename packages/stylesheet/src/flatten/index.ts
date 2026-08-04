@@ -1,4 +1,4 @@
-import { compose, castArray } from '@vue-pdf/fns';
+import { compose, castArray } from '@vuepdf/fns';
 import { Style } from '../types';
 
 type StyleInput = Style | StyleInput[] | null | undefined;

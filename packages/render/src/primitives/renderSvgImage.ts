@@ -1,4 +1,4 @@
-import { SafeImageNode } from '@vue-pdf/layout';
+import { SafeImageNode } from '@vuepdf/layout';
 
 import { Context } from '../types';
 

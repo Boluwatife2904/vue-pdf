@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import FontStore from '@vuepdf/font';
 import layoutEngine, {
   bidi,
   linebreaker,
@@ -10,7 +10,7 @@ import layoutEngine, {
   textDecoration,
   fromFragments,
   Fragment,
-} from '@vue-pdf/textkit';
+} from '@vuepdf/textkit';
 
 import transformText from '../text/transformText';
 import {

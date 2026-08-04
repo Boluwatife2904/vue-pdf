@@ -1,6 +1,6 @@
 // Ref: https://www.w3.org/TR/css-backgrounds-3/#borders
 
-import { Box, SafeNode } from '@vue-pdf/layout';
+import { Box, SafeNode } from '@vuepdf/layout';
 import { Context } from '../types';
 
 type SafeBorderStyle = {

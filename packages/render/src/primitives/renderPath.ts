@@ -1,4 +1,4 @@
-import { SafePathNode } from '@vue-pdf/layout';
+import { SafePathNode } from '@vuepdf/layout';
 import { Context } from '../types';
 
 const renderPath = (ctx: Context, node: SafePathNode) => {

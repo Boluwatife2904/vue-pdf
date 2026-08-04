@@ -1,4 +1,4 @@
-import { matchPercent } from '@vue-pdf/fns';
+import { matchPercent } from '@vuepdf/fns';
 
 const isNumeric = (n: any): n is number => {
   return !Number.isNaN(parseFloat(n)) && Number.isFinite(n);

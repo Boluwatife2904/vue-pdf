@@ -1,5 +1,5 @@
 import type { Glyph as FontkitGlyph } from 'fontkit';
-import type { Font } from '@vue-pdf/font';
+import type { Font } from '@vuepdf/font';
 import { Factor as JustificationFactor } from './engines/justification/types';
 
 export type Coordinate = {
@@ -142,4 +142,4 @@ export type LayoutOptions = {
   shrinkWhitespaceFactor?: JustificationFactor;
 };
 
-export type { Font } from '@vue-pdf/font';
+export type { Font } from '@vuepdf/font';

@@ -5,7 +5,7 @@ usePageSeo(
 )
 
 const codeExample1 = `<script setup lang="ts">
-import { StyleSheet } from '@vue-pdf/renderer'
+import { StyleSheet } from '@vuepdf/renderer'
 
 const styles = StyleSheet.create({
   page: {

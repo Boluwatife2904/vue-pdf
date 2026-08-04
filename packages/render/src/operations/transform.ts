@@ -1,5 +1,5 @@
-import { SafeNode } from '@vue-pdf/layout';
-import { Transform } from '@vue-pdf/stylesheet';
+import { SafeNode } from '@vuepdf/layout';
+import { Transform } from '@vuepdf/stylesheet';
 
 import { Context } from '../types';
 

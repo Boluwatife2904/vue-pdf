@@ -62,7 +62,7 @@ const codeExample1 = `<template>
       </div>
 
       <div class="hero-install">
-        <DocsCodeBlock code="pnpm add @vue-pdf/renderer" lang="bash" />
+        <DocsCodeBlock code="pnpm add @vuepdf/renderer" lang="bash" />
       </div>
     </div>
 
@@ -86,7 +86,7 @@ const codeExample1 = `<template>
       <div class="feature">
         <div class="feature-icon">⬡</div>
         <h3>Nuxt Auto-Imports</h3>
-        <p>With <code>@vue-pdf/nuxt</code>, all 30+ components and composables are auto-imported with zero config.</p>
+        <p>With <code>@vuepdf/nuxt</code>, all 30+ components and composables are auto-imported with zero config.</p>
       </div>
       <div class="feature">
         <div class="feature-icon">◎</div>
@@ -111,7 +111,7 @@ const codeExample1 = `<template>
       <div class="feature">
         <div class="feature-icon">✦</div>
         <h3>Extensions</h3>
-        <p>Optional packages for LaTeX math (<code>@vue-pdf/math</code>) and Mermaid diagrams (<code>@vue-pdf/mermaid</code>).</p>
+        <p>Optional packages for LaTeX math (<code>@vuepdf/math</code>) and Mermaid diagrams (<code>@vuepdf/mermaid</code>).</p>
       </div>
     </div>
 

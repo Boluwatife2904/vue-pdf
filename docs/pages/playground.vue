@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as Vue from 'vue'
-import * as pdfComponents from '@vue-pdf/renderer/components'
-import { Font } from '@vue-pdf/renderer'
+import * as pdfComponents from '@vuepdf/renderer/components'
+import { Font } from '@vuepdf/renderer'
 import type * as Monaco from 'monaco-editor'
 import {
   openBlock,
@@ -360,7 +360,7 @@ function transformScriptImports(code: string): string {
     .replace(
       /import\s+\*\s+as\s+(\w+)\s+from\s+['"](@vue-pdf\/\S+)['"];?/g,
       (_, name: string, mod: string) => {
-        if (mod === '@vue-pdf/renderer' || mod === '@vue-pdf/renderer/components')
+        if (mod === '@vuepdf/renderer' || mod === '@vuepdf/renderer/components')
           return `const ${name} = __vuePdfRenderer__;`
         return ''
       },

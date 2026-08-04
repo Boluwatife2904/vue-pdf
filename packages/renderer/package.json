@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/renderer",
+  "name": "@vuepdf/renderer",
   "version": "1.0.0",
   "description": "Create PDF files on the browser and server using Vue",
   "license": "MIT",
@@ -59,15 +59,15 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/font": "workspace:*",
-    "@vue-pdf/layout": "workspace:*",
-    "@vue-pdf/pdfkit": "workspace:*",
-    "@vue-pdf/primitives": "workspace:*",
-    "@vue-pdf/reconciler": "workspace:*",
-    "@vue-pdf/render": "workspace:*",
-    "@vue-pdf/tailwind": "workspace:*",
-    "@vue-pdf/types": "workspace:*",
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/font": "workspace:*",
+    "@vuepdf/layout": "workspace:*",
+    "@vuepdf/pdfkit": "workspace:*",
+    "@vuepdf/primitives": "workspace:*",
+    "@vuepdf/reconciler": "workspace:*",
+    "@vuepdf/render": "workspace:*",
+    "@vuepdf/tailwind": "workspace:*",
+    "@vuepdf/types": "workspace:*",
     "@vue/server-renderer": "^3.4.0",
     "events": "^3.3.0",
     "queue": "^6.0.1"

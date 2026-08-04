@@ -4,14 +4,14 @@ usePageSeo(
   "Get up and running with vue-pdf — install via npm, pnpm, or yarn and configure the Nuxt module for auto-imports.",
 )
 const managers = [
-  { name: "pnpm", cmd: "pnpm add @vue-pdf/renderer" },
-  { name: "npm", cmd: "npm i @vue-pdf/renderer" },
-  { name: "yarn", cmd: "yarn add @vue-pdf/renderer" },
-  { name: "bun", cmd: "bun add @vue-pdf/renderer" },
+  { name: "pnpm", cmd: "pnpm add @vuepdf/renderer" },
+  { name: "npm", cmd: "npm i @vuepdf/renderer" },
+  { name: "yarn", cmd: "yarn add @vuepdf/renderer" },
+  { name: "bun", cmd: "bun add @vuepdf/renderer" },
 ]
 
 const codeExample1 = `<script setup lang="ts">
-import { Document, Page, Text, View } from '@vue-pdf/renderer'
+import { Document, Page, Text, View } from '@vuepdf/renderer'
 <\/script>
 
 <template>
@@ -29,20 +29,20 @@ import { Document, Page, Text, View } from '@vue-pdf/renderer'
   <div class="prose">
     <div class="page-label">Getting Started</div>
     <h1>Installation</h1>
-    <p>Install the core <code>@vue-pdf/renderer</code> package using your preferred package manager:</p>
+    <p>Install the core <code>@vuepdf/renderer</code> package using your preferred package manager:</p>
 
     <div v-for="pm in managers" :key="pm.name">
       <DocsCodeBlock :code="pm.cmd" lang="bash" :filename="pm.name" />
     </div>
 
     <h2>Nuxt Setup</h2>
-    <p>For Nuxt projects, add <code>@vue-pdf/nuxt</code> to the <code>modules</code> array in your <code>nuxt.config.ts</code>:</p>
+    <p>For Nuxt projects, add <code>@vuepdf/nuxt</code> to the <code>modules</code> array in your <code>nuxt.config.ts</code>:</p>
 
     <DocsCodeBlock
       lang="ts"
       filename="nuxt.config.ts"
       :code="`export default defineNuxtConfig({
-  modules: ['@vue-pdf/nuxt'],
+  modules: ['@vuepdf/nuxt'],
 })`"
     />
 
@@ -75,7 +75,7 @@ import { Document, Page, Text, View } from '@vue-pdf/renderer'
     </div>
 
     <div class="callout callout-info">
-      Both the <code>@vue-pdf/nuxt</code> module and the <code>@vue-pdf/renderer</code> package have
+      Both the <code>@vuepdf/nuxt</code> module and the <code>@vuepdf/renderer</code> package have
       <strong>Vue 3</strong> and <strong>Nuxt 3</strong> as peer dependencies. Make sure your project has them
       installed.
     </div>
@@ -94,19 +94,19 @@ import { Document, Page, Text, View } from '@vue-pdf/renderer'
 
     <div class="pkg-grid">
       <div class="pkg-card">
-        <code>@vue-pdf/math</code>
+        <code>@vuepdf/math</code>
         <p>Render LaTeX math expressions as inline SVG.</p>
-        <DocsCodeBlock :code="'pnpm add @vue-pdf/math'" lang="bash" />
+        <DocsCodeBlock :code="'pnpm add @vuepdf/math'" lang="bash" />
       </div>
       <div class="pkg-card">
-        <code>@vue-pdf/mermaid</code>
+        <code>@vuepdf/mermaid</code>
         <p>Render Mermaid diagrams embedded in your PDF.</p>
-        <DocsCodeBlock :code="'pnpm add @vue-pdf/mermaid'" lang="bash" />
+        <DocsCodeBlock :code="'pnpm add @vuepdf/mermaid'" lang="bash" />
       </div>
     </div>
 
     <h2>Peer Dependencies</h2>
-    <p><code>@vue-pdf/renderer</code> requires Vue as a peer dependency:</p>
+    <p><code>@vuepdf/renderer</code> requires Vue as a peer dependency:</p>
 
     <DocsCodeBlock
       lang="bash"

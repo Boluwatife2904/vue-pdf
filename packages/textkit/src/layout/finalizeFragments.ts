@@ -1,4 +1,4 @@
-import { last, compose } from '@vue-pdf/fns';
+import { last, compose } from '@vuepdf/fns';
 
 import runHeight from '../run/height';
 import runAscent from '../run/ascent';

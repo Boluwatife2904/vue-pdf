@@ -5,4 +5,4 @@ export {
   FontDescriptor,
   HyphenationCallback,
   FontStoreType as FontStore,
-} from '@vue-pdf/font';
+} from '@vuepdf/font';

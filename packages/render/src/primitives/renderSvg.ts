@@ -1,12 +1,12 @@
-import * as P from '@vue-pdf/primitives';
-import { isNil } from '@vue-pdf/fns';
-import { Transform } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import { isNil } from '@vuepdf/fns';
+import { Transform } from '@vuepdf/stylesheet';
 import {
   SafeLinearGradientNode,
   SafeNode,
   SafeRadialGradientNode,
   SafeSvgNode,
-} from '@vue-pdf/layout';
+} from '@vuepdf/layout';
 
 import renderPath from './renderPath';
 import renderRect from './renderRect';

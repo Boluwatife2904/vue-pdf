@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/mermaid",
+  "name": "@vuepdf/mermaid",
   "version": "1.0.0",
   "description": "Render Mermaid diagrams in vue-pdf documents",
   "license": "MIT",
@@ -41,16 +41,16 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/primitives": "workspace:*",
-    "@vue-pdf/svg": "workspace:*",
+    "@vuepdf/primitives": "workspace:*",
+    "@vuepdf/svg": "workspace:*",
     "beautiful-mermaid": "^1.1.3"
   },
   "peerDependencies": {
-    "@vue-pdf/renderer": "workspace:*",
+    "@vuepdf/renderer": "workspace:*",
     "vue": "^3.4.0"
   },
   "devDependencies": {
-    "@vue-pdf/renderer": "workspace:*",
+    "@vuepdf/renderer": "workspace:*",
     "vue": "^3.4.0"
   },
   "publishConfig": {

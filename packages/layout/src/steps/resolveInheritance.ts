@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import { pick, compose } from '@vue-pdf/fns';
-import { SafeStyle } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import { pick, compose } from '@vuepdf/fns';
+import { SafeStyle } from '@vuepdf/stylesheet';
 
 import { SafeNode } from '../types';
 

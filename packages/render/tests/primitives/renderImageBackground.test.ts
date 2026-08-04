@@ -1,10 +1,10 @@
 import { describe, expect, test, vi } from 'vitest';
 
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import createCTX from '../ctx';
 import renderImageBackground from '../../src/primitives/renderImageBackground';
-import { Box, SafeImageBackgroundNode } from '@vue-pdf/layout';
+import { Box, SafeImageBackgroundNode } from '@vuepdf/layout';
 
 const imageData = Buffer.from('fake-image-data');
 

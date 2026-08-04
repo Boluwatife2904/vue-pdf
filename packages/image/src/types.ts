@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import type { SvgNode } from '@vue-pdf/svg';
+import type { SvgNode } from '@vuepdf/svg';
 
 export interface RasterImage {
   width: number;

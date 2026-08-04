@@ -1,4 +1,4 @@
-import { Font } from '@vue-pdf/textkit';
+import { Font } from '@vuepdf/textkit';
 import type PDFKitDocument from 'pdfkit';
 import type PDFKitReference from 'pdfkit/js/reference';
 

@@ -1,4 +1,4 @@
-import { parseFloat } from '@vue-pdf/fns';
+import { parseFloat } from '@vuepdf/fns';
 
 import transformUnit from '../utils/units';
 import transformColor from '../utils/colors';

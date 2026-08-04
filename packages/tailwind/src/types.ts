@@ -1,4 +1,4 @@
-import type { Style } from '@vue-pdf/stylesheet';
+import type { Style } from '@vuepdf/stylesheet';
 
 export interface TwOptions {
   ptPerRem?: number;

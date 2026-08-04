@@ -1,6 +1,6 @@
 import { defineComponent, h, inject, onUnmounted, onUpdated } from 'vue';
-import { DocumentContextKey, NODE_ID_ATTRIBUTE } from '@vue-pdf/reconciler';
-import { tw } from '@vue-pdf/tailwind';
+import { DocumentContextKey, NODE_ID_ATTRIBUTE } from '@vuepdf/reconciler';
+import { tw } from '@vuepdf/tailwind';
 
 const camelizeRE = /-(\w)/g;
 

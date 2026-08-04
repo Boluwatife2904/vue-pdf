@@ -1,4 +1,4 @@
-import { SafeTextInputNode } from '@vue-pdf/layout';
+import { SafeTextInputNode } from '@vuepdf/layout';
 
 import { Context, RenderOptions } from '../types';
 import { parseTextInputOptions } from '../utils/parseFormOptions';

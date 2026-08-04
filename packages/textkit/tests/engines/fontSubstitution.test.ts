@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import FontStore from '@vue-pdf/font';
+import FontStore from '@vuepdf/font';
 
 import fontSubstitution from '../../src/engines/fontSubstitution';
 

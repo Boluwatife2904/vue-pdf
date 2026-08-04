@@ -1,5 +1,5 @@
 import * as Yoga from 'yoga-layout/load';
-import { upperFirst } from '@vue-pdf/fns';
+import { upperFirst } from '@vuepdf/fns';
 import { SafeNode } from '../types';
 
 const ALIGN = {

@@ -1,4 +1,4 @@
-import { SafeSelectNode } from '@vue-pdf/layout';
+import { SafeSelectNode } from '@vuepdf/layout';
 
 import { Context } from '../types';
 import { parseSelectAndListFieldOptions } from '../utils/parseFormOptions';

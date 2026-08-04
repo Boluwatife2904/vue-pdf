@@ -1,10 +1,10 @@
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
-import { SrcSet, Sizes } from '@vue-pdf/types';
-import * as P from '@vue-pdf/primitives';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
+import { SrcSet, Sizes } from '@vuepdf/types';
+import * as P from '@vuepdf/primitives';
 import { YogaNode } from 'yoga-layout/load';
 
 import { Box, NodeProps, Origin } from './base';
-import { Image } from '@vue-pdf/image';
+import { Image } from '@vuepdf/image';
 import { SourceObject } from './image';
 import { ImageNode, SafeImageNode } from './image';
 import { ViewNode, SafeViewNode } from './view';

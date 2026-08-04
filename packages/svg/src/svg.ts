@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import tokenize from './tokenize';
 import { Token, SvgNode } from './types';

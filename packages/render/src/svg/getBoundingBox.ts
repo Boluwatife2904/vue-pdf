@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 import * as _absPath from 'abs-svg-path';
 import * as _parsePath from 'parse-svg-path';
 import * as _normalizePath from 'normalize-svg-path';
@@ -15,7 +15,7 @@ import {
   SafePathNode,
   SafePolylineNode,
   SafeRectNode,
-} from '@vue-pdf/layout';
+} from '@vuepdf/layout';
 
 type Primitives = (typeof P)[keyof typeof P];
 

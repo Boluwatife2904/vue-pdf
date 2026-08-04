@@ -1,4 +1,4 @@
-import { adjust, dropLast as arrayDropLast } from '@vue-pdf/fns';
+import { adjust, dropLast as arrayDropLast } from '@vuepdf/fns';
 
 import runDropLast from '../run/dropLast';
 import { AttributedString } from '../types';

@@ -1,4 +1,4 @@
-import { last } from '@vue-pdf/fns';
+import { last } from '@vuepdf/fns';
 
 import emptyRun from '../run/empty';
 import appendToRun from '../run/append';

@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import resolveImage from '@vue-pdf/image';
+import resolveImage from '@vuepdf/image';
 
 import getSource from './getSource';
 import resolveSource from './resolveSource';

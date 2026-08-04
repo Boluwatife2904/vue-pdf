@@ -1,7 +1,7 @@
 import { SourceObject } from '../types';
 
 /**
- * Resolves `src` to `@vue-pdf/image` interface.
+ * Resolves `src` to `@vuepdf/image` interface.
  *
  * Also it handles factories and async sources.
  *

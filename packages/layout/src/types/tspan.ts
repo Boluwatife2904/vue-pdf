@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
-import { Paragraph } from '@vue-pdf/textkit';
+import * as P from '@vuepdf/primitives';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
+import { Paragraph } from '@vuepdf/textkit';
 
 import {
   SVGPresentationAttributes,

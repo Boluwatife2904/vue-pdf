@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { Document, Page, Svg, Font, Text, Tspan } from '@vue-pdf/renderer';
+import { Document, Page, Svg, Font, Text, Tspan } from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 import {
   Tiger,

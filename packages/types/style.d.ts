@@ -1,1 +1,1 @@
-export { Style } from '@vue-pdf/stylesheet';
+export { Style } from '@vuepdf/stylesheet';

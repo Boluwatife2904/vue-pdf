@@ -1,8 +1,8 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import { PageNode, SafePageNode } from './page';
 import { YogaInstance } from './base';
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
 
 export type PDFVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 

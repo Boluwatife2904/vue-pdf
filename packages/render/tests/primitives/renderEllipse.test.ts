@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
 
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import createCTX from '../ctx';
 import renderEllipse from '../../src/primitives/renderEllipse';
-import { SafeEllipseNode } from '@vue-pdf/layout';
+import { SafeEllipseNode } from '@vuepdf/layout';
 
 const round = (num) => Math.round(num * 100) / 100;
 

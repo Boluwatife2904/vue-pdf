@@ -16,9 +16,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@vue-pdf/renderer/components": ["./packages/renderer/src/components/index.d.ts"],
-      "@vue-pdf/renderer/primitives": ["./packages/renderer/src/primitives.d.ts"],
-      "@vue-pdf/*": ["./packages/*/src"]
+      "@vuepdf/renderer/components": ["./packages/renderer/src/components/index.d.ts"],
+      "@vuepdf/renderer/primitives": ["./packages/renderer/src/primitives.d.ts"],
+      "@vuepdf/*": ["./packages/*/src"]
     }
   },
   "exclude": ["node_modules", "dist", "**/tests"]

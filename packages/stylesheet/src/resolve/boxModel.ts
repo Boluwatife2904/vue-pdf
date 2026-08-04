@@ -29,7 +29,7 @@ const logError = (style: string | number | symbol, value: unknown) => {
 
   // eslint-disable-next-line no-console
   console.error(`
-    @vue-pdf/stylesheet parsing error:
+    @vuepdf/stylesheet parsing error:
     ${name}: ${value},
     ${' '.repeat(name.length + 2)}^
     Unsupported ${name} value format

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import url from 'url';
 import path from 'path';
-import { Document, Page, Image } from '@vue-pdf/renderer';
+import { Document, Page, Image } from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));

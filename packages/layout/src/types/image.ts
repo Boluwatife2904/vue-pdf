@@ -1,7 +1,7 @@
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
-import { SrcSet, Sizes } from '@vue-pdf/types';
-import * as P from '@vue-pdf/primitives';
-import { Image } from '@vue-pdf/image';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
+import { SrcSet, Sizes } from '@vuepdf/types';
+import * as P from '@vuepdf/primitives';
+import { Image } from '@vuepdf/image';
 import { YogaNode } from 'yoga-layout/load';
 
 import { Box, NodeProps, Origin } from './base';

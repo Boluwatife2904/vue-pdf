@@ -9,7 +9,7 @@ import {
   Image,
   Document,
   StyleSheet,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 const headerStyles = StyleSheet.create({

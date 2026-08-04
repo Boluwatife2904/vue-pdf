@@ -8,7 +8,7 @@ import {
   View,
   Text,
   ImageBackground,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));

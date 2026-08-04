@@ -1,4 +1,4 @@
-import { SafeCheckboxNode } from '@vue-pdf/layout';
+import { SafeCheckboxNode } from '@vuepdf/layout';
 import { Context, RenderOptions } from '../types';
 import { parseCheckboxOptions } from '../utils/parseFormOptions';
 

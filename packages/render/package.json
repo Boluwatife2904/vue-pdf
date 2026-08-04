@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/render",
+  "name": "@vuepdf/render",
   "version": "1.0.0",
   "description": "Render layout tree to PDF operations",
   "license": "MIT",
@@ -40,13 +40,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/image": "workspace:*",
-    "@vue-pdf/layout": "workspace:*",
-    "@vue-pdf/primitives": "workspace:*",
-    "@vue-pdf/stylesheet": "workspace:*",
-    "@vue-pdf/textkit": "workspace:*",
-    "@vue-pdf/types": "workspace:*",
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/image": "workspace:*",
+    "@vuepdf/layout": "workspace:*",
+    "@vuepdf/primitives": "workspace:*",
+    "@vuepdf/stylesheet": "workspace:*",
+    "@vuepdf/textkit": "workspace:*",
+    "@vuepdf/types": "workspace:*",
     "abs-svg-path": "^0.1.1",
     "color-string": "^2.1.4",
     "normalize-svg-path": "^1.1.0",

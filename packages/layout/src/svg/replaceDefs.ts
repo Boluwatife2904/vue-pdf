@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import getDefs from './getDefs';
 import { SafeDefs, SafeNode, SafeSvgNode } from '../types';

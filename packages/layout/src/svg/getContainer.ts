@@ -1,4 +1,4 @@
-import { parseFloat } from '@vue-pdf/fns';
+import { parseFloat } from '@vuepdf/fns';
 
 import parseViewBox from './parseViewbox';
 import { SafeSvgNode } from '../types';

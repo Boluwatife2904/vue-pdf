@@ -1,4 +1,4 @@
-import { SafePolylineNode } from '@vue-pdf/layout';
+import { SafePolylineNode } from '@vuepdf/layout';
 
 import parsePoints from '../svg/parsePoints';
 import { Context } from '../types';

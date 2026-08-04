@@ -1,5 +1,5 @@
 import * as Yoga from 'yoga-layout/load';
-import FontStore from '@vue-pdf/font';
+import FontStore from '@vuepdf/font';
 
 import layoutText from './layoutText';
 import linesWidth from './linesWidth';

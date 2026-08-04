@@ -1,4 +1,4 @@
-import type { SafeDocumentNode } from '@vue-pdf/layout';
+import type { SafeDocumentNode } from '@vuepdf/layout';
 
 import renderNode from './primitives/renderNode';
 import addBookmarks from './operations/addBookmarks';

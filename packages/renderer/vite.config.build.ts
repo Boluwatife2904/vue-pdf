@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 const dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 /**
- * Library build for `@vue-pdf/renderer`.
+ * Library build for `@vuepdf/renderer`.
  *
  * The point of precompiling here is the `.vue` files: shipping raw SFCs forces
  * every consumer to have a Vue plugin in its bundler, which Nitro does not have

@@ -5,7 +5,7 @@ usePageSeo(
 )
 
 const codeExample1 = `<script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 <\/script>
 
 <template>
@@ -21,7 +21,7 @@ import { PDFViewer } from '@vue-pdf/renderer'
 </template>`
 
 const codeExample2 = `<script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 import InvoiceDocument from './InvoiceDocument.vue'
 
 const invoice = ref({ id: '123', amount: 1500 })
@@ -34,7 +34,7 @@ const invoice = ref({ id: '123', amount: 1500 })
 </template>`
 
 const codeExample3 = `<script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 
 const viewer = useTemplateRef('viewer')
 

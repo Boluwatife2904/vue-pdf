@@ -1,6 +1,6 @@
 /* eslint-disable no-return-assign */
 
-import { Glyph, Position } from '@vue-pdf/textkit';
+import { Glyph, Position } from '@vuepdf/textkit';
 import { Context } from '../types';
 import encodeGlyphs from '../operations/encodeGlyphs';
 

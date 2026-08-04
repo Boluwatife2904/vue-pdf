@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { Document, Page, View } from '@vue-pdf/renderer';
+import { Document, Page, View } from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 const TestDocument = ({ transform, width = 20, height = 20 }) => {

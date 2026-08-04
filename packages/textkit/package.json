@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/textkit",
+  "name": "@vuepdf/textkit",
   "version": "1.0.0",
   "description": "Text layout engine for vue-pdf",
   "license": "MIT",
@@ -40,8 +40,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/font": "workspace:*",
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/font": "workspace:*",
     "bidi-js": "^1.0.3",
     "hyphen": "^1.14.1",
     "unicode-properties": "^1.4.1"

@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { compose } from '@vue-pdf/fns';
+import * as P from '@vuepdf/primitives';
+import { compose } from '@vuepdf/fns';
 
 import { Node } from '../types';
 

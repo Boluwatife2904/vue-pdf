@@ -3,7 +3,7 @@ import {
   SafeListNode,
   SafeSelectNode,
   SafeTextInputNode,
-} from '@vue-pdf/layout';
+} from '@vuepdf/layout';
 import { Context } from '../types';
 
 const clean = (options: Record<string, any>) => {

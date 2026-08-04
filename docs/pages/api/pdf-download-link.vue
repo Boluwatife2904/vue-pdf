@@ -5,7 +5,7 @@ usePageSeo(
 )
 
 const codeExample1 = `<script setup lang="ts">
-import { PDFDownloadLink } from '@vue-pdf/renderer'
+import { PDFDownloadLink } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 <\/script>
 

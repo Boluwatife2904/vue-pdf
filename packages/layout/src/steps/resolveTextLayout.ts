@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import FontStore from '@vuepdf/font';
 
 import layoutText from '../text/layoutText';
 import { SafeNode, SafeSvgNode, SafeTextNode } from '../types';

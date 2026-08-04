@@ -1,4 +1,4 @@
-import { compose } from '@vue-pdf/fns';
+import { compose } from '@vuepdf/fns';
 
 import flattenStyles from './flatten';
 import resolveMediaQueries from './mediaQueries';

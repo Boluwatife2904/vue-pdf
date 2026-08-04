@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
 import { YogaNode } from 'yoga-layout/load';
 
 import { Box, FormCommonProps, Origin } from './base';

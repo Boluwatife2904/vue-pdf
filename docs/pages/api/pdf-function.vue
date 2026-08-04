@@ -37,7 +37,7 @@ usePageSeo(
     <h2>Node.js Example</h2>
     <DocsCodeBlock
       lang="ts"
-      :code="`import { pdf } from '@vue-pdf/renderer'
+      :code="`import { pdf } from '@vuepdf/renderer'
 import { createSSRApp } from 'vue'
 import MyDocument from './MyDocument.vue'
 
@@ -55,7 +55,7 @@ const base64 = await instance.toString()`"
     <h2>Browser Example</h2>
     <DocsCodeBlock
       lang="ts"
-      :code="`import { pdf } from '@vue-pdf/renderer'
+      :code="`import { pdf } from '@vuepdf/renderer'
 import { createApp } from 'vue'
 import MyDocument from './MyDocument.vue'
 

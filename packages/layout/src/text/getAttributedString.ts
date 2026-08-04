@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import { Fragment, fromFragments } from '@vue-pdf/textkit';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import { Fragment, fromFragments } from '@vuepdf/textkit';
+import FontStore from '@vuepdf/font';
 
 import { embedEmojis } from './emoji';
 import ignoreChars from './ignoreChars';

@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import { isNil, compose } from '@vue-pdf/fns';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import { isNil, compose } from '@vuepdf/fns';
+import FontStore from '@vuepdf/font';
 
 import getMargin from '../node/getMargin';
 import getPadding from '../node/getPadding';

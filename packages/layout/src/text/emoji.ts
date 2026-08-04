@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 import emojiRegex from 'emoji-regex-xs';
-import resolveImage from '@vue-pdf/image';
-import { Fragment } from '@vue-pdf/textkit';
+import resolveImage from '@vuepdf/image';
+import { Fragment } from '@vuepdf/textkit';
 
 import { EmojiSource } from '../../../types';
 

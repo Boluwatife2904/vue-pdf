@@ -1,4 +1,4 @@
-import { asyncCompose } from '@vue-pdf/fns';
+import { asyncCompose } from '@vuepdf/fns';
 
 import resolveSvg from './steps/resolveSvg';
 import resolveYoga from './steps/resolveYoga';

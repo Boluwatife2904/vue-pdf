@@ -17,7 +17,7 @@ const codeExample1 = `<template>
 </template>`
 
 const mediaQueryExample = `<script setup lang="ts">
-import { StyleSheet } from '@vue-pdf/renderer'
+import { StyleSheet } from '@vuepdf/renderer'
 
 const styles = StyleSheet.create({
   container: {

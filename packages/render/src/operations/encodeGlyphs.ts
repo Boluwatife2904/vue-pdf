@@ -1,4 +1,4 @@
-import { Glyph } from '@vue-pdf/textkit';
+import { Glyph } from '@vuepdf/textkit';
 
 const encodeGlyphs = (font: any, glyphs: Glyph[]) => {
   // Embedded font path (has font subset)

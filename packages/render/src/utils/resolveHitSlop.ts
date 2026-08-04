@@ -1,4 +1,4 @@
-import { HitSlop } from '@vue-pdf/types';
+import { HitSlop } from '@vuepdf/types';
 
 type ResolvedHitSlop = {
   top: number;

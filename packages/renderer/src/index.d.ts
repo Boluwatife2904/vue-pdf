@@ -44,4 +44,4 @@ export declare const PDFDownloadLink: any;
 
 export * from './primitives.js';
 export * from './components/index.js';
-export { tw, createTw, configureTw } from '@vue-pdf/tailwind';
+export { tw, createTw, configureTw } from '@vuepdf/tailwind';

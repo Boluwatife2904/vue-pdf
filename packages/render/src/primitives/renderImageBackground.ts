@@ -1,4 +1,4 @@
-import { SafeImageBackgroundNode } from '@vue-pdf/layout';
+import { SafeImageBackgroundNode } from '@vuepdf/layout';
 
 import clipNode from '../operations/clipNode';
 import drawImage from '../operations/drawImage';

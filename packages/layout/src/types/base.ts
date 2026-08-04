@@ -1,4 +1,4 @@
-import { Transform } from '@vue-pdf/stylesheet';
+import { Transform } from '@vuepdf/stylesheet';
 import { YogaNode } from 'yoga-layout/load';
 import { SafeClipPathNode } from './clip-path';
 import { SafeLinearGradientNode } from './linear-gradient';

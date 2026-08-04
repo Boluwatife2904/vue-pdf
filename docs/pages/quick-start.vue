@@ -54,7 +54,7 @@ const codeExample3 = `<template>
 </template>`
 
 const codeExample4 = `<script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 <\/script>
 
@@ -65,7 +65,7 @@ import MyDocument from './MyDocument.vue'
 </template>`
 
 const codeExample5 = `<script setup lang="ts">
-import { PDFDownloadLink } from '@vue-pdf/renderer'
+import { PDFDownloadLink } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 <\/script>
 
@@ -87,7 +87,7 @@ import MyDocument from './MyDocument.vue'
     <div class="page-label">Getting Started</div>
     <h1>Quick Start</h1>
     <p>
-      After installing <code>@vue-pdf/renderer</code> (or <code>@vue-pdf/nuxt</code> for Nuxt), you can start
+      After installing <code>@vuepdf/renderer</code> (or <code>@vuepdf/nuxt</code> for Nuxt), you can start
       composing PDF documents using Vue components.
     </p>
 
@@ -155,7 +155,7 @@ import MyDocument from './MyDocument.vue'
     <DocsCodeBlock
       lang="ts"
       filename="generate.ts"
-      :code="`import { pdf } from '@vue-pdf/renderer'
+      :code="`import { pdf } from '@vuepdf/renderer'
 import { createSSRApp } from 'vue'
 import MyDocument from './MyDocument.vue'
 

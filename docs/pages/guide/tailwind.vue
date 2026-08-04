@@ -51,7 +51,7 @@ configureTw({
 </template>`
 
 const codePtPerRem = `<script setup>
-import { createTw } from '@vue-pdf/tailwind'
+import { createTw } from '@vuepdf/tailwind'
 
 const myTw = createTw({}, { ptPerRem: 14 }) // 1rem = 14pt
 <\/script>`
@@ -69,7 +69,7 @@ const myTw = createTw({}, { ptPerRem: 14 }) // 1rem = 14pt
 
     <div class="callout callout-info">
       <strong>Built-in</strong> — The <code>tw</code> prop works out of the box with
-      <code>@vue-pdf/renderer</code>. No extra install or import needed.
+      <code>@vuepdf/renderer</code>. No extra install or import needed.
       Both <code>tw</code> and <code>:style</code> can be used together, and
       <code>:style</code> always wins when there's a conflict.
     </div>

@@ -3,6 +3,7 @@
   "private": true,
   "description": "Create PDF files using Vue - Vue renderer for creating PDF files on the browser and server",
   "type": "module",
+  "packageManager": "pnpm@9.15.1",
   "scripts": {
     "build": "pnpm -r run build",
     "dev": "nuxi dev docs",
@@ -18,8 +19,8 @@
     "publish:packages": "pnpm run build && pnpm -r --filter \"./packages/**\" publish --access public --no-git-checks"
   },
   "dependencies": {
-    "@vue-pdf/nuxt": "workspace:*",
-    "@vue-pdf/renderer": "workspace:*"
+    "@vuepdf/nuxt": "workspace:*",
+    "@vuepdf/renderer": "workspace:*"
   },
   "devDependencies": {
     "@napi-rs/canvas": "^1.0.2",

@@ -1,7 +1,7 @@
 import { createCanvas } from '@napi-rs/canvas';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 
-import { renderToBuffer } from '@vue-pdf/renderer';
+import { renderToBuffer } from '@vuepdf/renderer';
 
 class CanvasFactory {
   create(width, height) {

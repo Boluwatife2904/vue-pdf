@@ -1,5 +1,5 @@
 import { h, type VNode } from 'vue';
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 import {
   Svg,
   G,
@@ -14,9 +14,9 @@ import {
   Tspan,
   Defs,
   Marker,
-} from '@vue-pdf/renderer/components';
+} from '@vuepdf/renderer/components';
 
-import type { SvgNode } from '@vue-pdf/svg';
+import type { SvgNode } from '@vuepdf/svg';
 
 export interface MathSvgOptions {
   width?: number | string;

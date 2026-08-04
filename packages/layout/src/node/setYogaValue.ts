@@ -1,4 +1,4 @@
-import { isNil, upperFirst, matchPercent } from '@vue-pdf/fns';
+import { isNil, upperFirst, matchPercent } from '@vuepdf/fns';
 import * as Yoga from 'yoga-layout/load';
 
 import { SafeNode } from '../types';

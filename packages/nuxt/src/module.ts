@@ -59,7 +59,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Each primitive also gets a `VuePdf`-prefixed alias, since names like
     // `<Link>` collide with Nuxt built-ins.
     for (const name of primitiveComponents) {
-      const component = { filePath: '@vue-pdf/renderer/components', export: name }
+      const component = { filePath: '@vuepdf/renderer/components', export: name }
       addComponent({ name, ...component })
       addComponent({ name: `VuePdf${name}`, ...component })
     }
@@ -68,7 +68,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     for (const name of domComponents) {
       const component = {
-        filePath: '@vue-pdf/renderer',
+        filePath: '@vuepdf/renderer',
         export: name,
         mode: 'client' as const,
       }
@@ -77,30 +77,30 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addImports([
-      { name: 'usePDF', from: '@vue-pdf/renderer' },
-      { name: 'pdf', from: '@vue-pdf/renderer' },
-      { name: 'StyleSheet', from: '@vue-pdf/renderer' },
-      { name: 'Font', from: '@vue-pdf/renderer' },
-      { name: 'tw', from: '@vue-pdf/tailwind' },
-      { name: 'createTw', from: '@vue-pdf/tailwind' },
-      { name: 'configureTw', from: '@vue-pdf/tailwind' },
+      { name: 'usePDF', from: '@vuepdf/renderer' },
+      { name: 'pdf', from: '@vuepdf/renderer' },
+      { name: 'StyleSheet', from: '@vuepdf/renderer' },
+      { name: 'Font', from: '@vuepdf/renderer' },
+      { name: 'tw', from: '@vuepdf/tailwind' },
+      { name: 'createTw', from: '@vuepdf/tailwind' },
+      { name: 'configureTw', from: '@vuepdf/tailwind' },
     ])
 
     const transpile = [
-      '@vue-pdf/renderer',
-      '@vue-pdf/reconciler',
-      '@vue-pdf/layout',
-      '@vue-pdf/render',
-      '@vue-pdf/pdfkit',
-      '@vue-pdf/font',
-      '@vue-pdf/image',
-      '@vue-pdf/textkit',
-      '@vue-pdf/stylesheet',
-      '@vue-pdf/primitives',
-      '@vue-pdf/fns',
-      '@vue-pdf/svg',
-      '@vue-pdf/types',
-      '@vue-pdf/tailwind',
+      '@vuepdf/renderer',
+      '@vuepdf/reconciler',
+      '@vuepdf/layout',
+      '@vuepdf/render',
+      '@vuepdf/pdfkit',
+      '@vuepdf/font',
+      '@vuepdf/image',
+      '@vuepdf/textkit',
+      '@vuepdf/stylesheet',
+      '@vuepdf/primitives',
+      '@vuepdf/fns',
+      '@vuepdf/svg',
+      '@vuepdf/types',
+      '@vuepdf/tailwind',
       'yoga-layout',
     ]
 

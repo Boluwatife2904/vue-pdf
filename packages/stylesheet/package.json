@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/stylesheet",
+  "name": "@vuepdf/stylesheet",
   "version": "1.0.0",
   "description": "Stylesheet engine for vue-pdf",
   "license": "MIT",
@@ -40,8 +40,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/types": "workspace:*",
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/types": "workspace:*",
     "color-string": "^2.1.4",
     "hsl-to-hex": "^1.0.0",
     "media-engine": "^1.0.3",

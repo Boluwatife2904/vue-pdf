@@ -2,7 +2,7 @@ import * as _hyphen from 'hyphen';
 const hyphen: any = (_hyphen as any).default ?? _hyphen;
 import * as _pattern from 'hyphen/patterns/en-us.js';
 const pattern: any = (_pattern as any).default ?? _pattern;
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 
 const SOFT_HYPHEN = '\u00ad';
 const hyphenator = hyphen(pattern);

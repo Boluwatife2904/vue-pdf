@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { Text, Document, Page } from '@vue-pdf/primitives';
+import { Text, Document, Page } from '@vuepdf/primitives';
 import renderToImage from './renderComponent';
 
 const emptyString = '';

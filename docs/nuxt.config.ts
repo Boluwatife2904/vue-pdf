@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite"
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-07-19",
-  modules: ["@vue-pdf/nuxt", "nuxt-og-image"],
+  modules: ["@vuepdf/nuxt", "nuxt-og-image"],
 
   runtimeConfig: {
     public: {

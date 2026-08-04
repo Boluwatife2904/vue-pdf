@@ -1,4 +1,4 @@
-import { SafePolygonNode } from '@vue-pdf/layout';
+import { SafePolygonNode } from '@vuepdf/layout';
 
 import { Context } from '../types';
 import parsePoints from '../svg/parsePoints';

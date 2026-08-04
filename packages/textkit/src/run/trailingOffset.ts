@@ -1,4 +1,4 @@
-import { reverse } from '@vue-pdf/fns';
+import { reverse } from '@vuepdf/fns';
 import isWhiteSpace from '../glyph/isWhiteSpace';
 import { Run } from '../types';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/fns",
+  "name": "@vuepdf/fns",
   "version": "1.0.0",
   "description": "Utility functions for vue-pdf",
   "license": "MIT",

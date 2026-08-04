@@ -1,4 +1,4 @@
-import type { Style } from '@vue-pdf/stylesheet';
+import type { Style } from '@vuepdf/stylesheet';
 
 export const exactUtilities: Record<string, Style> = {
   flex: { display: 'flex' },

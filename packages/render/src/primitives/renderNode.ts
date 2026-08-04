@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { SafeNode } from '@vue-pdf/layout';
+import * as P from '@vuepdf/primitives';
+import { SafeNode } from '@vuepdf/layout';
 
 import renderSvg from './renderSvg';
 import renderText from './renderText';

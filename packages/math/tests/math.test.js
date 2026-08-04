@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { h } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import { Document, Page } from '@vue-pdf/renderer/components';
+import { Document, Page } from '@vuepdf/renderer/components';
 import { Math } from '../src/index';
 
 const waitFor = async (getter, timeout = 15000) => {

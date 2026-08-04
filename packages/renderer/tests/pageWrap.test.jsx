@@ -7,7 +7,7 @@ import {
   Text,
   Image,
   StyleSheet,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 const styles = StyleSheet.create({

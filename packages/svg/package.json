@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/svg",
+  "name": "@vuepdf/svg",
   "version": "1.0.0",
   "description": "SVG parsing and path utilities for vue-pdf",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/primitives": "workspace:*"
+    "@vuepdf/primitives": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

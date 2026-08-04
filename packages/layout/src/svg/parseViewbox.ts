@@ -1,4 +1,4 @@
-import { parseFloat } from '@vue-pdf/fns';
+import { parseFloat } from '@vuepdf/fns';
 import { Viewbox } from '../types';
 
 const parseViewbox = (value?: string | Viewbox) => {

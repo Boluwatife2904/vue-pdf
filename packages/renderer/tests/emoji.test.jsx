@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { Document, Page, Text, Font } from '@vue-pdf/renderer';
+import { Document, Page, Text, Font } from '@vuepdf/renderer';
 import renderToImage from './renderComponent';
 
 describe('emoji', () => {

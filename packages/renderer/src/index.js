@@ -1,8 +1,8 @@
-import FontStore from '@vue-pdf/font';
-import renderPDF from '@vue-pdf/render';
-import PDFDocument from '@vue-pdf/pdfkit';
-import layoutDocument from '@vue-pdf/layout';
-import { upperFirst } from '@vue-pdf/fns';
+import FontStore from '@vuepdf/font';
+import renderPDF from '@vuepdf/render';
+import PDFDocument from '@vuepdf/pdfkit';
+import layoutDocument from '@vuepdf/layout';
+import { upperFirst } from '@vuepdf/fns';
 
 import { omitNils, ensureInstanceTree } from './utils.js';
 import createRenderer from './renderer.js';
@@ -191,4 +191,4 @@ const StyleSheet = {
 };
 
 export { version, Font, StyleSheet, pdf, createRenderer };
-export { tw, createTw, configureTw } from '@vue-pdf/tailwind';
+export { tw, createTw, configureTw } from '@vuepdf/tailwind';

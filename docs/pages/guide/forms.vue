@@ -114,7 +114,7 @@ const codeExample6 = `<template>
 </template>`
 
 const codeExample7 = `<script setup lang="ts">
-import { Font } from '@vue-pdf/renderer'
+import { Font } from '@vuepdf/renderer'
 
 Font.register({
   family: 'Open Sans',

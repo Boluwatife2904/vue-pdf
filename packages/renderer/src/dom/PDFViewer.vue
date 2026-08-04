@@ -1,6 +1,6 @@
 <script>
 import { defineComponent, h, provide, watch, Fragment } from 'vue';
-import { PDFSinkKey } from '@vue-pdf/reconciler';
+import { PDFSinkKey } from '@vuepdf/reconciler';
 
 import usePDF from './usePDF';
 

@@ -1,4 +1,4 @@
-import { isNil, last } from '@vue-pdf/fns';
+import { isNil, last } from '@vuepdf/fns';
 
 /**
  * Append glyph indices with given length

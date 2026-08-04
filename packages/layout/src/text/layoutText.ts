@@ -6,8 +6,8 @@ import layoutEngine, {
   wordHyphenation,
   textDecoration,
   fontSubstitution,
-} from '@vue-pdf/textkit';
-import FontStore from '@vue-pdf/font';
+} from '@vuepdf/textkit';
+import FontStore from '@vuepdf/font';
 
 import getAttributedString from './getAttributedString';
 import { SafeTextNode } from '../types';

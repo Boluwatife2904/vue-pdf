@@ -1,4 +1,4 @@
-import { last } from '@vue-pdf/fns';
+import { last } from '@vuepdf/fns';
 import { AttributedString, Font, Run } from '../../types';
 
 const IGNORED_CODE_POINTS = [173]; // U+00AD Soft Hyphen

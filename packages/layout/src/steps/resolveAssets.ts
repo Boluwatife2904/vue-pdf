@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import FontStore from '@vue-pdf/font';
-import { castArray } from '@vue-pdf/fns';
+import * as P from '@vuepdf/primitives';
+import FontStore from '@vuepdf/font';
+import { castArray } from '@vuepdf/fns';
 
 import fetchEmojis from '../text/emoji';
 import fetchImage from '../image/fetchImage';

@@ -1,4 +1,4 @@
-import Reconciler from '@vue-pdf/reconciler';
+import Reconciler from '@vuepdf/reconciler';
 
 const createInstance = (type, { style, children, ...props }) => ({
   type,

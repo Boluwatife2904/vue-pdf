@@ -1,8 +1,8 @@
-import * as P from '@vue-pdf/primitives';
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
-import { HyphenationCallback } from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
+import { HyphenationCallback } from '@vuepdf/font';
 import { YogaNode } from 'yoga-layout/load';
-import { Paragraph } from '@vue-pdf/textkit';
+import { Paragraph } from '@vuepdf/textkit';
 
 import { Box, NodeProps, Origin, RenderProp } from './base';
 import { SafeTextInstanceNode, TextInstanceNode } from './text-instance';

@@ -1,9 +1,9 @@
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 
 import renderGlyphs from './renderGlyphs';
 import parseColor from '../utils/parseColor';
 import { Context } from '../types';
-import { SafeTextNode } from '@vue-pdf/layout';
+import { SafeTextNode } from '@vuepdf/layout';
 import {
   Attachment,
   AttributedString,
@@ -11,7 +11,7 @@ import {
   Paragraph,
   Rect,
   Run,
-} from '@vue-pdf/textkit';
+} from '@vuepdf/textkit';
 
 const DEST_REGEXP = /^#.+/;
 

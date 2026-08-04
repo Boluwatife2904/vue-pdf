@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/pdfkit",
+  "name": "@vuepdf/pdfkit",
   "version": "1.0.0",
   "description": "PDF generation library for vue-pdf",
   "license": "MIT",

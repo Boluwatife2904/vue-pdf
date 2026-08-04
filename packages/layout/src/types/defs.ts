@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 import { ClipPathNode, SafeClipPathNode } from './clip-path';
 import { LinearGradientNode, SafeLinearGradientNode } from './linear-gradient';
 import { MarkerNode, SafeMarkerNode } from './marker';

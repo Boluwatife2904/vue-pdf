@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import { omit, compose } from '@vue-pdf/fns';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import { omit, compose } from '@vuepdf/fns';
+import FontStore from '@vuepdf/font';
 
 import isFixed from '../node/isFixed';
 import splitText from '../text/splitText';

@@ -1,4 +1,4 @@
-import { omit } from '@vue-pdf/fns';
+import { omit } from '@vuepdf/fns';
 
 import setPadding from './setPadding';
 import { SafeNode } from '../types';

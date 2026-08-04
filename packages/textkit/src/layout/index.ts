@@ -1,4 +1,4 @@
-import { compose } from '@vue-pdf/fns';
+import { compose } from '@vuepdf/fns';
 
 import decomposeUnicode from './decomposeUnicode';
 import wrapWords from './wrapWords';

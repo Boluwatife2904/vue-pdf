@@ -1,5 +1,5 @@
 import * as Yoga from 'yoga-layout/load';
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 import { SafeNode } from '../types';
 
 const POSITION = {

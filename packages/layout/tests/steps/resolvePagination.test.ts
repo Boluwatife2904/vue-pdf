@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import FontStore from '@vue-pdf/font';
+import FontStore from '@vuepdf/font';
 
 import { loadYoga } from '../../src/yoga';
 import resolvePagination from '../../src/steps/resolvePagination';

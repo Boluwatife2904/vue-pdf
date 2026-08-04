@@ -1,6 +1,6 @@
-import * as P from '@vue-pdf/primitives';
-import FontStore from '@vue-pdf/font';
-import resolveStyle, { transformColor } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import FontStore from '@vuepdf/font';
+import resolveStyle, { transformColor } from '@vuepdf/stylesheet';
 import {
   pick,
   evolve,
@@ -8,8 +8,8 @@ import {
   mapValues,
   matchPercent,
   parseFloat,
-} from '@vue-pdf/fns';
-import { SvgImage } from '@vue-pdf/image';
+} from '@vuepdf/fns';
+import { SvgImage } from '@vuepdf/image';
 
 import layoutText from '../svg/layoutText';
 import replaceDefs from '../svg/replaceDefs';

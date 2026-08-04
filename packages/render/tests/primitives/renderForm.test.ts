@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 
 import createCTX from '../ctx';
 import renderFieldSet from '../../src/primitives/renderFieldSet';
-import { SafeFieldSetNode } from '@vue-pdf/layout';
+import { SafeFieldSetNode } from '@vuepdf/layout';
 
 describe('primitive renderFieldSet', () => {
   test('should render FieldSet correctly', () => {

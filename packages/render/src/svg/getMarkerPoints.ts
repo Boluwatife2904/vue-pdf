@@ -1,11 +1,11 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 import {
   SafeLineNode,
   SafeNode,
   SafePathNode,
   SafePolygonNode,
   SafePolylineNode,
-} from '@vue-pdf/layout';
+} from '@vuepdf/layout';
 import * as _absPath from 'abs-svg-path';
 import * as _parsePath from 'parse-svg-path';
 import * as _normalizePath from 'normalize-svg-path';

@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/tailwind",
+  "name": "@vuepdf/tailwind",
   "version": "1.0.0",
   "description": "Tailwind CSS utility-class styling for vue-pdf",
   "license": "MIT",
@@ -40,8 +40,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/fns": "workspace:*",
-    "@vue-pdf/stylesheet": "workspace:*"
+    "@vuepdf/fns": "workspace:*",
+    "@vuepdf/stylesheet": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

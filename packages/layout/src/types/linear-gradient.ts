@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { Transform } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import { Transform } from '@vuepdf/stylesheet';
 
 import { SafeStopNode, StopNode } from './stop';
 interface LinearGradientProps {

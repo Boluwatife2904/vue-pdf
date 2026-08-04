@@ -4,7 +4,7 @@ usePageSeo(
   "API reference for renderToStream — stream a PDF directly to an HTTP response or writable stream.",
 )
 
-const express = `import { renderToStream } from '@vue-pdf/renderer'
+const express = `import { renderToStream } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 
 app.get('/pdf', async (req, res) => {
@@ -15,7 +15,7 @@ app.get('/pdf', async (req, res) => {
 })`
 
 const nuxtRoute = `// server/api/report.get.ts
-import { renderToStream } from '@vue-pdf/renderer'
+import { renderToStream } from '@vuepdf/renderer'
 import ReportDocument from '../../components/pdf/ReportDocument.vue'
 
 export default defineEventHandler(async (event) => {
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 
 const nuxtDocument = `<!-- components/pdf/ReportDocument.vue -->
 <script setup lang="ts">
-import { Document, Page, Text } from '@vue-pdf/renderer/components'
+import { Document, Page, Text } from '@vuepdf/renderer/components'
 
 defineProps<{ title: string }>()
 <\/script>
@@ -87,20 +87,20 @@ const nuxtUsage = `<template>
       <p>
         Keep PDF component imports inside the document component. Nitro can import the document SFC from the
         server route, and the document can import primitives from
-        <code>@vue-pdf/renderer/components</code>.
+        <code>@vuepdf/renderer/components</code>.
       </p>
       <p>
-        For generated trees without Vue templates, <code>@vue-pdf/renderer/primitives</code> remains available.
+        For generated trees without Vue templates, <code>@vuepdf/renderer/primitives</code> remains available.
       </p>
     </div>
 
     <div class="callout callout-warn">
       Importing a <code>.vue</code> document from a server route requires the
-      <NuxtLink to="/installation">@vue-pdf/nuxt</NuxtLink> module. Nitro bundles <code>server/</code> without
+      <NuxtLink to="/installation">@vuepdf/nuxt</NuxtLink> module. Nitro bundles <code>server/</code> without
       Vue support, so the module registers a Vue SFC plugin for it; without that the build fails with
       <code>rollup-plugin-inject: failed to parse YourDocument.vue</code>. Outside Nuxt — plain Node or
       Express — either precompile the SFC in your own build, or build the document from
-      <code>@vue-pdf/renderer/primitives</code> instead.
+      <code>@vuepdf/renderer/primitives</code> instead.
     </div>
 
     <div class="callout callout-info">

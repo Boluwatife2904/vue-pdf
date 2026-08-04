@@ -14,7 +14,7 @@ import {
   DocumentContextKey,
   PDFSinkKey,
   treesEqual,
-} from '@vue-pdf/reconciler';
+} from '@vuepdf/reconciler';
 
 import { pdf, createRenderer } from '../index';
 import { normalizeAttrs } from './createPrimitive';

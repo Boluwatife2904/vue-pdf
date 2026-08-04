@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
-import * as P from '@vue-pdf/primitives';
-import FontStore from '@vue-pdf/font';
+import * as P from '@vuepdf/primitives';
+import FontStore from '@vuepdf/font';
 import { SafeTextNode } from '../../src';
 import measureText from '../../src/text/measureText';
 

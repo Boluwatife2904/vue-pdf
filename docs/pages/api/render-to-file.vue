@@ -25,7 +25,7 @@ usePageSeo(
     <h2>Usage</h2>
     <DocsCodeBlock
       lang="ts"
-      :code="`import { renderToFile } from '@vue-pdf/renderer'
+      :code="`import { renderToFile } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 
 await renderToFile(MyDocument, './output.pdf', (output, instance) => {
@@ -49,7 +49,7 @@ await renderToFile(MyDocument, './output.pdf', (output, instance) => {
       lang="ts"
       filename="server/api/export.post.ts"
       :code="`import ExportDocument from '../../components/pdf/ExportDocument.vue'
-import { renderToFile } from '@vue-pdf/renderer'
+import { renderToFile } from '@vuepdf/renderer'
 import { join } from 'node:path'
 import { mkdir } from 'node:fs/promises'
 
@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
       lang="vue"
       filename="components/pdf/ExportDocument.vue"
       :code="`<script setup lang=&quot;ts&quot;>
-import { Document, Page, Text } from '@vue-pdf/renderer/components'
+import { Document, Page, Text } from '@vuepdf/renderer/components'
 
 defineProps<{ label: string }>()
 <\/script>
@@ -88,7 +88,7 @@ defineProps<{ label: string }>()
       Keep the PDF primitive imports in the document SFC. The server route can import the document component
       and pass props as the third argument to <code>renderToFile</code>. Importing a <code>.vue</code>
       document from <code>server/</code> requires the
-      <NuxtLink to="/installation">@vue-pdf/nuxt</NuxtLink> module — see
+      <NuxtLink to="/installation">@vuepdf/nuxt</NuxtLink> module — see
       <NuxtLink to="/api/render-to-stream">renderToStream</NuxtLink> for why.
     </div>
   </div>

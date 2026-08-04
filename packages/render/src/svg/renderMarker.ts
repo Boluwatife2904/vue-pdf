@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import { SafeMarkerNode, SafeNode } from '@vue-pdf/layout';
+import * as P from '@vuepdf/primitives';
+import { SafeMarkerNode, SafeNode } from '@vuepdf/layout';
 
 import { Context } from '../types';
 import getMarkerPoints, { MarkerPoint } from './getMarkerPoints';

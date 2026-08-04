@@ -1,4 +1,4 @@
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 import { SafeNode } from '../types';
 
 /**

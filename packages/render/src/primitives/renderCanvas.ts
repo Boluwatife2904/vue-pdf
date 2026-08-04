@@ -1,4 +1,4 @@
-import { SafeCanvasNode } from '@vue-pdf/layout';
+import { SafeCanvasNode } from '@vuepdf/layout';
 import { Context } from '../types';
 
 const availableMethods = [

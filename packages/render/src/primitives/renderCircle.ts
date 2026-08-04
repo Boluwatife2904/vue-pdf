@@ -1,4 +1,4 @@
-import { SafeCircleNode } from '@vue-pdf/layout';
+import { SafeCircleNode } from '@vuepdf/layout';
 
 import { Context } from '../types';
 import { drawEllipse } from './renderEllipse';

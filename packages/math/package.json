@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/math",
+  "name": "@vuepdf/math",
   "version": "1.0.0",
   "description": "Render LaTeX math expressions in vue-pdf documents",
   "license": "MIT",
@@ -42,16 +42,16 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/primitives": "workspace:*",
-    "@vue-pdf/svg": "workspace:*",
+    "@vuepdf/primitives": "workspace:*",
+    "@vuepdf/svg": "workspace:*",
     "mathjax-full": "^3.2.2"
   },
   "peerDependencies": {
-    "@vue-pdf/renderer": "workspace:*",
+    "@vuepdf/renderer": "workspace:*",
     "vue": "^3.4.0"
   },
   "devDependencies": {
-    "@vue-pdf/renderer": "workspace:*",
+    "@vuepdf/renderer": "workspace:*",
     "vue": "^3.4.0"
   },
   "publishConfig": {

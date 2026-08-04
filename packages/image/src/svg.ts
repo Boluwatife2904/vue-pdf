@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import { parseSvg, SvgNode } from '@vue-pdf/svg';
+import { parseSvg, SvgNode } from '@vuepdf/svg';
 import { SvgImage, Viewbox } from './types';
 
 const UNIT_TO_PT: Record<string, number> = {

@@ -1,5 +1,5 @@
-import { isNil } from '@vue-pdf/fns';
-import { Image } from '@vue-pdf/image';
+import { isNil } from '@vuepdf/fns';
+import { Image } from '@vuepdf/image';
 
 import resolveObjectFit from '../utils/resolveObjectFit';
 import { Context } from '../types';

@@ -1,9 +1,9 @@
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 
 import clipNode from '../operations/clipNode';
 import parseColor from '../utils/parseColor';
 import { Context } from '../types';
-import { SafeNode } from '@vue-pdf/layout';
+import { SafeNode } from '@vuepdf/layout';
 
 const drawBackground = (ctx: Context, node: SafeNode) => {
   if (!node.box) return;

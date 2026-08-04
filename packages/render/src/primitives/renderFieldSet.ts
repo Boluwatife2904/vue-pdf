@@ -1,4 +1,4 @@
-import { SafeFieldSetNode } from '@vue-pdf/layout';
+import { SafeFieldSetNode } from '@vuepdf/layout';
 import { Context, RenderOptions } from '../types';
 
 const renderFieldSet = (

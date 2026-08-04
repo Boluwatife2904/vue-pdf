@@ -1,5 +1,5 @@
-import * as P from '@vue-pdf/primitives';
-import stylesheet, { Container, Style } from '@vue-pdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import stylesheet, { Container, Style } from '@vuepdf/stylesheet';
 
 import {
   DocumentNode,

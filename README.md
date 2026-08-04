@@ -3,14 +3,14 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@vue-pdf/renderer">
-    <img src="https://img.shields.io/npm/v/@vue-pdf/renderer?color=dc2626&label=npm&logo=npm&logoColor=white" alt="npm version" />
+  <a href="https://www.npmjs.com/package/@vuepdf/renderer">
+    <img src="https://img.shields.io/npm/v/@vuepdf/renderer?color=dc2626&label=npm&logo=npm&logoColor=white" alt="npm version" />
   </a>
-  <a href="https://www.npmjs.com/package/@vue-pdf/renderer">
-    <img src="https://img.shields.io/npm/dm/@vue-pdf/renderer?color=dc2626&logo=npm&logoColor=white" alt="npm downloads" />
+  <a href="https://www.npmjs.com/package/@vuepdf/renderer">
+    <img src="https://img.shields.io/npm/dm/@vuepdf/renderer?color=dc2626&logo=npm&logoColor=white" alt="npm downloads" />
   </a>
   <a href="https://github.com/Boluwatife2904/vue-pdf/blob/main/LICENSE">
-    <img src="https://img.shields.io/npm/l/@vue-pdf/renderer?color=dc2626" alt="license" />
+    <img src="https://img.shields.io/npm/l/@vuepdf/renderer?color=dc2626" alt="license" />
   </a>
   <a href="https://nuxt.com">
     <img src="https://img.shields.io/badge/Nuxt-3%20%2F%204-dc2626?logo=nuxt.js&logoColor=white" alt="Nuxt 3 / 4" />
@@ -43,7 +43,7 @@
 - **SVG & Canvas** — vector graphics with `Path`, `Rect`, `Circle`, gradients and markers, plus imperative `<Canvas>` drawing
 - **Fillable forms** — AcroForm fields via `TextInput`, `Checkbox`, `Select`, `List`, and `FieldSet`
 - **Tailwind-style utilities** — `tw()` / `createTw()` for utility-class styling inside documents
-- **Nuxt auto-imports** — `@vue-pdf/nuxt` registers every component and composable with zero config, client and server
+- **Nuxt auto-imports** — `@vuepdf/nuxt` registers every component and composable with zero config, client and server
 - **TypeScript first** — fully typed components, composables, and public API
 
 ---
@@ -52,16 +52,16 @@
 
 ```bash
 # pnpm
-pnpm add @vue-pdf/renderer
+pnpm add @vuepdf/renderer
 
 # npm
-npm install @vue-pdf/renderer
+npm install @vuepdf/renderer
 
 # yarn
-yarn add @vue-pdf/renderer
+yarn add @vuepdf/renderer
 
 # bun
-bun add @vue-pdf/renderer
+bun add @vuepdf/renderer
 ```
 
 ---
@@ -75,7 +75,7 @@ Register the module in your `nuxt.config.ts` — every component and composable 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vue-pdf/nuxt'],
+  modules: ['@vuepdf/nuxt'],
 })
 ```
 
@@ -96,7 +96,7 @@ export default defineNuxtConfig({
 
 ```vue
 <script setup lang="ts">
-import { Document, Page, Text, View } from '@vue-pdf/renderer'
+import { Document, Page, Text, View } from '@vuepdf/renderer'
 </script>
 
 <template>
@@ -120,7 +120,7 @@ Slot your document into `<PDFViewer>` and it renders itself into an iframe:
 
 ```vue
 <script setup lang="ts">
-import { PDFViewer } from '@vue-pdf/renderer'
+import { PDFViewer } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 </script>
 
@@ -137,7 +137,7 @@ import MyDocument from './MyDocument.vue'
 
 ```vue
 <script setup lang="ts">
-import { PDFDownloadLink } from '@vue-pdf/renderer'
+import { PDFDownloadLink } from '@vuepdf/renderer'
 import MyDocument from './MyDocument.vue'
 </script>
 
@@ -159,7 +159,7 @@ import MyDocument from './MyDocument.vue'
 
 ```vue
 <script setup lang="ts">
-import { usePDF } from '@vue-pdf/renderer'
+import { usePDF } from '@vuepdf/renderer'
 
 const [instance, update] = usePDF()
 // call update(tree) whenever the document changes;
@@ -176,7 +176,7 @@ const [instance, update] = usePDF()
 
 ```ts
 // server/api/report.get.ts
-import { renderToStream } from '@vue-pdf/renderer'
+import { renderToStream } from '@vuepdf/renderer'
 import ReportDocument from '../../components/pdf/ReportDocument.vue'
 
 export default defineEventHandler(async (event) => {
@@ -256,10 +256,10 @@ export default defineEventHandler(async (event) => {
 
 | Package | Description |
 | --- | --- |
-| `@vue-pdf/renderer` | The core renderer — components, composables, and Node APIs. |
-| `@vue-pdf/nuxt` | Nuxt module: auto-imports, Vite transpilation, and Nitro SFC support. |
-| `@vue-pdf/math` | Optional — renders LaTeX math expressions as inline SVG. |
-| `@vue-pdf/mermaid` | Optional — renders Mermaid diagrams inside a document. |
+| `@vuepdf/renderer` | The core renderer — components, composables, and Node APIs. |
+| `@vuepdf/nuxt` | Nuxt module: auto-imports, Vite transpilation, and Nitro SFC support. |
+| `@vuepdf/math` | Optional — renders LaTeX math expressions as inline SVG. |
+| `@vuepdf/mermaid` | Optional — renders Mermaid diagrams inside a document. |
 
 ---
 
@@ -267,7 +267,7 @@ export default defineEventHandler(async (event) => {
 
 ```bash
 vue     >= 3.5.0
-nuxt    >= 3.0.0   # only for @vue-pdf/nuxt
+nuxt    >= 3.0.0   # only for @vuepdf/nuxt
 ```
 
 ---

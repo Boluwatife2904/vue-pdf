@@ -1,5 +1,5 @@
-import { castArray } from '@vue-pdf/fns';
-import * as P from '@vue-pdf/primitives';
+import { castArray } from '@vuepdf/fns';
+import * as P from '@vuepdf/primitives';
 
 import { Node } from '../types';
 

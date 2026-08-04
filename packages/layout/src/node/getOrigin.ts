@@ -1,4 +1,4 @@
-import { isNil, matchPercent } from '@vue-pdf/fns';
+import { isNil, matchPercent } from '@vuepdf/fns';
 import { Origin, SafeNode } from '../types';
 
 const getTransformStyle =

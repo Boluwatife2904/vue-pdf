@@ -44,7 +44,7 @@ const codeExample1 = `<template>
     <DocsCodeBlock
       lang="ts"
       filename="fonts.ts"
-      :code="`import { Font } from '@vue-pdf/renderer'
+      :code="`import { Font } from '@vuepdf/renderer'
 
 // Single font
 Font.register({

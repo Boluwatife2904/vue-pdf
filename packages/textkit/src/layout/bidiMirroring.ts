@@ -1,6 +1,6 @@
 import * as _bidiFactory from 'bidi-js';
 const bidiFactory: any = (_bidiFactory as any).default ?? _bidiFactory;
-import { repeat } from '@vue-pdf/fns';
+import { repeat } from '@vuepdf/fns';
 import { AttributedString, Run } from '../types';
 
 const bidi = bidiFactory();

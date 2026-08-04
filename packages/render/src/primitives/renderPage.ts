@@ -1,4 +1,4 @@
-import { SafePageNode } from '@vue-pdf/layout';
+import { SafePageNode } from '@vuepdf/layout';
 import { Context } from '../types';
 
 const renderPage = (ctx: Context, node: SafePageNode) => {

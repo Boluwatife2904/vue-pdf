@@ -1,5 +1,5 @@
-import { evolve, matchPercent } from '@vue-pdf/fns';
-import { SafeStyle } from '@vue-pdf/stylesheet';
+import { evolve, matchPercent } from '@vuepdf/fns';
+import { SafeStyle } from '@vuepdf/stylesheet';
 
 import { SafeDocumentNode, SafePageNode } from '../types';
 

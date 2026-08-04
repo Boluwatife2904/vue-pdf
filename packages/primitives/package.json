@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/primitives",
+  "name": "@vuepdf/primitives",
   "version": "1.0.0",
   "description": "Element type constants for vue-pdf",
   "license": "MIT",

@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/image",
+  "name": "@vuepdf/image",
   "version": "1.0.0",
   "description": "Image handler for vue-pdf",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@vue-pdf/svg": "workspace:*",
+    "@vuepdf/svg": "workspace:*",
     "buffer": "^6.0.3",
     "jay-peg": "^1.1.1",
     "png-js": "^2.0.0"

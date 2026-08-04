@@ -1,4 +1,4 @@
-import { evolve, matchPercent } from '@vue-pdf/fns';
+import { evolve, matchPercent } from '@vuepdf/fns';
 import { Box, SafeNode } from '../types';
 
 const resolveRadius = (box: Box) => (value: number | `${string}%`) => {

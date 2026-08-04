@@ -1,4 +1,4 @@
-import * as P from '@vue-pdf/primitives';
+import * as P from '@vuepdf/primitives';
 import { SafeNode } from '../types';
 
 const NON_WRAP_TYPES = [P.Svg, P.Note, P.Image, P.Canvas];

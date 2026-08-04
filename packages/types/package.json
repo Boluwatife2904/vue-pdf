@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/types",
+  "name": "@vuepdf/types",
   "version": "1.0.0",
   "description": "TypeScript types for vue-pdf",
   "license": "MIT",

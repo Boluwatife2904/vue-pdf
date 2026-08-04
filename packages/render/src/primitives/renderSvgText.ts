@@ -3,8 +3,8 @@ import {
   SafeTextNode,
   SafeTspanNode,
   TextAnchor,
-} from '@vue-pdf/layout';
-import { AttributedString, Run } from '@vue-pdf/textkit';
+} from '@vuepdf/layout';
+import { AttributedString, Run } from '@vuepdf/textkit';
 
 import { Context } from '../types';
 import renderGlyphs from './renderGlyphs';

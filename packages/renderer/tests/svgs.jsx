@@ -15,7 +15,7 @@ import {
   Marker,
   Stop,
   Line,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 
 export const Tiger = () => (
   <Svg style={{ width: 400, height: 400 }}>

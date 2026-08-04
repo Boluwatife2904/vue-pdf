@@ -1,5 +1,5 @@
 {
-  "name": "@vue-pdf/reconciler",
+  "name": "@vuepdf/reconciler",
   "version": "1.0.0",
   "description": "Vue-based document tree builder for vue-pdf",
   "license": "MIT",

@@ -1,6 +1,6 @@
-import { SafeStyle, Style } from '@vue-pdf/stylesheet';
-import * as P from '@vue-pdf/primitives';
-import { HitSlop } from '@vue-pdf/types';
+import { SafeStyle, Style } from '@vuepdf/stylesheet';
+import * as P from '@vuepdf/primitives';
+import { HitSlop } from '@vuepdf/types';
 import { YogaNode } from 'yoga-layout/load';
 
 import { Box, NodeProps, Origin, RenderProp } from './base';

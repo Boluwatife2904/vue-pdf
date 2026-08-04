@@ -10,7 +10,7 @@ import {
   Link,
   StyleSheet,
   renderToBuffer,
-} from '@vue-pdf/renderer';
+} from '@vuepdf/renderer';
 
 const doc = async (el) => {
   const buffer = await renderToBuffer(el);

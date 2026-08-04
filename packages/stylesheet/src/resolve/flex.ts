@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/CSS/flex#values
 
-import { parseFloat } from '@vue-pdf/fns';
+import { parseFloat } from '@vuepdf/fns';
 import { Container, Style, StyleKey } from '../types';
 import transformUnit from '../utils/units';
 import {

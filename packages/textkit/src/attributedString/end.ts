@@ -1,4 +1,4 @@
-import { last } from '@vue-pdf/fns';
+import { last } from '@vuepdf/fns';
 import { AttributedString } from '../types';
 
 /**

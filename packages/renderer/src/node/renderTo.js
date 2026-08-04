@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Buffer } from 'buffer';
 import { createSSRApp } from 'vue';
 import { renderToString } from '@vue/server-renderer';
-import { PDFSinkKey } from '@vue-pdf/reconciler';
+import { PDFSinkKey } from '@vuepdf/reconciler';
 
 import { pdf } from '../index.js';
 import * as components from '../components/index.js';

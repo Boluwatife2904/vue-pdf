@@ -1,4 +1,4 @@
-import { flatten } from '@vue-pdf/stylesheet';
+import { flatten } from '@vuepdf/stylesheet';
 
 import getPageSize from '../page/getSize';
 import { DocumentNode, PageNode } from '../types';

@@ -1,4 +1,4 @@
-import { isNil } from '@vue-pdf/fns';
+import { isNil } from '@vuepdf/fns';
 
 import omit from '../run/omit';
 import flatten from '../run/flatten';

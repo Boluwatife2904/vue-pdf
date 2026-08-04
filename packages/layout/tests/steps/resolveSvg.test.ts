@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import * as P from '@vue-pdf/primitives';
-import { SvgImage } from '@vue-pdf/image';
+import * as P from '@vuepdf/primitives';
+import { SvgImage } from '@vuepdf/image';
 
 import resolveSvg, { resolveXLinks } from '../../src/steps/resolveSvg';
 import {
