@@ -219,41 +219,79 @@ const renderPage = (route) => {
   // The page's own <h1> became an h2 above; drop the duplicate.
   const withoutDupTitle = body.replace(/^## .*\n\n?/, '');
 
-  return [...head, '', withoutDupTitle].join('\n');
+  return {
+    title,
+    slug,
+    description: seo?.description ?? '',
+    markdown: [...head, '', withoutDupTitle].join('\n'),
+  };
 };
 
-const header = `# vue-pdf
-
-> Create PDF documents using Vue components — a Vue 3 renderer for the browser
+const SUMMARY = `> Create PDF documents using Vue components — a Vue 3 renderer for the browser
 > and the server, ported from react-pdf. Flexbox layout via Yoga, a full text
 > engine with hyphenation and bidi, SVG, images, fillable AcroForm fields, and
-> Tailwind-style utilities.
+> Tailwind-style utilities.`;
 
-Install: \`npm install @vuepdf/renderer\` (Nuxt: add \`@vuepdf/nuxt\` to \`modules\`).
+const PREAMBLE = `Install: \`npm install @vuepdf/renderer\` (Nuxt: add \`@vuepdf/nuxt\` to \`modules\`).
 Docs: ${SITE} · Repository: https://github.com/Boluwatife2904/vue-pdf
 
 Packages: @vuepdf/renderer (core), @vuepdf/nuxt (Nuxt module),
-@vuepdf/math (LaTeX), @vuepdf/mermaid (diagrams).
+@vuepdf/math (LaTeX), @vuepdf/mermaid (diagrams).`;
 
-This file contains the full documentation as markdown.
-`;
-
-const sections = [];
+const groups = [];
 let pages = 0;
 
 for (const [group, routes] of ORDER) {
   const rendered = routes.map(renderPage).filter(Boolean);
   if (!rendered.length) continue;
   pages += rendered.length;
-  sections.push(`# ${group}\n\n${rendered.join('\n\n---\n\n')}`);
+  groups.push([group, rendered]);
 }
-
-const output = `${header}\n${sections.join('\n\n---\n\n')}\n`;
 
 const publicDir = path.join(docsDir, 'public');
 fs.mkdirSync(publicDir, { recursive: true });
-fs.writeFileSync(path.join(publicDir, 'llms.txt'), output);
 
-console.log(
-  `llms.txt — ${pages} pages, ${output.split('\n').length} lines, ${(output.length / 1024).toFixed(1)} kB`,
-);
+// llms.txt — the index form from llmstxt.org: title, summary, linked sections.
+const index = [
+  '# vue-pdf',
+  '',
+  SUMMARY,
+  '',
+  PREAMBLE,
+  '',
+  '## Documentation Sets',
+  '',
+  `- [Complete documentation](${SITE}/llms-full.txt): every page below, inlined as markdown in a single file.`,
+  '',
+  ...groups.flatMap(([group, items]) => [
+    `## ${group}`,
+    '',
+    ...items.map(
+      (p) => `- [${p.title}](${SITE}${p.slug})${p.description ? `: ${p.description}` : ''}`,
+    ),
+    '',
+  ]),
+].join('\n');
+
+// llms-full.txt — the same pages with their full content inlined.
+const full = [
+  '# vue-pdf',
+  '',
+  SUMMARY,
+  '',
+  PREAMBLE,
+  '',
+  'This file contains the full documentation as markdown.',
+  '',
+  groups
+    .map(([group, items]) => `# ${group}\n\n${items.map((p) => p.markdown).join('\n\n---\n\n')}`)
+    .join('\n\n---\n\n'),
+  '',
+].join('\n');
+
+fs.writeFileSync(path.join(publicDir, 'llms.txt'), index);
+fs.writeFileSync(path.join(publicDir, 'llms-full.txt'), full);
+
+const kb = (s) => `${(s.length / 1024).toFixed(1)} kB`;
+console.log(`llms.txt      — index, ${pages} pages, ${kb(index)}`);
+console.log(`llms-full.txt — full content, ${full.split('\n').length} lines, ${kb(full)}`);
