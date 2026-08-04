@@ -98,6 +98,7 @@ const nav: NavSection[] = [
     items: [
       { label: "Report Issue", to: "https://github.com/Boluwatife2904/vue-pdf/issues", external: true },
       { label: "Request Feature", to: "https://github.com/Boluwatife2904/vue-pdf/discussions", external: true },
+      { label: "llms.txt", to: "/llms.txt", external: true },
     ],
   },
 ]

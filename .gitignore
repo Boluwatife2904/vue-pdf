@@ -19,3 +19,4 @@ docs/.output
 .nuxt
 docs/.nuxt
 .pnpm-store
+docs/public/llms.txt

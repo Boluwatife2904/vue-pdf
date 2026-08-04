@@ -7,8 +7,9 @@
   "scripts": {
     "build": "pnpm -r run build",
     "dev": "nuxi dev docs",
-    "docs:build": "NODE_OPTIONS=--max-old-space-size=8192 nuxi build docs",
-    "docs:generate": "NODE_OPTIONS=--max-old-space-size=8192 nuxi generate docs",
+    "docs:llms": "node docs/scripts/generate-llms.mjs",
+    "docs:build": "pnpm run docs:llms && NODE_OPTIONS=--max-old-space-size=8192 nuxi build docs",
+    "docs:generate": "pnpm run docs:llms && NODE_OPTIONS=--max-old-space-size=8192 nuxi generate docs",
     "test": "vitest",
     "lint": "eslint packages --ext .ts,.vue",
     "typecheck": "vue-tsc --noEmit",
