@@ -167,6 +167,7 @@ const tab = ref<'code' | 'preview'>('code')
 const editorContainerRef = ref<HTMLElement | null>(null)
 const editorRef = shallowRef<Monaco.editor.IStandaloneCodeEditor | null>(null)
 const editorReady = ref(false)
+let themeObserver: MutationObserver | null = null
 
 const isLightTheme = () => document.documentElement.classList.contains('light')
 
@@ -243,17 +244,20 @@ onMounted(async () => {
   requestAnimationFrame(() => requestAnimationFrame(reveal))
   setTimeout(reveal, 300)
 
-  const observer = new MutationObserver(() => {
+  themeObserver = new MutationObserver(() => {
     monaco.editor.setTheme(getMonacoTheme())
   })
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-
-  onBeforeUnmount(() => {
-    observer.disconnect()
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
   })
 })
 
+// Registered synchronously. Calling onBeforeUnmount inside the async onMounted
+// above lands after an await, when there is no active instance to attach to —
+// Vue warns and the hook never runs, leaking the observer.
 onBeforeUnmount(() => {
+  themeObserver?.disconnect()
   editorRef.value?.dispose()
 })
 
@@ -425,6 +429,17 @@ function compileSFC(raw: string) {
     if (!component || typeof component !== 'object') {
       throw new Error('Script must export a component via default export')
     }
+
+    // The inlined template calls resolveComponent('Document') and friends,
+    // which only looks at the component's own `components` option and the app
+    // registry — a pasted SFC is registered in neither, so without this every
+    // primitive fails with "Failed to resolve component". The template-only
+    // path below already does the same thing.
+    component.components = {
+      ...playgroundComponents,
+      ...(component.components ?? {}),
+    }
+
     return component
   } catch (e: any) {
     const preview = code.length > 300 ? code.slice(0, 300) + '\u2026' : code
