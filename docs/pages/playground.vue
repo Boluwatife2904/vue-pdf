@@ -276,9 +276,11 @@ for (const [name, comp] of Object.entries(pdfComponents)) {
   playgroundComponents[`VuePdf${name}`] = comp
 }
 
+// Components and primitives share names (`Text` is a component here and the
+// string 'TEXT' there), so they must stay in separate namespaces — merging
+// them lets the primitives win and every component fails to resolve.
 const vuePdfGlobals: Record<string, unknown> = {
   ...playgroundComponents,
-  ...pdfPrimitives,
   StyleSheet,
   Font,
 }
@@ -348,7 +350,11 @@ function transformScriptImports(code: string): string {
   // import silently fell through to the generic strip below. `StyleSheet` then
   // resolved to the DOM interface of the same name — hence the reported
   // "StyleSheet.create is not a function" rather than a missing-import error.
-  const VUE_PDF = String.raw`@vuepdf\/renderer(?:\/(?:components|primitives))?`
+  // Primitives resolve to their own namespace: they export the same names as
+  // the components (`Text` is a component in one and the string 'TEXT' in the
+  // other), so a shared object would let one silently shadow the other.
+  const RENDERER = String.raw`@vuepdf\/renderer(?:\/components)?`
+  const PRIMITIVES = String.raw`@vuepdf\/renderer\/primitives`
 
   return code
     .replace(
@@ -356,11 +362,19 @@ function transformScriptImports(code: string): string {
       (_, names: string) => `const { ${specifiers(names)} } = __vue__;`,
     )
     .replace(
-      new RegExp(String.raw`import\s+\{([^}]+)\}\s+from\s+['"]${VUE_PDF}['"];?`, 'g'),
+      new RegExp(String.raw`import\s+\{([^}]+)\}\s+from\s+['"]${PRIMITIVES}['"];?`, 'g'),
+      (_, names: string) => `const { ${specifiers(names)} } = __vuePdfPrimitives__;`,
+    )
+    .replace(
+      new RegExp(String.raw`import\s+\*\s+as\s+(\w+)\s+from\s+['"]${PRIMITIVES}['"];?`, 'g'),
+      (_, name: string) => `const ${name} = __vuePdfPrimitives__;`,
+    )
+    .replace(
+      new RegExp(String.raw`import\s+\{([^}]+)\}\s+from\s+['"]${RENDERER}['"];?`, 'g'),
       (_, names: string) => `const { ${specifiers(names)} } = __vuePdfRenderer__;`,
     )
     .replace(
-      new RegExp(String.raw`import\s+\*\s+as\s+(\w+)\s+from\s+['"]${VUE_PDF}['"];?`, 'g'),
+      new RegExp(String.raw`import\s+\*\s+as\s+(\w+)\s+from\s+['"]${RENDERER}['"];?`, 'g'),
       (_, name: string) => `const ${name} = __vuePdfRenderer__;`,
     )
     // Anything else under the scope is unsupported here; say so instead of
@@ -401,8 +415,13 @@ function compileSFC(raw: string) {
   const code = transformScriptImports(compiled.content)
 
   try {
-    const fn = new Function('__vue__', '__vuePdfRenderer__', code)
-    const component = fn(vueGlobals, vuePdfGlobals)
+    const fn = new Function(
+      '__vue__',
+      '__vuePdfRenderer__',
+      '__vuePdfPrimitives__',
+      code,
+    )
+    const component = fn(vueGlobals, vuePdfGlobals, pdfPrimitives)
     if (!component || typeof component !== 'object') {
       throw new Error('Script must export a component via default export')
     }
