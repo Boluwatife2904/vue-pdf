@@ -1,0 +1,77 @@
+# vue-pdf
+
+> Create PDF documents using Vue components — a Vue 3 renderer for the browser
+> and the server, ported from react-pdf. Flexbox layout via Yoga, a full text
+> engine with hyphenation and bidi, SVG, images, fillable AcroForm fields, and
+> Tailwind-style utilities.
+
+Install: `npm install @vuepdf/renderer` (Nuxt: add `@vuepdf/nuxt` to `modules`).
+Docs: https://vue-pdf.sanusi.dev · Repository: https://github.com/Boluwatife2904/vue-pdf
+
+Packages: @vuepdf/renderer (core), @vuepdf/nuxt (Nuxt module),
+@vuepdf/math (LaTeX), @vuepdf/mermaid (diagrams).
+
+## Documentation Sets
+
+- [Complete documentation](https://vue-pdf.sanusi.dev/llms-full.txt): every page below, inlined as markdown in a single file.
+
+## Getting Started
+
+- [vue-pdf](https://vue-pdf.sanusi.dev): Create PDF files using Vue — a Vue renderer for building PDF documents on the browser and server. Port of react-pdf to the Vue ecosystem.
+- [Installation](https://vue-pdf.sanusi.dev/installation): Get up and running with vue-pdf — install via npm, pnpm, or yarn and configure the Nuxt module for auto-imports.
+- [Quick Start](https://vue-pdf.sanusi.dev/quick-start): Start generating PDFs with vue-pdf. Build your first document using Vue components — Document, Page, View, and Text.
+
+## Core Concepts
+
+- [Document & Pages](https://vue-pdf.sanusi.dev/guide/document-pages): Learn how to structure vue-pdf documents with Document and Page components. Control page size, orientation, and layout.
+- [Styling](https://vue-pdf.sanusi.dev/guide/styling): Learn how to style vue-pdf components with CSS-like style objects. Flexbox layout, colors, typography, borders, and more.
+- [Styling with Tailwind](https://vue-pdf.sanusi.dev/guide/tailwind): Use Tailwind CSS utility classes to style vue-pdf components. Fast, familiar, and zero-runtime — classes are converted to vue-pdf Style objects at render time.
+- [Fonts](https://vue-pdf.sanusi.dev/guide/fonts): Learn how to register and use custom fonts in vue-pdf documents. Font families, weights, and styles.
+- [Images](https://vue-pdf.sanusi.dev/guide/images): Learn how to embed and style images in vue-pdf documents. Supported formats: PNG, JPEG, and SVG.
+- [Forms](https://vue-pdf.sanusi.dev/guide/forms): Build interactive, fillable PDF forms in vue-pdf with TextInput, Checkbox, Select, List, and FieldSet.
+- [Math & Diagrams](https://vue-pdf.sanusi.dev/guide/math-diagrams): Render LaTeX math expressions and Mermaid diagrams in vue-pdf with the @vuepdf/math and @vuepdf/mermaid packages.
+- [Advanced](https://vue-pdf.sanusi.dev/guide/advanced): Page wrapping, bookmarks, named destinations, dynamic content, orphan and widow protection, debugging, and rendering large documents in vue-pdf.
+
+## Components
+
+- [Document API](https://vue-pdf.sanusi.dev/api/document): Full API reference for the Document component — props, metadata, and usage.
+- [Page API](https://vue-pdf.sanusi.dev/api/page): Full API reference for the Page component — size, orientation, wrapping, and debugging options.
+- [View API](https://vue-pdf.sanusi.dev/api/view): Full API reference for the View component — the fundamental layout container in vue-pdf.
+- [Text API](https://vue-pdf.sanusi.dev/api/text): Full API reference for the Text component — text rendering, styling, and advanced layout in vue-pdf.
+- [Link API](https://vue-pdf.sanusi.dev/api/link): API reference for the Link component — create clickable hyperlinks in PDF documents.
+- [Image API](https://vue-pdf.sanusi.dev/api/image): API reference for the Image and ImageBackground components — embed images in PDF documents.
+- [Note API](https://vue-pdf.sanusi.dev/api/note): API reference for the Note component — PDF annotations and comments.
+- [Canvas API](https://vue-pdf.sanusi.dev/api/canvas): API reference for the Canvas component — drawing graphics on PDF pages.
+- [SVG Components API](https://vue-pdf.sanusi.dev/api/svg): API reference for SVG components — Svg, G, Path, Rect, Line, Circle, Ellipse, Polygon, Polyline, and gradients.
+- [ImageBackground API](https://vue-pdf.sanusi.dev/api/image-background): API reference for the ImageBackground component — place content over a background image.
+
+## Form Components
+
+- [TextInput API](https://vue-pdf.sanusi.dev/api/text-input): API reference for the TextInput component — interactive text fields in PDF forms.
+- [Checkbox API](https://vue-pdf.sanusi.dev/api/checkbox): API reference for the Checkbox component — interactive tick boxes in PDF forms.
+- [Select API](https://vue-pdf.sanusi.dev/api/select): API reference for the Select component — dropdown menus in PDF forms.
+- [List API](https://vue-pdf.sanusi.dev/api/list): API reference for the List component — scrollable option boxes in PDF forms.
+- [FieldSet API](https://vue-pdf.sanusi.dev/api/field-set): API reference for the FieldSet component — grouping and namespacing PDF form fields.
+
+## Browser API
+
+- [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf): API reference for the usePDF composable — generate and preview PDFs in the browser.
+- [PDFViewer](https://vue-pdf.sanusi.dev/api/pdf-viewer): API reference for the PDFViewer component — embed an interactive PDF viewer.
+- [PDFDownloadLink](https://vue-pdf.sanusi.dev/api/pdf-download-link): API reference for PDFDownloadLink — render an anchor that downloads the generated PDF.
+- [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider): API reference for BlobProvider — access the generated PDF blob, URL, and render state.
+
+## Node API
+
+- [pdf() Function](https://vue-pdf.sanusi.dev/api/pdf-function): API reference for the pdf() function — programmatic PDF generation.
+- [renderToFile](https://vue-pdf.sanusi.dev/api/render-to-file): API reference for renderToFile — render a PDF and write it directly to the filesystem.
+- [renderToBuffer](https://vue-pdf.sanusi.dev/api/render-to-buffer): API reference for renderToBuffer — render a PDF document to a Node Buffer.
+- [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream): API reference for renderToStream — stream a PDF directly to an HTTP response or writable stream.
+
+## Examples
+
+- [Basic Document Example](https://vue-pdf.sanusi.dev/examples/basic): A basic vue-pdf example — creating a simple PDF document with Vue components.
+- [Text Styling Example](https://vue-pdf.sanusi.dev/examples/text-styling): Text styling examples for vue-pdf — fonts, colors, decoration, truncation, and inline styling.
+- [Images Example](https://vue-pdf.sanusi.dev/examples/images): Images and layout examples for vue-pdf — embedding images, image backgrounds, and flex layouts.
+- [SVG Graphics Example](https://vue-pdf.sanusi.dev/examples/svg): Vue-pdf SVG graphics examples — shapes, paths, gradients, and custom markers.
+- [Page Layout Example](https://vue-pdf.sanusi.dev/examples/layout): Vue-pdf layout examples — multi-column layouts, fixed headers/footers, and pagination.
+- [Interactive Form Example](https://vue-pdf.sanusi.dev/examples/forms): A complete vue-pdf example — a fillable PDF form with text inputs, checkboxes, a dropdown, and a list.

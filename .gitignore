@@ -19,5 +19,7 @@ docs/.output
 .nuxt
 docs/.nuxt
 .pnpm-store
-docs/public/llms.txt
-docs/public/llms-full.txt
+
+# Local-only generators. Their outputs (docs/public/llms*.txt, favicon.*)
+# are committed instead, so the deploy never has to run them.
+docs/scripts

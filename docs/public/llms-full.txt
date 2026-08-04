@@ -1,0 +1,4796 @@
+# vue-pdf
+
+> Create PDF documents using Vue components — a Vue 3 renderer for the browser
+> and the server, ported from react-pdf. Flexbox layout via Yoga, a full text
+> engine with hyphenation and bidi, SVG, images, fillable AcroForm fields, and
+> Tailwind-style utilities.
+
+Install: `npm install @vuepdf/renderer` (Nuxt: add `@vuepdf/nuxt` to `modules`).
+Docs: https://vue-pdf.sanusi.dev · Repository: https://github.com/Boluwatife2904/vue-pdf
+
+Packages: @vuepdf/renderer (core), @vuepdf/nuxt (Nuxt module),
+@vuepdf/math (LaTeX), @vuepdf/mermaid (diagrams).
+
+This file contains the full documentation as markdown.
+
+# Getting Started
+
+## vue-pdf
+
+Source: https://vue-pdf.sanusi.dev
+
+> Create PDF files using Vue — a Vue renderer for building PDF documents on the browser and server. Port of react-pdf to the Vue ecosystem.
+
+A Vue 3 port of `react-pdf`. Compose PDF documents using familiar Vue SFCs — write `<Document>`, `<Page>`, `<Text>`, and `<View>` just like you would build any Vue app. Works on the browser and server.
+
+```bash
+pnpm add @vuepdf/renderer
+```
+
+
+#### Vue Component Model
+
+Declare PDF documents using 30+ Vue primitives — Document, Page, View, Text, Image, Canvas, SVG, forms, and more.
+
+#### Flexbox Layout
+
+Powered by Yoga Layout (same engine as React Native). Every `<View>` is a flex container.
+
+#### Browser + Server
+
+Dual platform support. Use `usePDF` and `<PDFViewer>` in the browser, or `renderToFile` on the server.
+
+#### Nuxt Auto-Imports
+
+With `@vuepdf/nuxt`, all 30+ components and composables are auto-imported with zero config.
+
+#### Rich Text Engine
+
+Advanced text layout with hyphenation, justification, RTL/bidi support, and custom font handling.
+
+#### TypeScript First
+
+Fully typed components, composables, and public API. Intellisense coverage across the entire package.
+
+#### SVG & Canvas
+
+Embed vector graphics with full SVG support (Path, Rect, Circle, gradients, markers) and `<Canvas>` drawing.
+
+#### Forms & Annotations
+
+Create fillable [AcroForm PDFs](https://vue-pdf.sanusi.dev/guide/forms) — TextInput, Checkbox, Select, List, FieldSet — plus Note annotations.
+
+#### Extensions
+
+Optional packages for LaTeX math (`@vuepdf/math`) and Mermaid diagrams (`@vuepdf/mermaid`).
+
+### Quick Example
+
+Create your first PDF document in seconds:
+
+```vue [app.vue]
+<template>
+  <Document>
+    <Page size="A4" style="padding: 40px">
+      <View style="margin-bottom: 20px">
+        <Text style="font-size: 24px; font-weight: bold">
+          Hello, vue-pdf!
+        </Text>
+      </View>
+      <View>
+        <Text style="font-size: 12px; color: #666">
+          Generate PDFs with Vue components — in the browser or on the server.
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Installation
+
+Source: https://vue-pdf.sanusi.dev/installation
+
+> Get up and running with vue-pdf — install via npm, pnpm, or yarn and configure the Nuxt module for auto-imports.
+
+Install the core `@vuepdf/renderer` package using your preferred package manager:
+
+```bash [pm.name]
+pm.cmd
+```
+
+
+### Nuxt Setup
+
+For Nuxt projects, add `@vuepdf/nuxt` to the `modules` array in your `nuxt.config.ts`:
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  modules: ['@vuepdf/nuxt'],
+})
+```
+
+
+That's it. The module auto-registers all 30+ components (`<Document>`, `<Page>`, `<Text>`, `<View>`, `<Image>`, SVG primitives, form components, and more) plus the `usePDF`, `pdf()`, `Font`, and `StyleSheet` utilities — no explicit imports needed.
+
+It also configures the parts you would otherwise have to wire by hand:
+
+- Transpiles the vue-pdf packages for Vite.
+
+- Registers a Vue SFC plugin with Nitro, so a [server route](https://vue-pdf.sanusi.dev/api/render-to-stream) can import your document `.vue` file and render a PDF on the server.
+
+- Resolves every component through a single copy of the renderer. Loading two copies gives you two injection contexts, which silently produces a blank PDF.
+
+> Server-side PDF rendering in Nuxt needs this module. If you configure components and `build.transpile` manually instead, client-side rendering works but `server/` routes that import a `.vue` document will fail to build.
+
+> Both the `@vuepdf/nuxt` module and the `@vuepdf/renderer` package have **Vue 3** and **Nuxt 3** as peer dependencies. Make sure your project has them installed.
+
+### Vue (Without Nuxt)
+
+Import components directly from the renderer package:
+
+```vue [App.vue]
+<script setup lang="ts">
+import { Document, Page, Text, View } from '@vuepdf/renderer'
+<\/script>
+
+<template>
+  <Document>
+    <Page size="A4">
+      <View style="padding: 40px">
+        <Text style="font-size: 18px">Hello, PDF!</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Optional Extension Packages
+
+vue-pdf ships with optional extension packages for specialized content:
+
+Render LaTeX math expressions as inline SVG.
+
+```bash
+'pnpm add @vuepdf/math'
+```
+
+
+Render Mermaid diagrams embedded in your PDF.
+
+```bash
+'pnpm add @vuepdf/mermaid'
+```
+
+
+### Peer Dependencies
+
+`@vuepdf/renderer` requires Vue as a peer dependency:
+
+### Next Steps
+
+- [Follow the Quick Start guide →](https://vue-pdf.sanusi.dev/quick-start)
+
+- [Learn about Document & Pages →](https://vue-pdf.sanusi.dev/guide/document-pages)
+
+- [Browse the full component API →](https://vue-pdf.sanusi.dev/api/document)
+
+---
+
+## Quick Start
+
+Source: https://vue-pdf.sanusi.dev/quick-start
+
+> Start generating PDFs with vue-pdf. Build your first document using Vue components — Document, Page, View, and Text.
+
+After installing `@vuepdf/renderer` (or `@vuepdf/nuxt` for Nuxt), you can start composing PDF documents using Vue components.
+
+### Minimal Document
+
+Every PDF document starts with a `<Document>` containing one or more `<Page>` elements:
+
+```vue [MyDocument.vue]
+<template>
+  <Document>
+    <Page size="A4">
+      <View style="padding: 40px">
+        <Text style="font-size: 18px; font-family: 'Helvetica'">
+          Hello, World!
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Rendering in the Browser
+
+Slot your document into `<PDFViewer>` to preview it in an iframe. It renders the PDF for you and re-renders whenever the document changes:
+
+```vue [PDFPreview.vue]
+<script setup lang="ts">
+import { PDFViewer } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+<\/script>
+
+<template>
+  <PDFViewer :style="{ width: '100%', height: '600px' }">
+    <MyDocument />
+  </PDFViewer>
+</template>
+```
+
+
+> Need the blob or the render loop itself? [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider) hands you `{ url, blob, error, loading }` in a scoped slot, and [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) gives you a `[state, update]` tuple to drive yourself.
+
+> These are browser-only. For server-side rendering, see the [pdf() function](https://vue-pdf.sanusi.dev/api/pdf-function) and [renderToFile](https://vue-pdf.sanusi.dev/api/render-to-file) APIs.
+
+### Adding Pages
+
+Add multiple pages to your document. Each page can have its own size and orientation:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" style="padding: 40px">
+      <Text style="font-size: 24px; margin-bottom: 16px">
+        Page 1 — Title
+      </Text>
+      <Text style="font-size: 12px">
+        Content for the first page.
+      </Text>
+    </Page>
+
+    <Page size="LETTER" style="padding: 40px">
+      <Text style="font-size: 24px; margin-bottom: 16px">
+        Page 2 — More Content
+      </Text>
+      <Text style="font-size: 12px">
+        Content for the second page.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Styling with Flexbox
+
+Every `<View>` is a flex container. Use standard flex properties for layout:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <View style="display: flex; flex-direction: row; padding: 40px">
+        <View style="flex: 1; padding: 20px; background-color: #f0f0f0">
+          <Text style="font-size: 16px">Left Column</Text>
+        </View>
+        <View style="flex: 1; padding: 20px; background-color: #e0e0e0">
+          <Text style="font-size: 16px">Right Column</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Generating a Download
+
+Use `PDFDownloadLink` to create a downloadable link:
+
+```vue
+<script setup lang="ts">
+import { PDFDownloadLink } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+<\/script>
+
+<template>
+  <PDFDownloadLink file-name="report.pdf">
+    <template #document>
+      <MyDocument />
+    </template>
+
+    <template #default="{ loading }">
+      {{ loading ? 'Preparing...' : 'Download PDF' }}
+    </template>
+  </PDFDownloadLink>
+</template>
+```
+
+
+### Server-Side Rendering
+
+On Node.js, use the `pdf()` function to generate PDFs programmatically:
+
+### Next Steps
+
+- [Deep dive into Document & Pages →](https://vue-pdf.sanusi.dev/guide/document-pages)
+
+- [Learn about styling options →](https://vue-pdf.sanusi.dev/guide/styling)
+
+- [Explore the Text component API →](https://vue-pdf.sanusi.dev/api/text)
+
+- [See more usage examples →](https://vue-pdf.sanusi.dev/examples/basic)
+
+---
+
+# Core Concepts
+
+## Document & Pages
+
+Source: https://vue-pdf.sanusi.dev/guide/document-pages
+
+> Learn how to structure vue-pdf documents with Document and Page components. Control page size, orientation, and layout.
+
+Every vue-pdf document is built using the `<Document>` root component and one or more `<Page>` children. Together they define the overall structure and page-level properties of your PDF.
+
+### The Document Component
+
+`<Document>` is the root of every PDF. It accepts optional metadata props and wraps all pages. It is also responsible for providing the renderer context to all child components.
+
+```vue
+<template>
+  <Document title="My Report" author="John Doe">
+      <Page size="A4">
+        <Text>Hello, PDF!</Text>
+      </Page>
+    </Document>
+</template>
+```
+
+
+#### Document Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | string | — | PDF document title (metadata). |
+| author | string | — | PDF document author (metadata). |
+| subject | string | — | PDF document subject (metadata). |
+| keywords | string | — | PDF document keywords (metadata). |
+| creator | string | — | PDF document creator (metadata). |
+| producer | string | — | PDF document producer (metadata). |
+| pageLayout | string | — | Page layout mode for the PDF viewer. |
+| pageMode | string | — | Page display mode for the PDF viewer. |
+| onRender | (props: OnRenderProps) => void | — | Callback after each successful render. |
+
+
+### The Page Component
+
+Each `<Page>` represents a single page in the PDF. Pages define their dimensions and serve as containers for all content.
+
+#### Page Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| size | PageSize \| [number, number] | 'A4' | Page size. Use named sizes ('A4', 'LETTER', 'LEGAL', etc.) or custom [width, height] in points. |
+| orientation | 'portrait' \| 'landscape' | 'portrait' | Page orientation. |
+| style | Style | — | Style object for the page container. Supports padding, background, and flex layout. |
+| wrap | boolean | true | Whether content should wrap to the next page when it exceeds the current one. |
+| debug | boolean | false | Display debug borders on layout elements. |
+| dpi | number | 72 | DPI for the page. Affects image and canvas rendering. |
+
+
+### Predefined Page Sizes
+
+vue-pdf includes all common page sizes:
+
+### Custom Page Size
+
+Pass an array of `[width, height]` in points (1 point = 1/72 inch):
+
+```vue
+<template>
+  <Document>
+    <!-- 4x6 inches (288pt x 432pt) -->
+    <Page :size="[288, 432]">
+      <Text>Custom-sized page</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Page Break
+
+Use the `break` style property on any element to force a page break:
+
+```vue
+<template>
+  <Document>
+    <Page>
+      <View>
+        <Text>This is on page 1</Text>
+      </View>
+      <View style="break: 'before'">
+        <Text>This starts on a new page</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Styling
+
+Source: https://vue-pdf.sanusi.dev/guide/styling
+
+> Learn how to style vue-pdf components with CSS-like style objects. Flexbox layout, colors, typography, borders, and more.
+
+vue-pdf uses a CSS-like styling API based on the react-pdf style system. Styles are defined as JavaScript objects using camelCase property names.
+
+### Basic Styling
+
+Pass a style object to the `style` prop of any component:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <View :style="{ padding: 40, backgroundColor: '#f5f5f5' }">
+        <Text :style="{ fontSize: 24, color: '#333', fontWeight: 'bold' }">
+          Styled Text
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Flexbox Layout
+
+Every `<View>` is a flex container by default (with `flex-direction: column`). vue-pdf uses Yoga Layout — the same engine as React Native — for precise flexbox calculations.
+
+#### Supported Flex Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| display | 'flex' \| 'none' | 'flex' | Set display mode. |
+| flexDirection | 'row' \| 'column' \| 'row-reverse' \| 'column-reverse' | 'column' | Main axis direction. |
+| flexWrap | 'wrap' \| 'nowrap' \| 'wrap-reverse' | 'nowrap' | Whether items can wrap. |
+| justifyContent | 'flex-start' \| 'center' \| 'flex-end' \| 'space-between' \| 'space-around' \| 'space-evenly' | — | Alignment along main axis. |
+| alignItems | 'flex-start' \| 'center' \| 'flex-end' \| 'stretch' \| 'baseline' | — | Alignment along cross axis. |
+| alignSelf | 'auto' \| 'flex-start' \| 'center' \| 'flex-end' \| 'stretch' \| 'baseline' | — | Override align-items for a single child. |
+| flex | number | — | Flex grow factor. |
+| flexGrow | number | — | Flex grow factor (individual). |
+| flexShrink | number | — | Flex shrink factor. |
+| flexBasis | number \| string | — | Initial size before flex distribution. |
+| gap | number | — | Gap between flex items (in points). |
+| rowGap | number | — | Row gap between flex items. |
+| columnGap | number | — | Column gap between flex items. |
+
+
+#### Flex Example
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- Row layout -->
+      <View :style="{ flexDirection: 'row', gap: 20, padding: 40 }">
+        <View :style="{ flex: 1, padding: 20, backgroundColor: '#e8f5e9' }">
+          <Text>Column 1</Text>
+        </View>
+        <View :style="{ flex: 2, padding: 20, backgroundColor: '#fff3e0' }">
+          <Text>Column 2 (wider)</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Box Model & Dimensions
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| width | number \| string | — | Element width. Numbers are in points. |
+| height | number \| string | — | Element height. Numbers are in points. |
+| minWidth | number | — | Minimum width. |
+| maxWidth | number | — | Maximum width. |
+| minHeight | number | — | Minimum height. |
+| maxHeight | number | — | Maximum height. |
+| margin | number | — | Shorthand margin. Use marginTop/Right/Bottom/Left for sides. |
+| padding | number | — | Shorthand padding. Use paddingTop/Right/Bottom/Left for sides. |
+| border | number \| string | — | Border width or shorthand (e.g. '1px solid red'). |
+| borderRadius | number | — | Border radius for View components. |
+
+
+### Typography
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| fontSize | number | — | Font size in points. Default is 12. |
+| fontFamily | string | — | Font family name. Options: Helvetica, Times-Roman, Courier, or custom registered fonts. |
+| fontWeight | number \| string | — | Font weight. 100-900 or 'bold'. |
+| fontStyle | 'normal' \| 'italic' | — | Font style. |
+| lineHeight | number | — | Line height multiplier or fixed value in points. |
+| letterSpacing | number | — | Letter spacing in points. |
+| textAlign | 'left' \| 'center' \| 'right' \| 'justify' | — | Text alignment. |
+| textDecoration | 'underline' \| 'line-through' \| 'underline line-through' | — | Text decoration lines. |
+| textTransform | 'uppercase' \| 'lowercase' \| 'capitalize' | — | Text transformation. |
+| textIndent | number | — | First-line indentation for paragraphs. |
+| wordSpacing | number | — | Word spacing in points. |
+| hyphens | 'none' \| 'auto' | 'auto' | Controls hyphenation. Uses the hyphenation engine. |
+| orphans | number | 2 | Minimum lines to keep at the bottom of a page. |
+| widows | number | 2 | Minimum lines to keep at the top of a page. |
+
+
+### Colors & Backgrounds
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| color | string | — | Text color. Supports hex, rgb(), rgba(), and named CSS colors. |
+| backgroundColor | string | — | Background color of the element. |
+| opacity | number | — | Opacity from 0 to 1. |
+
+
+### Positioning
+
+Use absolute positioning within a parent with `position: 'relative'`:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <View :style="{ position: 'relative', height: 200 }">
+        <View :style="{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          width: 100,
+          height: 100,
+          backgroundColor: '#ff0000'
+        }">
+          <Text>Absolute</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Absolute positioning in PDF layouts works differently than in browser CSS. The parent must have a defined `height` and `position: 'relative'`.
+
+### Media Queries
+
+Styles can adapt to the page they render on. A key beginning with `@media` is matched against the page's dimensions and orientation, and its properties are merged in when it matches:
+
+```vue
+<script setup lang="ts">
+import { StyleSheet } from '@vuepdf/renderer'
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 40,
+    flexDirection: 'row',
+
+    // Applied when the page is narrower than 400pt
+    '@media max-width: 400': {
+      padding: 16,
+      flexDirection: 'column',
+    },
+
+    // Applied on landscape pages
+    '@media orientation: landscape': {
+      padding: 60,
+    },
+  },
+})
+<\/script>
+
+<template>
+  <Document>
+    <!-- Same styles, different result per page size -->
+    <Page size="A4" :style="styles.container">
+      <Text>Roomy</Text>
+    </Page>
+
+    <Page :size="[300, 500]" :style="styles.container">
+      <Text>Compact</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Supported Features
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| min-width | number | — | Matches when the page is at least this wide. |
+| max-width | number | — | Matches when the page is at most this wide. |
+| min-height | number | — | Matches when the page is at least this tall. |
+| max-height | number | — | Matches when the page is at most this tall. |
+| orientation | 'portrait' \| 'landscape' | — | Matches the page orientation. |
+
+
+> Queries resolve against the **page**, not the viewport or the parent element — there is no container-query equivalent. Values are in points, and the syntax is `'@media <feature>: <value>'` without parentheses. Combine features by separating them with `and`.
+
+---
+
+## Styling with Tailwind
+
+Source: https://vue-pdf.sanusi.dev/guide/tailwind
+
+> Use Tailwind CSS utility classes to style vue-pdf components. Fast, familiar, and zero-runtime — classes are converted to vue-pdf Style objects at render time.
+
+vue-pdf supports Tailwind CSS utility classes via the `tw` prop. Class strings are converted to vue-pdf `Style` objects using a pure-JS converter — no CSS engine, no runtime overhead.
+
+> **Built-in** — The `tw` prop works out of the box with `@vuepdf/renderer`. No extra install or import needed. Both `tw` and `:style` can be used together, and `:style` always wins when there's a conflict.
+
+### Quick Start
+
+Use the `tw` prop on any vue-pdf component:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" tw="p-10">
+      <View tw="flex flex-row gap-4">
+        <View tw="flex-1 p-4 bg-blue-100 rounded-lg">
+          <Text tw="text-blue-500 font-medium">Card 1</Text>
+        </View>
+        <View tw="flex-1 p-4 bg-green-100 rounded-lg">
+          <Text tw="text-green-500 font-medium">Card 2</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### How It Works
+
+The `tw` prop accepts a space-separated string of Tailwind utility classes. At render time, the converter:
+
+- Splits the class string into individual utilities
+
+- Looks up each class against a vendored Tailwind theme (spacing, colors, fonts...)
+
+- Converts CSS units to PDF points (`1rem = 12pt` by default)
+
+- Emits a vue-pdf `Style` object merged under any inline `:style`
+
+### Units
+
+All spacing/sizing utilities produce **point values**, not CSS units. The default conversion is `1rem = 12pt` (matching `1rem = 16px` at 72 DPI). This is configurable:
+
+```vue
+<script setup>
+import { createTw } from '@vuepdf/tailwind'
+
+const myTw = createTw({}, { ptPerRem: 14 }) // 1rem = 14pt
+<\/script>
+```
+
+
+### Supported Utilities
+
+#### Layout & Flexbox
+
+```text
+flex hidden
+flex-row flex-col flex-row-reverse flex-col-reverse
+flex-wrap flex-nowrap flex-wrap-reverse
+flex-1 flex-auto flex-none
+grow grow-0 shrink shrink-0
+basis-1/2 basis-1/3 basis-1/4 basis-full
+gap-4 gap-x-4 gap-y-2
+```
+
+
+#### Alignment
+
+```text
+items-start items-center items-end items-stretch items-baseline
+justify-start justify-center justify-end justify-between justify-around justify-evenly
+content-start content-center content-end content-between content-around
+self-auto self-start self-center self-end self-stretch self-baseline
+```
+
+
+#### Spacing
+
+```text
+p-4 px-6 py-3 pt-4 pr-3 pb-2 pl-5
+m-4 mx-6 my-3 mt-4 mr-3 mb-2 ml-5
+-mt-2 -ml-4
+```
+
+
+#### Sizing
+
+```text
+w-64 w-1/2 w-full w-auto w-screen w-min w-max w-fit
+h-64 h-full h-auto h-screen h-min h-max h-fit
+min-w-0 max-w-xl min-h-0 max-h-64
+```
+
+
+#### Positioning
+
+```text
+absolute relative static
+inset-0 inset-x-0 inset-y-0
+top-0 right-0 bottom-0 left-0
+z-10 z-50
+```
+
+
+#### Colors
+
+```text
+bg-blue-500 bg-red-100 bg-green-700
+text-white text-gray-900 text-slate-600
+border-blue-300 border-red-500
+decoration-green-500
+fill-blue-400 stroke-red-500
+```
+
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| Color format | HEX | — | All colors are vendored as hex values (Tailwind v3 palette). oklch/hsl color spaces from Tailwind v4 are not supported. |
+| Arbitrary | bg-[#bada55] | — | Use bracket syntax for arbitrary color values. |
+
+
+#### Borders & Radius
+
+```text
+border border-0 border-2 border-4 border-8
+border-t border-r border-b border-l
+border-solid border-dashed border-dotted
+rounded rounded-md rounded-lg rounded-xl rounded-2xl rounded-3xl rounded-full
+rounded-t-lg rounded-b-lg rounded-l-lg rounded-r-lg
+rounded-tl-lg rounded-tr-lg rounded-bl-lg rounded-br-lg
+```
+
+
+#### Typography
+
+```text
+text-xs text-sm text-base text-lg text-xl text-2xl text-3xl text-4xl
+font-thin font-light font-normal font-medium font-semibold font-bold font-extrabold font-black
+italic not-italic
+leading-3 leading-4 leading-5 leading-6 leading-7 leading-8 leading-9 leading-10
+leading-none leading-tight leading-snug leading-normal leading-relaxed leading-loose
+tracking-tighter tracking-tight tracking-normal tracking-wide tracking-wider tracking-widest
+text-left text-center text-right text-justify
+underline line-through no-underline
+uppercase lowercase capitalize normal-case
+```
+
+
+#### Object Fit & Overflow
+
+```text
+object-contain object-cover object-fill object-none object-scale-down
+object-center object-top object-bottom object-left object-right
+overflow-hidden
+```
+
+
+### Combining tw and :style
+
+The `tw` prop is the base layer and `:style` is the override layer. When a property appears in both, `:style` wins:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- tw sets base styles; :style overrides individual properties -->
+      <View tw="p-4 bg-blue-100 rounded-md" :style="{ paddingTop: 40 }">
+        <Text tw="text-lg font-semibold text-blue-800">
+          Padding top is 40pt, other sides are 12pt
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Custom Theme
+
+Call `configureTw()` in your app entry point to extend or override the default theme:
+
+```vue
+<script setup>
+// Override theme defaults — use in app setup or nuxt.config
+configureTw({
+  colors: { brand: { 500: '#7c3aed', 700: '#6d28d9' } },
+  extend: { spacing: { 18: '4.5rem' } },
+})
+<\/script>
+
+<template>
+  <Document>
+    <Page size="A4">
+      <View tw="p-18 bg-brand-500">
+        <Text tw="text-white">Custom theme colors & spacing</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Limitations
+
+- **Font families** — `font-sans`, `font-serif`, `font-mono` map to generic families. Custom fonts must be registered with `Font.register()` first.
+
+- **CSS Grid** — Not supported. vue-pdf uses Yoga Layout (flexbox only).
+
+- **Shadows & Transforms** — Not supported in PDF. `scale-*`, `rotate-*`, and `translate-*` are on the roadmap (Phase 3).
+
+- **Pseudo-classes** — `hover:`, `focus:`, and `dark:` are not applicable. Responsive prefixes (`sm:`, `md:`, etc.) are in Phase 2.
+
+- **Alpha / opacity** — `bg-blue-500/50` is not yet supported.
+
+### API Reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| tw() | (classes: string) => Style | — | Convert a Tailwind class string to a vue-pdf Style object (default instance). |
+| createTw(theme?, options?) | (classes: string) => Style | — | Create a custom converter with optional theme overrides and ptPerRem. |
+| configureTw(theme?, options?) | void | — | Replace the global converter (used by the tw prop on all components). |
+
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| TwTheme | object | — | Theme overrides. Keys: colors, spacing, fontFamily, fontSize, fontWeight, borderRadius, borderWidth, opacity, zIndex, letterSpacing, lineHeight, maxWidth, extend. |
+
+
+---
+
+## Fonts
+
+Source: https://vue-pdf.sanusi.dev/guide/fonts
+
+> Learn how to register and use custom fonts in vue-pdf documents. Font families, weights, and styles.
+
+vue-pdf includes built-in support for standard PDF fonts (Helvetica, Times-Roman, Courier). You can also register custom fonts using the `Font` utility.
+
+### Built-in Fonts
+
+These fonts are always available without registration:
+
+- `Helvetica` — Regular, Bold, Oblique, BoldOblique
+
+- `Times-Roman` — Regular, Bold, Italic, BoldItalic
+
+- `Courier` — Regular, Bold, Oblique, BoldOblique
+
+```vue
+<template>
+  <Document>
+    <Page>
+      <Text :style="{ fontFamily: 'Helvetica', fontSize: 18 }">Helvetica Regular</Text>
+      <Text :style="{ fontFamily: 'Helvetica', fontWeight: 'bold', fontSize: 18 }">Helvetica Bold</Text>
+      <Text :style="{ fontFamily: 'Times-Roman', fontSize: 18 }">Times-Roman</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Registering Custom Fonts
+
+Use `Font.register()` to add custom fonts. Call this before rendering any documents:
+
+```ts [fonts.ts]
+import { Font } from '@vuepdf/renderer'
+
+// Single font
+Font.register({
+  family: 'Inter',
+  src: '/fonts/Inter-Regular.ttf',
+})
+
+// Multiple weights
+Font.register({
+  family: 'Inter',
+  fonts: [
+    { src: '/fonts/Inter-Regular.ttf', fontWeight: 400 },
+    { src: '/fonts/Inter-Bold.ttf', fontWeight: 700 },
+    { src: '/fonts/Inter-Italic.ttf', fontWeight: 400, fontStyle: 'italic' },
+  ],
+})
+```
+
+
+#### Font Options
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| family (required) | string | — | Font family name used in style.fontFamily. |
+| src | string | — | Path or URL to the font file (TTF or OTF). |
+| fontWeight | number | — | Font weight for this specific file. |
+| fontStyle | 'normal' \| 'italic' | — | Font style for this specific file. |
+| hyphenationCallback | (word: string) => string[] | — | Custom hyphenation function. |
+
+
+### Emoji & Fallback Fonts
+
+Register emoji sources for rendering emoji characters:
+
+```ts
+Font.register({
+  family: 'Inter',
+  src: '/fonts/Inter-Regular.ttf',
+})
+
+// Register emoji source
+Font.registerEmojiSource({
+  url: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@14.0.0/img/apple/64/{code}.png',
+  format: 'png',
+})
+```
+
+
+### Font Loading (Server)
+
+On the server, fonts can be loaded from the filesystem or a URL. Use `Font.registerHyphenationCallback` to customize the hyphenation behavior:
+
+> Font files must be in **TTF** or **OTF** format. WOFF/WOFF2 are not supported. On the browser, fonts must be loaded from a CORS-enabled URL.
+
+---
+
+## Images
+
+Source: https://vue-pdf.sanusi.dev/guide/images
+
+> Learn how to embed and style images in vue-pdf documents. Supported formats: PNG, JPEG, and SVG.
+
+Use the `<Image>` component to embed images in your PDF documents. It supports PNG, JPEG, and SVG formats.
+
+### Basic Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Image
+        src="/logo.png"
+        :style="{ width: 150, height: 50, marginBottom: 20 }"
+      />
+      <Text>Your content here...</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Image Sources
+
+The `src` prop accepts various source types:
+
+- **File path** — Relative or absolute path to an image file
+
+- **URL** — Remote image URL (must be CORS-enabled in browser)
+
+- **Base64 Data URI** — Inline base64-encoded image data
+
+- **Buffer** — Node.js Buffer containing image data
+
+```ts
+<template>
+  <Document>
+    <Page size="A4">
+      <Image
+        src="/logo.png"
+        :style="{ width: 150, height: 50, marginBottom: 20 }"
+      />
+      <Text>Your content here...</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Image Sizing
+
+By default, images render at their natural size. Control dimensions with standard style properties:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| src (required) | string \| Buffer | — | Image source. Supports path, URL, data URI, or Buffer. |
+| style.width | number \| string | — | Image width. If set without height, aspect ratio is preserved. |
+| style.height | number \| string | — | Image height. If set without width, aspect ratio is preserved. |
+| style.objectFit | 'contain' \| 'cover' \| 'fill' \| 'none' \| 'scale-down' | — | How the image scales to fit its container. |
+| style.objectPositionX | number | — | Horizontal position of the image within its container. |
+| style.objectPositionY | number | — | Vertical position of the image within its container. |
+| style.borderRadius | number | — | Border radius for rounded corners. |
+| style.opacity | number | — | Opacity from 0 to 1. |
+
+
+### Fixed vs Auto Dimensions
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- Fixed dimensions -->
+      <Image
+        src="/photo.jpg"
+        :style="{ width: 200, height: 150 }"
+      />
+
+      <!-- Auto height (preserves aspect ratio) -->
+      <Image
+        src="/photo.jpg"
+        :style="{ width: 200 }"
+      />
+
+      <!-- Auto width (preserves aspect ratio) -->
+      <Image
+        src="/photo.jpg"
+        :style="{ height: 150 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### ImageBackground
+
+Use `<ImageBackground>` to place content over an image:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <ImageBackground
+        src="/background.jpg"
+        :style="{ width: '100%', height: '100%' }"
+      >
+        <View :style="{ padding: 40 }">
+          <Text :style="{ color: '#fff', fontSize: 24 }">
+            Overlay text on image
+          </Text>
+        </View>
+      </ImageBackground>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### SVG Images
+
+SVG files are rendered natively — they scale infinitely without quality loss:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Image
+        src="/icon.svg"
+        :style="{ width: 64, height: 64 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> For complex SVG graphics, consider using the built-in [SVG components](https://vue-pdf.sanusi.dev/api/svg) which give you direct control over every element.
+
+### Image Caching
+
+vue-pdf caches decoded images for performance. On the browser, images are fetched once and reused across document renders. On the server, images are cached in memory for the lifetime of the process.
+
+---
+
+## Forms
+
+Source: https://vue-pdf.sanusi.dev/guide/forms
+
+> Build interactive, fillable PDF forms in vue-pdf with TextInput, Checkbox, Select, List, and FieldSet.
+
+vue-pdf can produce **interactive PDF forms** — documents with fields a reader can fill in, tick, and save. Fields are backed by the PDF **AcroForm** specification, so they work in Acrobat, Preview, Chrome's built-in viewer, and most other readers.
+
+There is nothing to enable. The moment you render your first form component, vue-pdf initialises the document's AcroForm for you.
+
+### Components
+
+Five components make up the forms API:
+
+- **[TextInput](https://vue-pdf.sanusi.dev/api/text-input)** — free text, single or multiline
+
+- **[Checkbox](https://vue-pdf.sanusi.dev/api/checkbox)** — a two-state toggle
+
+- **[Select](https://vue-pdf.sanusi.dev/api/select)** — a dropdown of predefined options
+
+- **[List](https://vue-pdf.sanusi.dev/api/list)** — a scrollable list of predefined options
+
+- **[FieldSet](https://vue-pdf.sanusi.dev/api/field-set)** — an invisible grouping wrapper
+
+### Your First Field
+
+Every field needs a `name` — that is the key the value is stored under when the form is filled in and exported. Fields are laid out with flexbox like any other element, so give them a size through `style`:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{ fontSize: 10, marginBottom: 4 }">Full name</Text>
+      <TextInput name="fullName" :style="{ height: 24 }" />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Form fields have no intrinsic size. A field without a `height` (and a width, if it is not stretching to fill its parent) collapses to nothing and will be invisible in the reader.
+
+### Common Props
+
+Every form component except `<FieldSet>` accepts this shared set of props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | string | '' | Field identifier. This is the key the value is exported under. |
+| value | string \| number | — | The field's current value. |
+| defaultValue | string \| number | — | The value the field reverts to when the form is reset. |
+| required | boolean | false | Marks the field as mandatory before the form can be submitted. |
+| readOnly | boolean | false | Displays the value but prevents the reader from editing it. |
+| noExport | boolean | false | Excludes the field from the exported form data. |
+
+
+> Boolean props work as bare attributes, the way they do on regular HTML elements — `<Checkbox checked />` is the same as `<Checkbox :checked="true" />`. Multi-word props accept either casing: `read-only` and `readOnly` are equivalent.
+
+### Text Fields
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Single line -->
+      <TextInput name="email" value="me@example.com" :style="{ height: 24 }" />
+
+      <!-- Multiline, with a character limit -->
+      <TextInput
+        name="notes"
+        multiline
+        :max-length="500"
+        :style="{ height: 90, fontSize: 9 }"
+      />
+
+      <!-- Masked -->
+      <TextInput name="pin" password :style="{ height: 24 }" />
+    </Page>
+  </Document>
+</template>
+```
+
+
+Leave `fontSize` off (or set it to `0`) to let the reader auto-size text to the field. See the [TextInput reference](https://vue-pdf.sanusi.dev/api/text-input) for the full prop list.
+
+### Checkboxes
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Unchecked -->
+      <Checkbox name="subscribe" :style="{ width: 14, height: 14 }" />
+
+      <!-- Checked, rendered as an X instead of a tick -->
+      <Checkbox
+        name="agree"
+        checked
+        x-mark
+        :style="{ width: 14, height: 14 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+A checkbox stores one of two string states — `onState` (default `Yes`) and `offState` (default `Off`). Override them when your downstream consumer expects specific values, and keep them consistent across every checkbox in a document: some readers behave unpredictably when checkboxes in the same form use different state names.
+
+### Selects and Lists
+
+`<Select>` renders a dropdown, `<List>` a scrollable box. They take the same props — the only difference is how the reader draws them.
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Dropdown -->
+      <Select
+        name="country"
+        :select="['Nigeria', 'Ghana', 'Kenya']"
+        :style="{ height: 20 }"
+      />
+
+      <!-- Scrollable list, multiple selection -->
+      <List
+        name="languages"
+        multi-select
+        :select="['English', 'French', 'Yoruba', 'Hausa']"
+        :style="{ height: 60 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Grouping With FieldSet
+
+`<FieldSet>` draws nothing. It exists to namespace the fields inside it, which lets you reuse the same field names in different sections and get a structured object out when the form is read back:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <FieldSet name="billing">
+        <TextInput name="street" :style="{ height: 24 }" />
+        <TextInput name="city" :style="{ height: 24 }" />
+      </FieldSet>
+
+      <FieldSet name="shipping">
+        <TextInput name="street" :style="{ height: 24 }" />
+        <TextInput name="city" :style="{ height: 24 }" />
+      </FieldSet>
+    </Page>
+  </Document>
+</template>
+```
+
+
+The fields above export as `billing.street`, `billing.city`, `shipping.street`, and `shipping.city`.
+
+> Only `<TextInput>` and `<Checkbox>` are namespaced by their `<FieldSet>`. `<Select>` and `<List>` always register at the top level, so give them globally unique names. `<FieldSet>` also cannot be nested inside another `<FieldSet>` — use one level of grouping per field.
+
+### Value Formatting
+
+`<TextInput>` accepts a `format` object that tells the reader how to display and validate what is typed:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Formatted as a date -->
+      <TextInput
+        name="dob"
+        :format="{ type: 'date', param: 'dd/mm/yyyy' }"
+        :style="{ height: 24 }"
+      />
+
+      <!-- Formatted as currency -->
+      <TextInput
+        name="amount"
+        :format="{
+          type: 'number',
+          nDec: 2,
+          sepComma: true,
+          currency: '$',
+          currencyPrepend: true,
+        }"
+        :style="{ height: 24 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Formatting is implemented as embedded JavaScript in the PDF. Acrobat runs it; many other readers — including most browser viewers — do not. Treat formatting as a progressive enhancement and never rely on it to validate data you actually care about.
+
+### Fonts
+
+A form needs at least one embedded font to draw field text. vue-pdf uses whatever font is active where the field is rendered, so the standard PDF fonts work out of the box. If you want your fields to match a custom typeface, register it and set `fontFamily` on an ancestor:
+
+```vue
+<script setup lang="ts">
+import { Font } from '@vuepdf/renderer'
+
+Font.register({
+  family: 'Open Sans',
+  src: 'https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0e.ttf',
+})
+<\/script>
+
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40, fontFamily: 'Open Sans' }">
+      <TextInput name="fullName" :style="{ height: 24 }" />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Next Steps
+
+See the [Interactive Form example](https://vue-pdf.sanusi.dev/examples/forms) for a complete, styled document, or jump into the per-component references linked at the top of this page.
+
+---
+
+## Math & Diagrams
+
+Source: https://vue-pdf.sanusi.dev/guide/math-diagrams
+
+> Render LaTeX math expressions and Mermaid diagrams in vue-pdf with the @vuepdf/math and @vuepdf/mermaid packages.
+
+Two optional packages extend vue-pdf beyond its core primitives. Both convert their source into vector paths using vue-pdf's own [SVG primitives](https://vue-pdf.sanusi.dev/api/svg) — no external fonts, no raster images, so output stays sharp at any zoom.
+
+### Math Expressions
+
+`@vuepdf/math` renders LaTeX with MathJax and maps the result onto SVG paths.
+
+```bash
+npm install @vuepdf/math
+```
+
+
+The expression goes in the default slot:
+
+```vue
+<script setup lang="ts">
+import { Math } from '@vuepdf/math'
+<\/script>
+
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Math :height="40">x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}</Math>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| inline | boolean | false | Compact inline mode instead of centered display mode. |
+| width | number \| string | — | Width of the expression. Derived from the aspect ratio if omitted. |
+| height | number \| string | — | Height of the expression. Derived from the aspect ratio if omitted. |
+| color | string | 'black' | Colour of the rendered expression. |
+| debug | boolean | false | Draw a border around the expression to debug layout. |
+
+
+#### Inline Mode
+
+Set `inline` and place it in a row alongside `<Text>`:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <View :style="{ flexDirection: 'row', alignItems: 'center' }">
+        <Text>The equation </Text>
+        <Math inline :height="12">E = mc^2</Math>
+        <Text> is famous.</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Vue templates treat `{{ '{{' }}` as interpolation. A LaTeX source containing double braces breaks the template parser, so bind it from script instead of inlining it:
+
+```vue
+<template>
+  <!-- Vue reads {{ }} as interpolation, so bind the source as a string -->
+  <Math :height="40">{{ expression }}</Math>
+</template>
+
+<script setup lang="ts">
+const expression = '\\\\sqrt{{a+b}^2}'
+<\/script>
+```
+
+
+Standard MathJax coverage applies: fractions, roots, operators, Greek letters, summations, products, integrals, limits, derivatives, matrices, binomial coefficients, trigonometric functions, accents, piecewise functions, and aligned equations.
+
+### Mermaid Diagrams
+
+`@vuepdf/mermaid` renders Mermaid definitions — flowcharts, sequence diagrams, class diagrams, state charts, and the rest of Mermaid's grammar.
+
+```bash
+npm install @vuepdf/mermaid
+```
+
+
+```vue
+<script setup lang="ts">
+import { Mermaid } from '@vuepdf/mermaid'
+
+const diagram = \`graph TD
+  A[Start] --> B{Is it valid?}
+  B -->|Yes| C[Process]
+  B -->|No| D[Reject]
+  C --> E[Done]\
+```
+
+
+#### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| width | number \| string | — | Width of the diagram. Derived from the viewBox aspect ratio if omitted. |
+| height | number \| string | — | Height of the diagram. Derived from the viewBox aspect ratio if omitted. |
+| theme | string | — | Built-in palette. See the list below. |
+| color | string | — | Foreground and text colour. |
+| bg | string | — | Background colour of the diagram. |
+| transparent | boolean | — | Render with no background fill. |
+| accent | string | — | Accent colour for arrowheads and highlights. |
+| line | string | — | Stroke colour for edges and connectors. |
+| muted | string | — | Colour for secondary text and labels. |
+| surface | string | — | Node fill tint. |
+| border | string | — | Node stroke colour. |
+| debug | boolean | false | Draw a border around the diagram to debug layout. |
+
+
+#### Theming
+
+Pass a `theme` name, or override any individual colour. Explicit colours win over the theme, so you can pick a theme and adjust one part of it:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40, backgroundColor: '#1a1b26' }">
+      <!-- Built-in theme -->
+      <Mermaid theme="tokyo-night" :width="400" :height="260">
+        {{ diagram }}
+      </Mermaid>
+
+      <!-- Or drive the palette directly -->
+      <Mermaid
+        transparent
+        color="#e6e6e6"
+        line="#7aa2f7"
+        accent="#bb9af7"
+        surface="#24283b"
+        border="#414868"
+        :width="400"
+        :height="260"
+      >
+        {{ diagram }}
+      </Mermaid>
+    </Page>
+  </Document>
+</template>
+```
+
+
+Available themes:
+
+- `tokyo-night`, `tokyo-night-storm`, `tokyo-night-light`
+
+- `catppuccin-mocha`, `catppuccin-latte`
+
+- `nord`, `nord-light`
+
+- `dracula`
+
+- `github-dark`, `github-light`
+
+- `solarized-dark`, `solarized-light`
+
+- `one-dark`
+
+- `zinc-dark`, `zinc-light`
+
+> Both components accept their source through the default slot, so a definition held in a `ref` re-renders the document when it changes — handy in the [Playground](https://vue-pdf.sanusi.dev/playground).
+
+---
+
+## Advanced
+
+Source: https://vue-pdf.sanusi.dev/guide/advanced
+
+> Page wrapping, bookmarks, named destinations, dynamic content, orphan and widow protection, debugging, and rendering large documents in vue-pdf.
+
+Everything beyond laying out a static page: controlling how content flows across pages, making documents navigable, generating content that depends on the page it lands on, and keeping large renders off the main thread.
+
+### Page Wrapping
+
+vue-pdf ships a wrapping engine that is **enabled by default**. When content exceeds the page, it breaks onto a new one automatically. Turn it off per page with `:wrap="false"`:
+
+```vue
+<template>
+  <Document>
+    <!-- Disable the wrapping engine for this page -->
+    <Page :wrap="false">
+      <Text>Everything stays on one page, even if it overflows.</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Breakable and Unbreakable Components
+
+`<View>`, `<Text>`, and `<Link>` are **breakable** — they fill the remaining space and continue on the next page. `<Image>` is **unbreakable** — if it does not fit, the whole thing moves to the next page.
+
+Set `:wrap="false"` on a breakable element to make it behave the same way:
+
+```vue
+<template>
+  <Document>
+    <Page wrap>
+      <!-- Pushed whole onto the next page if it doesn't fit here -->
+      <View :wrap="false" :style="{ padding: 12 }">
+        <Text>This block is never split across pages.</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Page Breaks
+
+The `break` prop on any primitive forces a new page before it renders:
+
+```vue
+<template>
+  <Document>
+    <Page wrap>
+      <Text>End of section one.</Text>
+
+      <!-- Forces a new page before rendering -->
+      <Text break>Section two starts on a fresh page.</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Fixed Components
+
+The `fixed` prop repeats an element on every page — the basis for headers, footers, and page numbers:
+
+```vue
+<template>
+  <Document>
+    <Page wrap :style="{ paddingTop: 50, paddingBottom: 40 }">
+      <!-- Repeated on every page -->
+      <View
+        fixed
+        :style="{ position: 'absolute', top: 16, left: 40, right: 40 }"
+      >
+        <Text :style="{ fontSize: 9, color: '#888' }">Quarterly Report</Text>
+      </View>
+
+      <Text
+        fixed
+        :style="{ position: 'absolute', bottom: 16, left: 0, right: 0, textAlign: 'center', fontSize: 9 }"
+        :render="({ pageNumber, totalPages }) => \`\${pageNumber} / \${totalPages}\`"
+      />
+
+      <Text>Body content...</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Document Navigation
+
+#### Named Destinations
+
+Give an element an `id`, then point a `<Link>` at it with a `#` prefix. The reader jumps to that element, across pages:
+
+```vue
+<template>
+  <Document>
+    <Page>
+      <Link href="#footnote">Jump to the footnote</Link>
+
+      <View id="footnote" break>
+        <Text>You are here because you clicked the link above.</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+#### Bookmarks
+
+The `bookmark` prop builds the outline tree readers show in their sidebar. It accepts either a string or a bookmark object, and nesting follows your component tree — a bookmark on a `<Text>` inside a bookmarked `<Page>` becomes its child:
+
+```vue
+<template>
+  <Document>
+    <Page bookmark="Harry Potter and the Philosopher's Stone">
+      <Text :bookmark="{ title: 'Chapter 1: The Boy Who Lived', fit: true }">
+        Mr and Mrs Dursley, of number four, Privet Drive...
+      </Text>
+
+      <Text
+        break
+        :bookmark="{ title: 'Chapter 2: The Vanishing Glass', expanded: true }"
+      >
+        Nearly ten years had passed...
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title (required) | string | — | The label shown in the reader's outline. |
+| top | number | 0 | Y coordinate the reader scrolls to. |
+| left | number | 0 | X coordinate the reader scrolls to. |
+| zoom | number | — | Zoom level applied when the bookmark is followed. |
+| fit | boolean | — | Jump to the start of the page rather than a coordinate. |
+| expanded | boolean | — | Show this node already expanded in the outline tree. |
+
+
+> Some older PDF readers ignore bookmarks. Treat the outline as navigation convenience, not as the only way to reach a section.
+
+### Dynamic Content
+
+Pass a function to the `render` prop of `<Text>` or `<View>` to generate content that depends on where it lands:
+
+```vue
+<template>
+  <Document>
+    <Page wrap>
+      <!-- Page numbers in a footer -->
+      <Text
+        fixed
+        :render="({ pageNumber, totalPages }) => \`\${pageNumber} / \${totalPages}\`"
+      />
+
+      <!-- Conditional content per page -->
+      <View :render="({ pageNumber }) => renderOddPageBanner(pageNumber)" />
+    </Page>
+  </Document>
+</template>
+```
+
+
+A `<Text>` render function returns a **string**. A `<View>` render function returns **plain element objects**:
+
+```vue
+<script setup lang="ts">
+// A View render function returns plain element objects — NOT Vue vnodes.
+// \`type\` is the primitive's string name, and children nest the same way.
+const renderOddPageBanner = (pageNumber: number) =>
+  pageNumber % 2 === 1
+    ? {
+        type: 'VIEW',
+        props: {},
+        style: { backgroundColor: '#fee', padding: 8 },
+        children: [
+          {
+            type: 'TEXT',
+            props: {},
+            style: { fontSize: 10 },
+            children: "I'm only visible on odd pages!",
+          },
+        ],
+      }
+    : null
+<\/script>
+```
+
+
+> A `<View>` render function must **not** return Vue vnodes. Anything built with `h()` has a component object as its `type` and is **silently dropped** — no error, just missing content. Return objects whose `type` is the primitive's string name instead.
+
+To avoid hardcoding those strings, import the primitive constants:
+
+```vue
+<script setup lang="ts">
+import * as P from '@vuepdf/renderer/primitives'
+
+// P.View === 'VIEW', P.Text === 'TEXT' — the same strings, but checked
+const renderBanner = (pageNumber: number) => ({
+  type: P.View,
+  props: {},
+  style: { backgroundColor: '#fee', padding: 8 },
+  children: [
+    { type: P.Text, props: {}, children: \`Page \${pageNumber}\` },
+  ],
+})
+<\/script>
+```
+
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| pageNumber | number | — | The current page number. |
+| totalPages | number | — | Total pages in the document. Text only. |
+| subPageNumber | number | — | The current subpage within its Page component. |
+| subPageTotalPages | number | — | Total subpages of the Page component. Text only. |
+
+
+> For `<Text>`, the render function runs **twice** — once during the wrapping pass, and again once the page count is known. On the first pass only `pageNumber` is available; `totalPages`, `subPageNumber`, and `subPageTotalPages` are `undefined`. Keep render functions pure and guard against the missing values.
+
+### Orphan & Widow Protection
+
+vue-pdf avoids stranding single lines at a page boundary. Tune it with these props on any primitive:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| minPresenceAhead | number | 0 | Prevents a page break between this element and its next sibling within n points. |
+| orphans | number | 2 | Minimum lines left at the bottom of a page. Text only. |
+| widows | number | 2 | Minimum lines carried to the top of the next page. Text only. |
+
+
+```vue
+<template>
+  <Document>
+    <Page wrap>
+      <!-- Never leave this heading stranded at the foot of a page -->
+      <Text :min-presence-ahead="60" :style="{ fontSize: 16 }">
+        Results
+      </Text>
+
+      <Text :orphans="3" :widows="3">
+        A long body of text that will be split across pages...
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> `minPresenceAhead` is the fix for a heading rendering alone at the foot of a page. Set it to roughly the height of the content that must stay with it.
+
+### Debugging
+
+Add `debug` to any primitive except `<Document>` to outline its content box, padding, and margin:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" debug>
+      <View debug :style="{ padding: 20, margin: 10 }">
+        <Text debug>Content, padding and margin are outlined.</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Hyphenation
+
+Line breaking uses the Knuth–Plass algorithm with English hyphenation patterns by default. Override the pattern set with `Font.registerHyphenationCallback` — it receives a word and returns its syllables:
+
+```ts
+<script setup lang="ts">
+import { Font } from '@vuepdf/renderer'
+import { hyphenateSync as hyphenateDE } from 'hyphen/de'
+
+// Return the syllables of a word as an array
+Font.registerHyphenationCallback((word) =>
+  hyphenateDE(word).split('\\u00AD'),
+)
+
+// Or disable hyphenation entirely
+// Font.registerHyphenationCallback((word) => [word])
+<\/script>
+```
+
+
+See the [Fonts guide](https://vue-pdf.sanusi.dev/guide/fonts) for registration details and `registerEmojiSource`.
+
+### Usage With Express
+
+On the server, [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream) pipes straight into the response — no temporary file, no buffering the whole document:
+
+```ts
+import express from 'express'
+import { renderToStream } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+
+const app = express()
+
+app.get('/report.pdf', async (req, res) => {
+  const stream = await renderToStream(MyDocument)
+
+  res.setHeader('Content-Type', 'application/pdf')
+  stream.pipe(res)
+  stream.on('end', () => console.log('Done streaming, response sent.'))
+})
+
+app.listen(3000)
+```
+
+
+If you need the bytes rather than a stream, use [renderToBuffer](https://vue-pdf.sanusi.dev/api/render-to-buffer).
+
+> Node cannot `import` a `.vue` file on its own. Outside Nuxt, run the server through a build step that compiles SFCs (Vite, tsup, or similar), or skip components entirely and build the document from `@vuepdf/renderer/primitives` — see [Dynamic Content](https://vue-pdf.sanusi.dev#dynamic-content) for that element shape. vue-pdf's own packages ship precompiled, so they need no plugin either way.
+
+### Rendering Large Documents in the Browser
+
+Rendering is synchronous work on the main thread. Past roughly 30 pages that becomes a visible freeze, so move it into a web worker and keep the UI responsive:
+
+```ts [pdf.worker.ts]
+// pdf.worker.ts
+import { pdf } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+
+self.onmessage = async (event) => {
+  const blob = await pdf(MyDocument, event.data.props).toBlob()
+  self.postMessage(blob)
+}
+```
+
+
+```vue [DownloadButton.vue]
+<script setup lang="ts">
+const url = ref<string>()
+
+onMounted(() => {
+  const worker = new Worker(new URL('./pdf.worker.ts', import.meta.url), {
+    type: 'module',
+  })
+
+  worker.onmessage = (event) => {
+    url.value = URL.createObjectURL(event.data)
+  }
+
+  worker.postMessage({ props: { title: 'Big report' } })
+})
+<\/script>
+```
+
+
+> Remember to `URL.revokeObjectURL()` the blob URL when you are done with it, and terminate the worker on unmount.
+
+### Math & Diagrams
+
+Two optional packages extend vue-pdf: `@vuepdf/math` renders LaTeX expressions as vector paths, and `@vuepdf/mermaid` renders Mermaid diagrams. See [Math & Diagrams](https://vue-pdf.sanusi.dev/guide/math-diagrams).
+
+---
+
+# Components
+
+## Document API
+
+Source: https://vue-pdf.sanusi.dev/api/document
+
+> Full API reference for the Document component — props, metadata, and usage.
+
+The root component of every vue-pdf document. It wraps all pages and provides the rendering context that connects Vue components to the PDF output.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | string | — | PDF document title — appears in document metadata. |
+| author | string | — | PDF document author. |
+| subject | string | — | PDF document subject. |
+| keywords | string | — | Comma-separated keywords. |
+| creator | string | — | Application that created the document. |
+| producer | string | — | Application that produced the PDF. |
+| pageLayout | 'singlePage' \| 'oneColumn' \| 'twoColumnLeft' \| 'twoColumnRight' \| 'twoPageLeft' \| 'twoPageRight' | — | How pages are displayed in the PDF viewer. |
+| pageMode | 'useNone' \| 'useOutlines' \| 'useThumbs' \| 'fullScreen' | — | How the document appears when opened. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document
+      title="Annual Report 2024"
+      author="Acme Inc."
+      subject="Financial Results"
+      keywords="annual, report, 2024"
+      creator="vue-pdf"
+    >
+      <Page size="A4">
+        <Text>Document content...</Text>
+      </Page>
+    </Document>
+</template>
+```
+
+
+### How It Works
+
+`<Document>` creates a rendering context via Vue's `provide/inject`. Child components (`<Page>`, `<Text>`, `<View>`, etc.) register themselves with this context. When the tree is complete, the reconciler walks the mounted DOM, builds an internal instance tree, and passes it to the PDF layout and render pipeline.
+
+When used with `usePDF` or `<PDFViewer>`, the Document connects to a sink that receives the PDF output. When used standalone (on the server), it creates its own `pdf()` instance and calls `updateContainer()` on re-render.
+
+> `<Document>` expects only `<Page>` children. All content must be placed inside a `<Page>`.
+
+---
+
+## Page API
+
+Source: https://vue-pdf.sanusi.dev/api/page
+
+> Full API reference for the Page component — size, orientation, wrapping, and debugging options.
+
+Defines a single page in the PDF document. Each page can have its own size, orientation, and styles. Content that overflows a page automatically wraps to the next one.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| size | PageSize \| [number, number] | 'A4' | Named page size or custom [width, height] in points. Available: A0-A10, B0-B10, C0-C10, LETTER, LEGAL, TABLOID, EXECUTIVE, POSTCARD. |
+| orientation | 'portrait' \| 'landscape' | 'portrait' | Page orientation. Swaps width and height when set to landscape. |
+| style | Style | — | Page-level styles. Supports padding, backgroundColor, and flex layout properties. |
+| wrap | boolean | true | When true, content that overflows automatically continues on the next page. |
+| debug | boolean | false | When enabled, every layout element shows a colored border for debugging. |
+| dpi | number | 72 | Dots per inch for the page rasterization. Higher values increase image/canvas resolution. |
+
+
+### Named Page Sizes
+
+Standard sizes available as string constants:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- Common sizes -->
+      <Page size="A4">
+      <Page size="LETTER">
+      <Page size="LEGAL">
+
+      <!-- Custom numeric size (points) -->
+      <Page :size="[595, 842]"> <!-- A4 in points -->
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Page With Padding
+
+Use the `style` prop to add padding around page content:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{
+      padding: 40,
+      paddingTop: 60,
+      backgroundColor: '#ffffff',
+    }">
+      <Text>Page content with 40pt padding on all sides...</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Enabled Wrapping
+
+By default (`wrap: true`), content that exceeds a page will flow to the next one:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 12 }">
+        Very long text that naturally flows...
+      </Text>
+      <!-- If text overflows, it wraps to a new page automatically -->
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Debug Mode
+
+Enable `debug` to see colored borders around every element — useful during layout development:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :debug="true">
+      <View :style="{ padding: 20 }">
+        <Text>Debug mode shows element boundaries</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Fixed Page
+
+Set `wrap: false` for single-page documents where overflow should be clipped:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :wrap="false">
+      <Text>Single-page document — no wrapping</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## View API
+
+Source: https://vue-pdf.sanusi.dev/api/view
+
+> Full API reference for the View component — the fundamental layout container in vue-pdf.
+
+The `<View>` component is the fundamental layout building block — analogous to a `<div>` in HTML. Every View is a flex container by default.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style | — | Standard style object. Supports all layout, box model, and appearance properties. |
+| fixed | boolean | — | When true, the element is fixed to the page and repeated on every page. |
+| wrap | boolean | true | Whether children can wrap to the next page. |
+| debug | boolean | — | Show debug borders for this element. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <View :style="{
+        padding: 20,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 8,
+        marginBottom: 16,
+      }">
+        <Text :style="{ fontSize: 16, fontWeight: 'bold' }">
+          Section Title
+        </Text>
+        <Text :style="{ fontSize: 12, marginTop: 8 }">
+          Section content goes here.
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Fixed Elements
+
+A View with `fixed` is rendered on every page at the same position. Useful for headers and footers:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- Fixed header -->
+      <View :fixed="true" :style="{
+        position: 'absolute',
+        top: 20,
+        left: 40,
+        right: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: '#000',
+        paddingBottom: 8,
+      }">
+        <Text :style="{ fontSize: 10 }">Company Name — Report Title</Text>
+      </View>
+
+      <!-- Fixed footer -->
+      <View :fixed="true" :style="{
+        position: 'absolute',
+        bottom: 20,
+        left: 40,
+        right: 40,
+        borderTopWidth: 1,
+        borderTopColor: '#000',
+        paddingTop: 8,
+      }">
+        <Text :style="{ fontSize: 10, textAlign: 'center' }">
+          Page <Text render="{(props) => props.pageNumber}" />
+        </Text>
+      </View>
+
+      <!-- Main content -->
+      <View :style="{ padding: 80, paddingTop: 50 }">
+        <Text>Body content that spans multiple pages...</Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Render Prop
+
+The `render` prop on `<Text>` provides access to page numbering and sub-page data:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text
+        :render="({ pageNumber, subPageNumber }) => \`Page \${pageNumber}\`"
+        :style="{ fontSize: 10 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Text API
+
+Source: https://vue-pdf.sanusi.dev/api/text
+
+> Full API reference for the Text component — text rendering, styling, and advanced layout in vue-pdf.
+
+The `<Text>` component renders text content. It supports rich styling, paragraph layout, and inline segments using `<Tspan>`.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style | — | Standard style object. Supports all typography and layout properties. |
+| fixed | boolean | — | When true, the element is fixed and repeated on every page. |
+| debug | boolean | — | Show debug borders for this element. |
+| hyphens | boolean | true | Enable/disable hyphenation for this text block. |
+| minPresenceAhead | number | 0 | Prevents page breaks when fewer than N points remain. |
+| wrap | boolean | true | Whether text can wrap. |
+| maxLines | number | — | Maximum number of lines to render. Extra text is truncated. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{
+        fontSize: 24,
+        fontWeight: 'bold',
+        fontFamily: 'Helvetica',
+        marginBottom: 12,
+      }">
+        Heading Text
+      </Text>
+
+      <Text :style="{
+        fontSize: 12,
+        lineHeight: 1.6,
+        textAlign: 'justify',
+      }">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Text Truncation
+
+Use `maxLines` to limit text and add an ellipsis:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 12 }" :maxLines="2">
+        This text will be truncated at two lines if it exceeds
+        the available width. Any content beyond two lines will
+        be hidden and replaced with an ellipsis character.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Inline Styling with Tspan
+
+Use `<Tspan>` for styled inline text segments:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 14 }">
+        This is normal text,
+        <Tspan :style="{ fontWeight: 'bold', color: '#dc2626' }">
+          bold red text,
+        </Tspan>
+        and
+        <Tspan :style="{ fontStyle: 'italic', textDecoration: 'underline' }">
+          italic underlined text.
+        </Tspan>
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Text Decoration
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| textDecoration | 'underline' \| 'line-through' \| 'underline line-through' | — | Add lines to text. |
+| textDecorationColor | string | — | Color of decoration lines. |
+| textDecorationStyle | 'solid' \| 'dashed' \| 'dotted' \| 'wavy' | 'solid' | Style of decoration lines. |
+
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{
+        fontSize: 14,
+        textDecoration: 'underline',
+        textDecorationColor: '#dc2626',
+        textDecorationStyle: 'wavy',
+      }">
+        This text has a red wavy underline.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Advanced Typography
+
+vue-pdf includes a sophisticated text layout engine (`@vuepdf/textkit`) that handles:
+
+- Line breaking (Knuth-Plass, best-fit)
+
+- Hyphenation (with configurable callbacks)
+
+- Text justification and alignment
+
+- Right-to-left (RTL) and bidirectional text
+
+- Script itemization (Latin, Arabic, CJK, etc.)
+
+- Orphans and widows control
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{
+        fontSize: 12,
+        textAlign: 'justify',
+        hyphens: 'auto',
+        orphans: 3,
+        widows: 2,
+      }">
+        This paragraph uses advanced text layout features. Hyphenation
+        is enabled, and orphans/widows control prevents single lines
+        from appearing at page boundaries.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> The text layout engine processes text paragraph-by-paragraph. Each `<Text>` component represents a single paragraph. Use multiple `<Text>` components for separate paragraphs.
+
+---
+
+## Link API
+
+Source: https://vue-pdf.sanusi.dev/api/link
+
+> API reference for the Link component — create clickable hyperlinks in PDF documents.
+
+The `<Link>` component creates a clickable hyperlink inside the PDF document. Links can point to external URLs or internal page anchors.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| src (required) | string | — | The URL or internal anchor target ('#page-3', '#my-anchor'). |
+| style | Style | — | Standard style object for the link container. |
+
+
+### External Links
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 12 }">
+        Visit our website at{' '}
+        <Link src="https://example.com">
+          <Text :style="{ color: '#2563eb', textDecoration: 'underline' }">
+            example.com
+          </Text>
+        </Link>
+        {' '}for more information.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Internal Links
+
+Link to other pages or anchored elements within the document:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 14 }">
+        See the{' '}
+        <Link src="#conclusion">
+          <Text :style="{ color: '#2563eb' }">Conclusion</Text>
+        </Link>
+        {' '}section for a summary.
+      </Text>
+
+      <!-- Later in the document... -->
+      <View :id="'conclusion'" :style="{ marginTop: 200 }">
+        <Text :style="{ fontSize: 20, fontWeight: 'bold' }">
+          Conclusion
+        </Text>
+        <Text :style="{ fontSize: 12 }">
+          Summary of the document content...
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> To link to a specific page number, use the format `#page-3` as the `src` prop.
+
+---
+
+## Image API
+
+Source: https://vue-pdf.sanusi.dev/api/image
+
+> API reference for the Image and ImageBackground components — embed images in PDF documents.
+
+The `<Image>` component renders an image from a file path, URL, or data source. Supports PNG, JPEG, and SVG formats.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| src (required) | string \| Buffer | — | Image source. Path, URL, base64 data URI, or Buffer. |
+| style | Style | — | Standard style object. Common: width, height, objectFit, borderRadius. |
+| fixed | boolean | — | Repeat on every page. |
+| debug | boolean | — | Show debug borders. |
+| cache | boolean | true | Whether to cache the decoded image. |
+
+
+### Source Types
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <!-- Local path -->
+      <Image src="/assets/logo.png" />
+
+      <!-- Remote URL -->
+      <Image src="https://example.com/photo.jpg" />
+
+      <!-- Base64 Data URI -->
+      <Image src="data:image/svg+xml;base64,PHN2ZyB..." />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Object Fit
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Image
+        src="/photo.jpg"
+        :style="{
+          width: 200,
+          height: 200,
+          objectFit: 'cover',
+          objectPositionX: 0.5,
+          objectPositionY: 0.3,
+          borderRadius: 8,
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Note API
+
+Source: https://vue-pdf.sanusi.dev/api/note
+
+> API reference for the Note component — PDF annotations and comments.
+
+The `<Note>` component creates a PDF annotation — a sticky note or comment attached to a specific position on the page. Notes appear as clickable icons in PDF viewers.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style | — | Position and size of the note icon on the page. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 14, marginBottom: 20 }">
+        This paragraph has a note attached about the content.
+      </Text>
+
+      <Note :style="{ position: 'absolute', left: 20, top: 100 }">
+        This is a reviewer comment about the paragraph above.
+      </Note>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Not all PDF viewers display annotations the same way. For maximum compatibility, use notes sparingly and provide the note text as child content.
+
+---
+
+## Canvas API
+
+Source: https://vue-pdf.sanusi.dev/api/canvas
+
+> API reference for the Canvas component — drawing graphics on PDF pages.
+
+The `<Canvas>` component provides a drawing surface where you can paint graphics using a Canvas-like API. It supports paths, shapes, strokes, fills, and gradients.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style | — | Dimensions and position of the canvas. |
+| paint (required) | (painter: CanvasPainter) => void | — | Callback that receives a painter object for drawing. |
+| fixed | boolean | — | Repeat on every page. |
+
+
+### Paint API
+
+The painter object supports these methods:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| moveTo(x, y) | void | — | Move the current point without drawing. |
+| lineTo(x, y) | void | — | Draw a line from the current point. |
+| quadraticCurveTo(cpx, cpy, x, y) | void | — | Draw a quadratic Bezier curve. |
+| bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) | void | — | Draw a cubic Bezier curve. |
+| arc(x, y, radius, startAngle, endAngle) | void | — | Draw an arc. |
+| rect(x, y, w, h) | void | — | Draw a rectangle path. |
+| circle(x, y, radius) | void | — | Draw a circle path. |
+| ellipse(x, y, rx, ry) | void | — | Draw an ellipse path. |
+| lineWidth | number | — | Stroke width in points. |
+| strokeColor | string | — | Stroke color (hex, rgb, name). |
+| fillColor | string | — | Fill color (hex, rgb, name). |
+| strokeOpacity | number | — | Stroke opacity (0-1). |
+| fillOpacity | number | — | Fill opacity (0-1). |
+| undash | () => void | — | Disable dash mode. |
+| clip | () => void | — | Clip the drawing area. |
+| save | () => void | — | Save the current graphics state. |
+| restore | () => void | — | Restore the previously saved state. |
+| linearGradient(x1, y1, x2, y2) | Gradient | — | Create a linear gradient. |
+| radialGradient(x1, y1, r1, x2, y2, r2) | Gradient | — | Create a radial gradient. |
+| lineCap | string | — | Line cap style ('butt', 'round', 'square'). |
+| lineJoin | string | — | Line join style ('miter', 'round', 'bevel'). |
+| opacity | number | — | Global opacity for all operations. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Canvas
+        :style="{ width: 200, height: 200 }"
+        :paint="(p) => {
+          // Draw a red rectangle
+          p.fillColor = '#dc2626'
+          p.rect(20, 20, 160, 80)
+          p.fill()
+
+          // Draw a circle with stroke
+          p.fillColor = '#2563eb'
+          p.strokeColor = '#1e3a5f'
+          p.lineWidth = 3
+          p.circle(100, 140, 40)
+          p.fill()
+          p.stroke()
+
+          // Draw a line
+          p.strokeColor = '#059669'
+          p.lineWidth = 2
+          p.moveTo(0, 0)
+          p.lineTo(200, 200)
+          p.stroke()
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Canvas With Gradient
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Canvas
+        :style="{ width: 200, height: 100 }"
+        :paint="(p) => {
+          const grad = p.linearGradient(0, 0, 200, 0)
+          grad.stop(0, '#dc2626')
+          grad.stop(0.5, '#f97316')
+          grad.stop(1, '#eab308')
+          p.fillColor = grad
+          p.rect(0, 0, 200, 100)
+          p.fill()
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## SVG Components API
+
+Source: https://vue-pdf.sanusi.dev/api/svg
+
+> API reference for SVG components — Svg, G, Path, Rect, Line, Circle, Ellipse, Polygon, Polyline, and gradients.
+
+vue-pdf provides full SVG support through a set of native SVG components. These render as vector graphics in the PDF — infinitely scalable and precise.
+
+### Available SVG Components
+
+- `<Svg>` — SVG container with width/height and viewBox
+
+- `<G>` — Group element for organizing and transforming children
+
+- `<Path>` — Draw paths using SVG path data
+
+- `<Rect>` — Rectangle with optional rounded corners (rx, ry)
+
+- `<Line>` — Straight line between two points
+
+- `<Circle>` — Circle with center (cx, cy) and radius
+
+- `<Ellipse>` — Ellipse with center (cx, cy) and radii (rx, ry)
+
+- `<Polygon>` — Closed shape from a list of points
+
+- `<Polyline>` — Open shape from a list of points
+
+- `<Tspan>` — Inline text spans inside SVG text
+
+- `<Defs>` — Definitions container for gradients and clips
+
+- `<ClipPath>` — Clipping path definition
+
+- `<LinearGradient>` — Linear gradient definition
+
+- `<RadialGradient>` — Radial gradient definition
+
+- `<Stop>` — Gradient color stop
+
+- `<Marker>` — Arrowhead/end marker for lines
+
+### Common SVG Component Props
+
+All shape components (`Path`, `Rect`, `Circle`, etc.) support:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style | — | Styles including fill, stroke, strokeWidth, and opacity. |
+| fill | string | — | Fill color or gradient reference. |
+| stroke | string | — | Stroke color. |
+| strokeWidth | number | — | Stroke width in points. |
+| strokeLinecap | 'butt' \| 'round' \| 'square' | — | Line cap style. |
+| strokeLinejoin | 'miter' \| 'round' \| 'bevel' | — | Line join style. |
+| strokeDasharray | string | — | Dash pattern (e.g. '5,5'). |
+| opacity | number | — | Element opacity (0-1). |
+| fillOpacity | number | — | Fill opacity (0-1). |
+| strokeOpacity | number | — | Stroke opacity (0-1). |
+
+
+### Basic SVG Example
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Svg :width="200" :height="200" viewBox="0 0 200 200">
+        <Rect
+          :x="10" :y="10" :width="180" :height="180"
+          fill="#f0f0f0" stroke="#333" :strokeWidth="2"
+          :rx="8"
+        />
+        <Circle
+          :cx="100" :cy="100" :r="50"
+          fill="#2563eb" :fillOpacity="0.8"
+        />
+        <Line
+          :x1="20" :y1="20" :x2="180" :y2="180"
+          stroke="#dc2626" :strokeWidth="3"
+        />
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Path Component
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Svg :width="100" :height="100" viewBox="0 0 24 24">
+        <Path
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+          fill="#eab308" stroke="#ca8a04" :strokeWidth="0.5"
+        />
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Gradients
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Svg :width="200" :height="100" viewBox="0 0 200 100">
+        <Defs>
+          <LinearGradient id="myGrad" x1="0" y1="0" x2="1" y2="0">
+            <Stop offset="0%" stopColor="#dc2626" />
+            <Stop offset="50%" stopColor="#f97316" />
+            <Stop offset="100%" stopColor="#eab308" />
+          </LinearGradient>
+        </Defs>
+        <Rect x="0" y="0" width="200" height="100" fill="url(#myGrad)" :rx="8" />
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Polygon
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Svg :width="100" :height="100" viewBox="0 0 100 100">
+        <Polygon
+          points="50,5 95,30 95,70 50,95 5,70 5,30"
+          fill="#2563eb" stroke="#1e3a5f" :strokeWidth="2"
+        />
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## ImageBackground API
+
+Source: https://vue-pdf.sanusi.dev/api/image-background
+
+> API reference for the ImageBackground component — place content over a background image.
+
+Renders children over a background image. The image fills the component's area, and child components are positioned on top.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| src (required) | string \| Buffer | — | Background image source. |
+| style | Style | — | Dimensions and layout for the container. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <ImageBackground
+        src="/cover.jpg"
+        :style="{ width: '100%', height: 300 }"
+      >
+        <View :style="{
+          padding: 40,
+          flex: 1,
+          justifyContent: 'flex-end',
+        }">
+          <Text :style="{
+            fontSize: 32,
+            fontWeight: 'bold',
+            color: '#fff',
+          }">
+            Overlay Title
+          </Text>
+        </View>
+      </ImageBackground>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+# Form Components
+
+## TextInput API
+
+Source: https://vue-pdf.sanusi.dev/api/text-input
+
+> API reference for the TextInput component — interactive text fields in PDF forms.
+
+The `<TextInput>` component adds an interactive text field to a PDF form. Readers can type into it, and the value is exported under the field's `name`.
+
+New to forms? Start with the [Forms guide](https://vue-pdf.sanusi.dev/guide/forms).
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | string | '' | Field identifier. This is the key the value is exported under. |
+| value | string \| number | — | The field's current value. |
+| defaultValue | string \| number | — | The value the field reverts to when the form is reset. |
+| align | 'left' \| 'center' \| 'right' | 'left' | Horizontal alignment of the text inside the field. |
+| multiline | boolean | false | Allows the value to wrap across multiple lines. |
+| password | boolean | false | Masks the typed characters. |
+| noSpell | boolean | false | Disables the reader's spell check for this field. |
+| fontSize | number | — | Size of the field text. Omit or set to 0 for auto sizing. |
+| maxLength | number | — | Maximum number of characters the field accepts. |
+| format | TextInputFormatting | — | Display and validation formatting. See Formatting below. |
+| required | boolean | false | Marks the field as mandatory before the form can be submitted. |
+| readOnly | boolean | false | Displays the value but prevents the reader from editing it. |
+| noExport | boolean | false | Excludes the field from the exported form data. |
+| style | Style \| Style[] | — | Size, position, and border of the field box. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{ fontSize: 10, marginBottom: 4 }">Full name</Text>
+      <TextInput
+        name="fullName"
+        value="Ada Lovelace"
+        :style="{
+          height: 24,
+          borderWidth: 1,
+          borderColor: '#cbd5e1',
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> A `<TextInput>` has no intrinsic size. Always give it a `height` — and a `width` if it is not stretching to fill its parent — or it will be invisible.
+
+### Multiline
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <TextInput
+        name="notes"
+        multiline
+        no-spell
+        :max-length="500"
+        align="left"
+        :style="{ height: 100, fontSize: 9 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Formatting
+
+The `format` prop attaches keystroke and display formatters to the field. It takes an object with a `type` and, for some types, extra parameters:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| type (required) | 'date' \| 'time' \| 'percent' \| 'number' \| 'zip' \| 'zipPlus4' \| 'phone' \| 'ssn' | — | The kind of formatting to apply. |
+| param | string | — | Format mask for date and time types, e.g. 'dd/mm/yyyy' or 'HH:MM'. |
+| nDec | number | — | Number of decimal places. Used by number and percent. |
+| sepComma | boolean | — | Use a comma as the thousands separator. Used by number and percent. |
+| negStyle | 'MinusBlack' \| 'Red' \| 'ParensBlack' \| 'ParensRed' | — | How negative values are displayed. Used by number. |
+| currency | string | — | Currency symbol to display. Used by number. |
+| currencyPrepend | boolean | — | Place the currency symbol before the value rather than after. Used by number. |
+
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- dd/mm/yyyy date field -->
+      <TextInput
+        name="dob"
+        :format="{ type: 'date', param: 'dd/mm/yyyy' }"
+        :style="{ height: 24 }"
+      />
+
+      <!-- Currency with two decimals and thousands separators -->
+      <TextInput
+        name="total"
+        :format="{
+          type: 'number',
+          nDec: 2,
+          sepComma: true,
+          negStyle: 'ParensRed',
+          currency: '$',
+          currencyPrepend: true,
+        }"
+        :style="{ height: 24 }"
+      />
+
+      <!-- Phone number -->
+      <TextInput
+        name="phone"
+        :format="{ type: 'phone' }"
+        :style="{ height: 24 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Formatting is embedded in the PDF as JavaScript. Acrobat executes it; most browser viewers and many other readers do not. Never rely on it to validate data you care about — validate on the way in instead.
+
+### Grouping
+
+Wrap fields in a [FieldSet](https://vue-pdf.sanusi.dev/api/field-set) to namespace them, so the same field name can be reused across sections of the form.
+
+---
+
+## Checkbox API
+
+Source: https://vue-pdf.sanusi.dev/api/checkbox
+
+> API reference for the Checkbox component — interactive tick boxes in PDF forms.
+
+The `<Checkbox>` component adds an interactive tick box to a PDF form. It stores one of two string states, and the reader toggles between them.
+
+New to forms? Start with the [Forms guide](https://vue-pdf.sanusi.dev/guide/forms).
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | string | '' | Field identifier. This is the key the value is exported under. |
+| checked | boolean | false | Whether the box starts in its on state. |
+| onState | string | 'Yes' | Value exported when the box is ticked. |
+| offState | string | 'Off' | Value exported when the box is not ticked. |
+| xMark | boolean | false | Draw a cross instead of a tick when checked. |
+| backgroundColor | string | — | Interior colour of the box. |
+| borderColor | string | — | Outline colour of the box. |
+| value | string \| number | — | The field's current value. Usually set through checked instead. |
+| defaultValue | string \| number | — | The value the field reverts to when the form is reset. |
+| required | boolean | false | Marks the field as mandatory before the form can be submitted. |
+| readOnly | boolean | false | Displays the state but prevents the reader from toggling it. |
+| noExport | boolean | false | Excludes the field from the exported form data. |
+| style | Style \| Style[] | — | Size and position of the box. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <View :style="{ flexDirection: 'row', alignItems: 'center', gap: 6 }">
+        <Checkbox
+          name="terms"
+          checked
+          :style="{ width: 14, height: 14 }"
+        />
+        <Text :style="{ fontSize: 10 }">
+          I accept the terms and conditions
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> A `<Checkbox>` has no intrinsic size. Give it an explicit `width` and `height` or it will be invisible. Square dimensions look best in most readers.
+
+### Appearance
+
+The tick and cross glyphs come from the ZapfDingbats font, which vue-pdf embeds automatically the first time a checkbox is rendered.
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Tick mark (default) -->
+      <Checkbox name="tick" checked :style="{ width: 14, height: 14 }" />
+
+      <!-- Cross mark -->
+      <Checkbox name="cross" checked x-mark :style="{ width: 14, height: 14 }" />
+
+      <!-- Styled interior and outline -->
+      <Checkbox
+        name="styled"
+        background-color="#f1f5f9"
+        border-color="#0f172a"
+        :style="{ width: 14, height: 14 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Custom States
+
+By default a checkbox exports `Yes` or `Off`. Override `onState` and `offState` when the system consuming the form expects specific values:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Checkbox
+        name="newsletter"
+        checked
+        on-state="Subscribed"
+        off-state="Unsubscribed"
+        :style="{ width: 14, height: 14 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Use the same `onState` and `offState` for every checkbox in a document. Readers differ in how they handle a form whose checkboxes use inconsistent state names, and mixed naming is a common source of boxes that appear blank or refuse to toggle.
+
+### Grouping
+
+Wrap checkboxes in a [FieldSet](https://vue-pdf.sanusi.dev/api/field-set) to namespace them under a shared prefix.
+
+---
+
+## Select API
+
+Source: https://vue-pdf.sanusi.dev/api/select
+
+> API reference for the Select component — dropdown menus in PDF forms.
+
+The `<Select>` component adds a dropdown menu to a PDF form. The reader picks from a list of options you define through the `select` prop.
+
+For a scrollable box rather than a dropdown, use [List](https://vue-pdf.sanusi.dev/api/list) — it takes the same props. New to forms? Start with the [Forms guide](https://vue-pdf.sanusi.dev/guide/forms).
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | string | '' | Field identifier. This is the key the value is exported under. |
+| select | string[] | [] | The options the reader can choose from. |
+| value | string \| number | — | The currently selected option. |
+| defaultValue | string \| number | — | The option the field reverts to when the form is reset. |
+| edit | boolean | false | Allows the reader to type a value that is not in the list. |
+| sort | boolean | false | Displays the options in alphabetical order. |
+| multiSelect | boolean | false | Allows more than one option to be selected. |
+| noSpell | boolean | false | Disables spell check on typed values. Only meaningful with edit. |
+| required | boolean | false | Marks the field as mandatory before the form can be submitted. |
+| readOnly | boolean | false | Displays the selection but prevents the reader from changing it. |
+| noExport | boolean | false | Excludes the field from the exported form data. |
+| style | Style \| Style[] | — | Size, position, and border of the field box. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{ fontSize: 10, marginBottom: 4 }">Country</Text>
+      <Select
+        name="country"
+        :select="['Nigeria', 'Ghana', 'Kenya', 'South Africa']"
+        value="Nigeria"
+        default-value="Nigeria"
+        :style="{
+          height: 20,
+          borderWidth: 1,
+          borderColor: '#cbd5e1',
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> A `<Select>` has no intrinsic size. Give it a `height` — and a `width` if it is not stretching to fill its parent — or it will be invisible.
+
+### Editable and Sorted
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Sorted alphabetically, reader may type a custom value -->
+      <Select
+        name="role"
+        edit
+        sort
+        no-spell
+        :select="['Engineer', 'Designer', 'Analyst']"
+        :style="{ height: 20 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Empty Initial Selection
+
+A dropdown always shows its first option. To start a field blank, include an empty string as the first option and set `value` to it:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Select
+        name="country"
+        :select="['', 'Nigeria', 'Ghana']"
+        value=""
+        default-value=""
+        :style="{ height: 20 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Unlike `<TextInput>` and `<Checkbox>`, a `<Select>` is not namespaced by an enclosing [FieldSet](https://vue-pdf.sanusi.dev/api/field-set) — it always registers at the top level of the form. Give every select a globally unique `name`.
+
+---
+
+## List API
+
+Source: https://vue-pdf.sanusi.dev/api/list
+
+> API reference for the List component — scrollable option boxes in PDF forms.
+
+The `<List>` component adds a scrollable option box to a PDF form. It is the same field type as [Select](https://vue-pdf.sanusi.dev/api/select) and takes the same props — the difference is that a list shows several options at once instead of collapsing into a dropdown.
+
+New to forms? Start with the [Forms guide](https://vue-pdf.sanusi.dev/guide/forms).
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | string | '' | Field identifier. This is the key the value is exported under. |
+| select | string[] | [] | The options the reader can choose from. |
+| value | string \| number | — | The currently selected option. |
+| defaultValue | string \| number | — | The option the field reverts to when the form is reset. |
+| edit | boolean | false | Allows the reader to type a value that is not in the list. |
+| sort | boolean | false | Displays the options in alphabetical order. |
+| multiSelect | boolean | false | Allows more than one option to be selected. |
+| noSpell | boolean | false | Disables spell check on typed values. Only meaningful with edit. |
+| required | boolean | false | Marks the field as mandatory before the form can be submitted. |
+| readOnly | boolean | false | Displays the selection but prevents the reader from changing it. |
+| noExport | boolean | false | Excludes the field from the exported form data. |
+| style | Style \| Style[] | — | Size, position, and border of the field box. |
+
+
+### Usage
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{ fontSize: 10, marginBottom: 4 }">Preferred language</Text>
+      <List
+        name="language"
+        :select="['English', 'French', 'Yoruba', 'Hausa', 'Igbo']"
+        value="English"
+        default-value="English"
+        :style="{
+          height: 60,
+          borderWidth: 1,
+          borderColor: '#cbd5e1',
+        }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Give a list enough `height` to show several rows — roughly the number of visible options times your font size. Too little height and the reader shows a single cramped row with a scrollbar.
+
+### Multiple Selection
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <List
+        name="skills"
+        multi-select
+        sort
+        :select="['Vue', 'TypeScript', 'Node', 'Rust']"
+        :style="{ height: 70 }"
+      />
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Unlike `<TextInput>` and `<Checkbox>`, a `<List>` is not namespaced by an enclosing [FieldSet](https://vue-pdf.sanusi.dev/api/field-set) — it always registers at the top level of the form. Give every list a globally unique `name`.
+
+---
+
+## FieldSet API
+
+Source: https://vue-pdf.sanusi.dev/api/field-set
+
+> API reference for the FieldSet component — grouping and namespacing PDF form fields.
+
+The `<FieldSet>` component groups form fields under a shared name. It draws nothing on its own — its purpose is to create a hierarchy in the exported form data, so the same field name can be reused in different sections of a document.
+
+New to forms? Start with the [Forms guide](https://vue-pdf.sanusi.dev/guide/forms).
+
+### Props
+
+`<FieldSet>` does not take the common form props — it is a container, not a field.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| name (required) | string | — | Prefix applied to the names of the fields inside. |
+| style | Style \| Style[] | — | Layout and decoration. FieldSet lays out like a View, so it can carry padding, borders, and background. |
+
+
+### Usage
+
+Two sections can each have a `street` and a `city` field without colliding:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <FieldSet name="billing">
+        <Text :style="{ fontSize: 10, marginBottom: 4 }">Street</Text>
+        <TextInput name="street" :style="{ height: 24 }" />
+
+        <Text :style="{ fontSize: 10, marginBottom: 4 }">City</Text>
+        <TextInput name="city" :style="{ height: 24 }" />
+      </FieldSet>
+
+      <FieldSet name="shipping">
+        <Text :style="{ fontSize: 10, marginBottom: 4 }">Street</Text>
+        <TextInput name="street" :style="{ height: 24 }" />
+
+        <Text :style="{ fontSize: 10, marginBottom: 4 }">City</Text>
+        <TextInput name="city" :style="{ height: 24 }" />
+      </FieldSet>
+    </Page>
+  </Document>
+</template>
+```
+
+
+The fields above export as `billing.street`, `billing.city`, `shipping.street`, and `shipping.city`.
+
+### Layout
+
+Although it is invisible to the form, a `<FieldSet>` participates in layout exactly like a [View](https://vue-pdf.sanusi.dev/api/view), so you can use it as the card or panel that wraps a section:
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <FieldSet
+        name="applicant"
+        :style="{
+          padding: 16,
+          borderWidth: 1,
+          borderColor: '#e2e8f0',
+          borderRadius: 4,
+        }"
+      >
+        <Text :style="{ fontSize: 8, color: '#94a3b8', marginBottom: 12 }">
+          APPLICANT
+        </Text>
+
+        <View :style="{ marginBottom: 12 }">
+          <Text :style="{ fontSize: 10, marginBottom: 4 }">Full name</Text>
+          <TextInput name="fullName" :style="{ height: 24 }" />
+        </View>
+
+        <View :style="{ flexDirection: 'row', alignItems: 'center', gap: 6 }">
+          <Checkbox name="consent" :style="{ width: 12, height: 12 }" />
+          <Text :style="{ fontSize: 9 }">I consent to being contacted</Text>
+        </View>
+      </FieldSet>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Limitations
+
+> Only `<TextInput>` and `<Checkbox>` are namespaced by their enclosing `<FieldSet>`. `<Select>` and `<List>` always register at the top level of the form, so they need globally unique names. `<FieldSet>` also cannot be nested inside another `<FieldSet>`. Use a single level of grouping per field.
+
+> Fields do not have to be direct children of the `<FieldSet>`. Any field anywhere in the subtree picks up the prefix, so you are free to nest `<View>`s for layout.
+
+---
+
+# Browser API
+
+## usePDF
+
+Source: https://vue-pdf.sanusi.dev/api/use-pdf
+
+> API reference for the usePDF composable — generate and preview PDFs in the browser.
+
+The `usePDF` composable owns a [pdf()](https://vue-pdf.sanusi.dev/api/pdf-function) instance and exposes reactive render state for previewing in the browser. It is the Vue analog of react-pdf's `usePDF` hook and returns a `[state, update]` tuple.
+
+### Signature
+
+### Options
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| document | DocumentTree | — | Optional initial document tree. Rendering starts immediately when provided; omit it and call the updater instead. |
+
+
+### Return Value
+
+A two-element tuple. The first element is a `Ref` holding the render state — read it as `instance.value.url` in script, or `instance.url` in a template. The second is an updater that swaps in a new document tree.
+
+```ts
+const [instance, update] = usePDF()
+```
+
+
+#### State (`instance.value`)
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| url | string \| null | null | Blob URL for preview. Revoked automatically when replaced or on unmount. |
+| blob | Blob \| null | null | Raw binary of the generated PDF. |
+| error | Error \| null | null | Last render error, if any. |
+| loading | boolean | false | Whether a render is currently in flight. Starts as true when an initial document is passed. |
+
+
+#### Updater
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| update(document) | (document: DocumentTree) => void | — | Replaces the rendered document. Renders run through a concurrency-1 queue where a newly scheduled render replaces any pending one. |
+
+
+### Usage
+
+`usePDF` takes a **document tree** — a plain object of `{ type, props, children }` nodes — not a Vue component:
+
+```vue
+<script setup lang="ts">
+import { usePDF } from '@vuepdf/renderer'
+
+const [instance] = usePDF({
+  document: {
+    type: 'DOCUMENT',
+    props: { title: 'Hello' },
+    children: [
+      {
+        type: 'PAGE',
+        props: { size: 'A4' },
+        children: [
+          { type: 'TEXT', props: {}, children: ['Hello, PDF!'] },
+        ],
+      },
+    ],
+  },
+})
+<\/script>
+
+<template>
+  <div v-if="instance.loading" class="loading">Generating PDF...</div>
+  <iframe
+    v-else-if="instance.url"
+    :src="instance.url"
+    width="100%"
+    height="500px"
+    class="pdf-preview"
+  />
+</template>
+```
+
+
+### Updating on Data Changes
+
+Call the updater whenever your data changes to re-render:
+
+```vue
+<script setup lang="ts">
+import { usePDF } from '@vuepdf/renderer'
+
+const [instance, update] = usePDF()
+
+const buildTree = (invoice: { id: string; amount: number }) => ({
+  type: 'DOCUMENT',
+  props: {},
+  children: [
+    {
+      type: 'PAGE',
+      props: { size: 'A4' },
+      children: [
+        {
+          type: 'TEXT',
+          props: {},
+          children: [\`Invoice \${invoice.id} — $\${invoice.amount}\`],
+        },
+      ],
+    },
+  ],
+})
+
+const invoice = ref({ id: '123', amount: 1500 })
+
+// Re-render whenever the data changes; pending renders are replaced.
+watchEffect(() => update(buildTree(invoice.value)))
+<\/script>
+```
+
+
+### Prefer a Component Wrapper
+
+Hand-writing trees is rarely what you want. [PDFViewer](https://vue-pdf.sanusi.dev/api/pdf-viewer), [PDFDownloadLink](https://vue-pdf.sanusi.dev/api/pdf-download-link), and [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider) each run `usePDF` internally and accept a slotted `<Document>`, so you can compose your PDF with the normal components. `PDFViewer` takes it in the default slot; the other two take it in a `#document` slot and keep the default slot for your own markup:
+
+```vue
+<script setup lang="ts">
+import { PDFViewer } from '@vuepdf/renderer'
+import InvoiceDoc from './InvoiceDoc.vue'
+<\/script>
+
+<template>
+  <PDFViewer :style="{ width: '100%', height: '500px' }">
+    <InvoiceDoc :invoice="invoice" />
+  </PDFViewer>
+</template>
+```
+
+
+> Reach for `usePDF` directly only when you need to own the render loop — for example, driving a preview from a tree you build programmatically.
+
+> `usePDF` is browser-only. On the server, use the [pdf()](https://vue-pdf.sanusi.dev/api/pdf-function) function or the [renderTo*](https://vue-pdf.sanusi.dev/api/render-to-stream) APIs instead.
+
+---
+
+## PDFViewer
+
+Source: https://vue-pdf.sanusi.dev/api/pdf-viewer
+
+> API reference for the PDFViewer component — embed an interactive PDF viewer.
+
+The `<PDFViewer>` component renders its slotted document inside an `<iframe>`, giving you a live preview that re-renders as the document changes. It runs [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) internally.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| style | Style \| Style[] \| string | — | Style applied to the iframe. Size the viewer here — there are no width/height props. |
+| className | string | — | Class applied to the iframe. |
+| title | string | — | Title attribute on the iframe, for accessibility. |
+| showToolbar | boolean | true | Shows the browser PDF toolbar, via the #toolbar fragment on the blob URL. |
+
+
+> `document` takes a plain **document tree object**. To compose your PDF with the usual components, slot it in the default slot instead.
+
+### Slots
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| default | slot | — | Your <Document> component. Rendered into a hidden container next to the iframe; its assembled tree drives the preview. |
+
+
+> Note the difference from [PDFDownloadLink](https://vue-pdf.sanusi.dev/api/pdf-download-link) and [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider): those take the document in a `#document` slot because their default slot renders your own markup. `PDFViewer` renders only an iframe, so the document goes in the default slot.
+
+### Events
+
+### Exposed Methods
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| download(filename?) | (filename?: string) => void | 'document.pdf' | Downloads the currently rendered document. |
+
+
+### Usage
+
+Place a `<Document>` in the default slot and size the iframe with `style`:
+
+```vue
+<script setup lang="ts">
+import { PDFViewer } from '@vuepdf/renderer'
+<\/script>
+
+<template>
+  <PDFViewer :style="{ width: '100%', height: '600px' }">
+    <Document>
+      <Page size="A4">
+        <View :style="{ padding: 40 }">
+          <Text :style="{ fontSize: 24 }">Hello, PDF!</Text>
+        </View>
+      </Page>
+    </Document>
+  </PDFViewer>
+</template>
+```
+
+
+> `<PDFViewer>` is a browser component, not a PDF primitive — it belongs in your page's markup, never inside a `<Page>`. Wrap it in `<ClientOnly>` in Nuxt, since it needs `URL.createObjectURL`.
+
+### Previewing a Component
+
+Any component that renders a `<Document>` works, and updates as its props change:
+
+```vue
+<script setup lang="ts">
+import { PDFViewer } from '@vuepdf/renderer'
+import InvoiceDocument from './InvoiceDocument.vue'
+
+const invoice = ref({ id: '123', amount: 1500 })
+<\/script>
+
+<template>
+  <PDFViewer :style="{ width: '100%', height: '600px' }" :show-toolbar="false">
+    <InvoiceDocument :invoice="invoice" />
+  </PDFViewer>
+</template>
+```
+
+
+### Downloads and Render Events
+
+Listen for `@render` to react to each new blob, or call the exposed `download()` through a template ref:
+
+```vue
+<script setup lang="ts">
+import { PDFViewer } from '@vuepdf/renderer'
+
+const viewer = useTemplateRef('viewer')
+
+const onRender = ({ url, blob }: { url: string; blob: Blob }) => {
+  console.log('rendered', url, blob.size)
+}
+<\/script>
+
+<template>
+  <PDFViewer ref="viewer" @render="onRender">
+    <MyDocument />
+  </PDFViewer>
+
+  <button @click="viewer?.download('report.pdf')">Download</button>
+</template>
+```
+
+
+### See Also
+
+- [PDFDownloadLink](https://vue-pdf.sanusi.dev/api/pdf-download-link) — download anchor instead of a preview.
+
+- [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider) — raw blob and state, no markup.
+
+- [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) — the composable all three are built on.
+
+---
+
+## PDFDownloadLink
+
+Source: https://vue-pdf.sanusi.dev/api/pdf-download-link
+
+> API reference for PDFDownloadLink — render an anchor that downloads the generated PDF.
+
+Renders an `<a>` element whose `href` points at the generated PDF blob and whose `download` attribute carries your filename. It runs [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) internally, so you never manage the render loop yourself.
+
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| fileName | string | 'document.pdf' | Value of the anchor's download attribute. |
+
+
+> `document` takes a plain **document tree object**. To compose your PDF with the usual components, use the `document` slot instead.
+
+### Slots
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| document | slot | — | Your <Document> component. Rendered into a hidden container; its assembled tree is handed to the internal pdf instance. |
+
+
+### Events
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| click | (event: MouseEvent, state: PDFState) => void | — | Emitted when the anchor is clicked, with the current render state as the second argument. |
+
+
+### Usage
+
+Slot your `<Document>` into the `document` slot and use the default slot for the label:
+
+```vue
+<script setup lang="ts">
+import { PDFDownloadLink } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+<\/script>
+
+<template>
+  <PDFDownloadLink file-name="report.pdf">
+    <template #document>
+      <MyDocument />
+    </template>
+
+    <template #default="{ loading }">
+      {{ loading ? 'Preparing...' : 'Download PDF' }}
+    </template>
+  </PDFDownloadLink>
+</template>
+```
+
+
+### Reacting to Render State
+
+The default slot is a scoped slot — the same state [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) exposes:
+
+```vue
+<template>
+  <PDFDownloadLink file-name="invoice.pdf" class="btn">
+    <template #document>
+      <InvoiceDocument :invoice="invoice" />
+    </template>
+
+    <template #default="{ loading, error, url }">
+      <span v-if="error">Failed to generate</span>
+      <span v-else-if="loading || !url">Generating...</span>
+      <span v-else>Download invoice</span>
+    </template>
+  </PDFDownloadLink>
+</template>
+```
+
+
+> The anchor is always rendered, even while `loading` is `true`. Until the first render finishes, `href` is empty — disable or relabel the link via the scoped slot if that matters for your UI.
+
+### With a Prebuilt Tree
+
+For parity with react-pdf, you can pass a document tree directly instead of slotting a component:
+
+```vue
+<script setup lang="ts">
+const tree = {
+  type: 'DOCUMENT',
+  props: { title: 'Report' },
+  children: [
+    {
+      type: 'PAGE',
+      props: { size: 'A4' },
+      children: [
+        { type: 'TEXT', props: {}, children: ['Generated report'] },
+      ],
+    },
+  ],
+}
+<\/script>
+
+<template>
+  <PDFDownloadLink :document="tree" file-name="report.pdf">
+    <template #default="{ loading }">
+      {{ loading ? 'Preparing...' : 'Download' }}
+    </template>
+  </PDFDownloadLink>
+</template>
+```
+
+
+### Attributes
+
+The component sets `inheritAttrs: false` and forwards every extra attribute — classes, `target`, ARIA attributes — onto the underlying `<a>`:
+
+```vue
+<template>
+  <PDFDownloadLink
+    file-name="report.pdf"
+    class="btn"
+    target="_blank"
+    @click="onClick"
+  >
+    <template #document>
+      <MyDocument />
+    </template>
+    <template #default>Download</template>
+  </PDFDownloadLink>
+</template>
+```
+
+
+> `PDFDownloadLink` is browser-only. To produce a file on the server, use [renderToFile](https://vue-pdf.sanusi.dev/api/render-to-file) or [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream).
+
+### See Also
+
+- [BlobProvider](https://vue-pdf.sanusi.dev/api/blob-provider) — same slot API, without the anchor.
+
+- [PDFViewer](https://vue-pdf.sanusi.dev/api/pdf-viewer) — inline preview in an iframe.
+
+---
+
+## BlobProvider
+
+Source: https://vue-pdf.sanusi.dev/api/blob-provider
+
+> API reference for BlobProvider — access the generated PDF blob, URL, and render state.
+
+Could not generate the PDF.
+
+## BlobProvider
+
+Renders no markup of its own — it generates the PDF and hands the resulting blob, URL, and render state to its default scoped slot. Use it when you want the output but not the [anchor](https://vue-pdf.sanusi.dev/api/pdf-download-link) or the [iframe](https://vue-pdf.sanusi.dev/api/pdf-viewer).
+
+### Props
+
+> `document` takes a plain **document tree object**. To compose your PDF with the usual components, use the `document` slot instead.
+
+### Slots
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| document | slot | — | Your <Document> component. Rendered into a hidden container; its assembled tree is handed to the internal pdf instance. |
+
+
+### Usage
+
+```vue
+<script setup lang="ts">
+import { BlobProvider } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+<\/script>
+
+<template>
+  <BlobProvider>
+    <template #document>
+      <MyDocument />
+    </template>
+
+    <template #default="{ url, loading }">
+      <button v-if="loading" disabled>Generating...</button>
+      <a v-else :href="url" download="document.pdf">Download PDF</a>
+    </template>
+  </BlobProvider>
+</template>
+```
+
+
+### Working With the Blob
+
+The raw `Blob` is available as soon as a render finishes — upload it, hash it, or store it:
+
+```vue
+<template>
+  <BlobProvider>
+    <template #document>
+      <MyDocument />
+    </template>
+
+    <template #default="{ blob, loading, error }">
+      <p v-if="error">Could not generate the PDF.</p>
+      <button v-else :disabled="loading" @click="upload(blob)">
+        {{ loading ? 'Generating...' : 'Upload to server' }}
+      </button>
+    </template>
+  </BlobProvider>
+</template>
+```
+
+
+> The blob URL is revoked automatically when it is replaced by a new render and when the component unmounts, so don't hold onto `url` past the component's lifetime — keep the `blob` instead.
+
+> `BlobProvider` is browser-only. On the server, use [renderToBuffer](https://vue-pdf.sanusi.dev/api/render-to-buffer) or [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream).
+
+---
+
+# Node API
+
+## pdf() Function
+
+Source: https://vue-pdf.sanusi.dev/api/pdf-function
+
+> API reference for the pdf() function — programmatic PDF generation.
+
+The `pdf()` function creates a renderer instance from a Vue component. It provides methods for generating PDF output in various formats.
+
+### Signature
+
+### PDFInstance Methods
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| toBlob() | Promise<Blob> | — | Generate PDF as a Blob. |
+| toBuffer() | Promise<Buffer> | — | Generate PDF as a Node.js Buffer. Only available in Node. |
+| toString() | Promise<string> | — | Generate PDF as a base64-encoded string. |
+| updateContainer(element) | void | — | Re-render with a new Vue component or app. |
+| on(event, callback) | void | — | Listen for events (change when rendering completes). |
+
+
+### Node.js Example
+
+```ts
+import { pdf } from '@vuepdf/renderer'
+import { createSSRApp } from 'vue'
+import MyDocument from './MyDocument.vue'
+
+const app = createSSRApp(MyDocument, { title: 'My Doc' })
+const instance = pdf(app)
+
+// Generate as Buffer (Node)
+const buffer = await instance.toBuffer()
+fs.writeFileSync('./output.pdf', buffer)
+
+// Or as a base64 string
+const base64 = await instance.toString()
+```
+
+
+### Browser Example
+
+---
+
+## renderToFile
+
+Source: https://vue-pdf.sanusi.dev/api/render-to-file
+
+> API reference for renderToFile — render a PDF and write it directly to the filesystem.
+
+Renders a PDF document and writes it directly to a file on the filesystem.
+
+### Signature
+
+### Usage
+
+> `renderToFile` is a convenience wrapper around `pdf().toBuffer()` + `fs.writeFile`.
+
+### Nuxt Server Route
+
+Writing to disk suits generated artifacts you want to keep — nightly reports, exports a user can re-download. Note that a serverless deployment only gives you a writable temp directory, and it does not persist between invocations, so prefer [renderToBuffer](https://vue-pdf.sanusi.dev/api/render-to-buffer) plus object storage there.
+
+> Keep the PDF primitive imports in the document SFC. The server route can import the document component and pass props as the third argument to `renderToFile`. Importing a `.vue` document from `server/` requires the [@vuepdf/nuxt](https://vue-pdf.sanusi.dev/installation) module — see [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream) for why.
+
+---
+
+## renderToBuffer
+
+Source: https://vue-pdf.sanusi.dev/api/render-to-buffer
+
+> API reference for renderToBuffer — render a PDF document to a Node Buffer.
+
+Renders a PDF document and resolves with a Node `Buffer`. Use this when you need the bytes in memory — to upload them, attach them to an email, or hand them to another library.
+
+### Signature
+
+### Usage
+
+```ts
+import { renderToBuffer } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+
+const buffer = await renderToBuffer(MyDocument)
+
+// Write it, upload it, or attach it
+await fs.promises.writeFile('out.pdf', buffer)
+```
+
+
+### Attaching to an Email
+
+```ts
+import { renderToBuffer } from '@vuepdf/renderer'
+import Invoice from './Invoice.vue'
+
+const buffer = await renderToBuffer(Invoice)
+
+await transporter.sendMail({
+  to: 'customer@example.com',
+  subject: 'Your invoice',
+  attachments: [{ filename: 'invoice.pdf', content: buffer }],
+})
+```
+
+
+### Nuxt Server Route
+
+Returning a `Buffer` from an event handler is enough — Nitro sends it as-is. Because you hold the whole document in memory you can set `content-length` and force a download:
+
+```ts [server/api/invoice/[id].get.ts]
+// server/api/invoice/[id].get.ts
+import { renderToBuffer } from '@vuepdf/renderer'
+import InvoiceDocument from '../../../components/pdf/InvoiceDocument.vue'
+
+export default defineEventHandler(async (event) => {
+  const id = getRouterParam(event, 'id')!
+  const record = await useDb().findInvoice(id)
+
+  if (!record) {
+    throw createError({ statusCode: 404, statusMessage: 'Invoice not found' })
+  }
+
+  const buffer = await renderToBuffer(InvoiceDocument, {
+    id,
+    total: record.total,
+  })
+
+  setHeader(event, 'content-type', 'application/pdf')
+  setHeader(event, 'content-length', buffer.length)
+  setHeader(event, 'content-disposition', \`attachment; filename="invoice-\${id}.pdf"\`)
+
+  return buffer
+})
+```
+
+
+```vue [components/pdf/InvoiceDocument.vue]
+<!-- components/pdf/InvoiceDocument.vue -->
+<script setup lang="ts">
+import { Document, Page, Text } from '@vuepdf/renderer/components'
+
+const props = defineProps<{
+  id: string
+  total: string
+}>()
+<\/script>
+
+<template>
+  <Document :title="\`Invoice \${props.id}\`">
+    <Page size="A4" :style="{ padding: 48, fontSize: 12 }">
+      <Text :style="{ fontSize: 22, marginBottom: 16 }">
+        Invoice {{ props.id }}
+      </Text>
+      <Text>
+        Total due: {{ props.total }}
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+> Keep the PDF primitive imports in the document SFC, not the server route. In server routes, import the document component and pass props as the second argument to `renderToBuffer`. Importing a `.vue` document from `server/` requires the [@vuepdf/nuxt](https://vue-pdf.sanusi.dev/installation) module — see [renderToStream](https://vue-pdf.sanusi.dev/api/render-to-stream) for why.
+
+#### Caching the Result
+
+Rendering is CPU-bound. If the document changes rarely, wrap it in `defineCachedFunction` so repeat requests serve stored bytes:
+
+```ts [server/api/report.get.ts]
+// server/api/report.get.ts
+import { renderToBuffer } from '@vuepdf/renderer'
+import ReportDocument from '../../components/pdf/ReportDocument.vue'
+
+// Nitro's cache stores JSON, which does not survive a Buffer — keep base64
+// in the cache and rehydrate on the way out.
+const buildPdf = defineCachedFunction(
+  async () => (await renderToBuffer(ReportDocument)).toString('base64'),
+  { maxAge: 60 * 60, name: 'report-pdf', getKey: () => 'latest' },
+)
+
+export default defineEventHandler(async (event) => {
+  const buffer = Buffer.from(await buildPdf(), 'base64')
+
+  setHeader(event, 'content-type', 'application/pdf')
+  setHeader(event, 'content-length', buffer.length)
+
+  return buffer
+})
+```
+
+
+> Do not cache the `Buffer` itself. Nitro's cache serializes to JSON, so a cached `Buffer` comes back as `{ type: 'Buffer', data: [...] }` — the first request succeeds and every cache hit afterwards fails with `ERR_HTTP_INVALID_HEADER_VALUE` on `content-length`. Store base64 and rehydrate, as above.
+
+### Choosing Between the Node APIs
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| renderToBuffer | Promise<Buffer> | — | You need the bytes in memory — uploads, email attachments, further processing. |
+| renderToStream | Promise<ReadableStream> | — | You are piping to an HTTP response or a file and want to avoid buffering the whole document. |
+| renderToFile | Promise<void> | — | You just want the PDF written to a path on disk. |
+
+
+> This is a Node-only API. Calling it in a browser build throws — use [pdf()](https://vue-pdf.sanusi.dev/api/pdf-function) and `toBlob()` there instead.
+
+---
+
+## renderToStream
+
+Source: https://vue-pdf.sanusi.dev/api/render-to-stream
+
+> API reference for renderToStream — stream a PDF directly to an HTTP response or writable stream.
+
+Renders a PDF document and returns a readable stream, ideal for piping directly to HTTP responses.
+
+### Signature
+
+### Usage
+
+```ts
+import { renderToStream } from '@vuepdf/renderer'
+import MyDocument from './MyDocument.vue'
+
+app.get('/pdf', async (req, res) => {
+  const stream = await renderToStream(MyDocument)
+
+  res.setHeader('Content-Type', 'application/pdf')
+  stream.pipe(res)
+})
+```
+
+
+### Nuxt Server Route
+
+In a Nuxt app, a route under `server/api/` can stream the PDF straight to the client with h3's `sendStream`:
+
+```ts [server/api/report.get.ts]
+// server/api/report.get.ts
+import { renderToStream } from '@vuepdf/renderer'
+import ReportDocument from '../../components/pdf/ReportDocument.vue'
+
+export default defineEventHandler(async (event) => {
+  const { title = 'Report' } = getQuery(event) as { title?: string }
+
+  setHeader(event, 'content-type', 'application/pdf')
+  setHeader(event, 'content-disposition', 'inline; filename="report.pdf"')
+
+  return sendStream(event, await renderToStream(ReportDocument, { title }))
+})
+```
+
+
+```vue [components/pdf/ReportDocument.vue]
+<!-- components/pdf/ReportDocument.vue -->
+<script setup lang="ts">
+import { Document, Page, Text } from '@vuepdf/renderer/components'
+
+defineProps<{ title: string }>()
+<\/script>
+
+<template>
+  <Document :title="title">
+    <Page size="A4" :style="{ padding: 48, fontSize: 12 }">
+      <Text :style="{ fontSize: 24, marginBottom: 12 }">
+        {{ title }}
+      </Text>
+      <Text>
+        Generated on the server with renderToStream.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+```vue
+<template>
+  <a href="/api/report?title=Quarterly%20Report" target="_blank">
+    Open the PDF
+  </a>
+</template>
+```
+
+
+> Keep PDF component imports inside the document component. Nitro can import the document SFC from the server route, and the document can import primitives from `@vuepdf/renderer/components`. For generated trees without Vue templates, `@vuepdf/renderer/primitives` remains available.
+
+> Importing a `.vue` document from a server route requires the [@vuepdf/nuxt](https://vue-pdf.sanusi.dev/installation) module. Nitro bundles `server/` without Vue support, so the module registers a Vue SFC plugin for it; without that the build fails with `rollup-plugin-inject: failed to parse YourDocument.vue`. Outside Nuxt — plain Node or Express — either precompile the SFC in your own build, or build the document from `@vuepdf/renderer/primitives` instead.
+
+> Need the same document in the browser? Render it client-side with [usePDF](https://vue-pdf.sanusi.dev/api/use-pdf) or [PDFDownloadLink](https://vue-pdf.sanusi.dev/api/pdf-download-link).
+
+### Related
+
+Use [renderToBuffer](https://vue-pdf.sanusi.dev/api/render-to-buffer) when you need the bytes in memory rather than a stream — for caching, uploading, or setting an explicit `content-length`.
+
+---
+
+# Examples
+
+## Basic Document Example
+
+Source: https://vue-pdf.sanusi.dev/examples/basic
+
+> A basic vue-pdf example — creating a simple PDF document with Vue components.
+
+A minimal PDF document with a title, paragraph, and simple layout.
+
+```vue [BasicDocument.vue]
+<template>
+  <Document
+      title="Basic Document"
+      author="Your Name"
+    >
+      <Page size="A4" :style="{ padding: 40 }">
+        <Text :style="{
+          fontSize: 28,
+          fontWeight: 'bold',
+          marginBottom: 20,
+          fontFamily: 'Helvetica',
+        }">
+          My First PDF Document
+        </Text>
+
+        <View :style="{
+          borderBottomWidth: 2,
+          borderBottomColor: '#dc2626',
+          marginBottom: 20,
+        }" />
+
+        <Text :style="{
+          fontSize: 12,
+          lineHeight: 1.8,
+          textAlign: 'justify',
+          marginBottom: 16,
+        }">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat.
+        </Text>
+
+        <Text :style="{
+          fontSize: 12,
+          lineHeight: 1.8,
+          textAlign: 'justify',
+        }">
+          Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt
+          in culpa qui officia deserunt mollit anim id est laborum.
+        </Text>
+      </Page>
+    </Document>
+</template>
+```
+
+
+---
+
+## Text Styling Example
+
+Source: https://vue-pdf.sanusi.dev/examples/text-styling
+
+> Text styling examples for vue-pdf — fonts, colors, decoration, truncation, and inline styling.
+
+Examples of various text styling capabilities in vue-pdf.
+
+### Text Decoration & Styling
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <!-- Basic typography -->
+      <Text :style="{
+        fontSize: 24,
+        fontWeight: 'bold',
+        fontFamily: 'Helvetica',
+        marginBottom: 12,
+      }">
+        Typography Demo
+      </Text>
+
+      <!-- Underlined text -->
+      <Text :style="{
+        fontSize: 14,
+        textDecoration: 'underline',
+        textDecorationColor: '#2563eb',
+        marginBottom: 8,
+      }">
+        This text has a blue underline.
+      </Text>
+
+      <!-- Line-through -->
+      <Text :style="{
+        fontSize: 14,
+        textDecoration: 'line-through',
+        textDecorationColor: '#dc2626',
+        marginBottom: 8,
+      }">
+        This text is struck through.
+      </Text>
+
+      <!-- Text transform -->
+      <Text :style="{
+        fontSize: 14,
+        textTransform: 'uppercase',
+        letterSpacing: 2,
+        marginBottom: 8,
+      }">
+        Uppercase with letter spacing
+      </Text>
+
+      <!-- Justified text -->
+      <Text :style="{
+        fontSize: 11,
+        textAlign: 'justify',
+        lineHeight: 1.8,
+        marginBottom: 16,
+      }">
+        This paragraph uses justified text alignment. The text
+        engine distributes spacing between words to align both
+        the left and right edges, creating a clean, professional
+        appearance suitable for formal documents and publications.
+      </Text>
+
+      <!-- Truncated text -->
+      <Text :style="{
+        fontSize: 12,
+        width: 300,
+      }" :maxLines="2">
+        This long text will be truncated after two lines with an
+        ellipsis. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Vestibulum nec odio at nisi vehicula.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Inline Styling with Tspan
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Text :style="{ fontSize: 14, lineHeight: 1.8 }">
+        This is normal text with{' '}
+        <Tspan :style="{ fontWeight: 'bold', color: '#dc2626' }">
+          bold red
+        </Tspan>{' '}
+        and{' '}
+        <Tspan :style="{ fontStyle: 'italic', color: '#2563eb' }">
+          italic blue
+        </Tspan>{' '}
+        inline segments. You can also add{' '}
+        <Tspan :style="{
+          textDecoration: 'underline',
+          textDecorationColor: '#059669',
+          textDecorationStyle: 'wavy',
+        }">
+          wavy underlines
+        </Tspan>
+        {' '}for emphasis.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Images Example
+
+Source: https://vue-pdf.sanusi.dev/examples/images
+
+> Images and layout examples for vue-pdf — embedding images, image backgrounds, and flex layouts.
+
+Examples of embedding and laying out images in PDF documents.
+
+### Basic Image
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+      }">
+        Image Examples
+      </Text>
+
+      <!-- Inline image -->
+      <Image
+        src="path/to/photo.jpg"
+        :style="{ width: 200, height: 150, marginBottom: 16, borderRadius: 4 }"
+      />
+
+      <Text :style="{ fontSize: 11, color: '#666' }">
+        Figure 1: A sample image with rounded corners.
+      </Text>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Image With Object Fit
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <View :style="{
+        flexDirection: 'row',
+        gap: 16,
+        marginBottom: 20,
+      }">
+        <!-- Cover image -->
+        <View :style="{ flex: 1 }">
+          <Image
+            src="path/to/photo.jpg"
+            :style="{
+              width: '100%',
+              height: 120,
+              objectFit: 'cover',
+              borderRadius: 4,
+            }"
+          />
+          <Text :style="{ fontSize: 10, marginTop: 4, textAlign: 'center' }">
+            Cover
+          </Text>
+        </View>
+
+        <!-- Contain image -->
+        <View :style="{ flex: 1 }">
+          <Image
+            src="path/to/photo.jpg"
+            :style="{
+              width: '100%',
+              height: 120,
+              objectFit: 'contain',
+              backgroundColor: '#f5f5f5',
+              borderRadius: 4,
+            }"
+          />
+          <Text :style="{ fontSize: 10, marginTop: 4, textAlign: 'center' }">
+            Contain
+          </Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Image Grid Layout
+
+```vue
+<View :style="{
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  gap: 12,
+}">
+  <Image
+    v-for="i in 6" :key="i"
+    :src="\`/photos/photo-\\$\${i}.jpg\`"
+    :style="{
+      width: 'calc(33% - 8px)',
+      height: 100,
+      objectFit: 'cover',
+      borderRadius: 4,
+    }"
+  />
+</View>
+```
+
+
+### Hero Section with ImageBackground
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <ImageBackground
+        src="path/to/cover.jpg"
+        :style="{ width: '100%', height: 200, marginBottom: 24 }"
+      >
+        <View :style="{
+          flex: 1,
+          justifyContent: 'flex-end',
+          padding: 24,
+          backgroundColor: 'rgba(0,0,0,0.4)',
+        }">
+          <Text :style="{
+            fontSize: 28,
+            fontWeight: 'bold',
+            color: '#ffffff',
+            marginBottom: 4,
+          }">
+            Report Title
+          </Text>
+          <Text :style="{
+            fontSize: 14,
+            color: '#d0d0d0',
+          }">
+            Subtitle or date information
+          </Text>
+        </View>
+      </ImageBackground>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## SVG Graphics Example
+
+Source: https://vue-pdf.sanusi.dev/examples/svg
+
+> Vue-pdf SVG graphics examples — shapes, paths, gradients, and custom markers.
+
+Examples of SVG graphics rendered natively in the PDF.
+
+### Chart Example
+
+```vue
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 40 }">
+      <Text :style="{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }">
+        Simple Bar Chart
+      </Text>
+
+      <Svg :width="400" :height="200" viewBox="0 0 400 200">
+        <!-- Axes -->
+        <Line x1="40" y1="10" x2="40" y2="180"
+              stroke="#333" :strokeWidth="1.5" />
+        <Line x1="40" y1="180" x2="390" y2="180"
+              stroke="#333" :strokeWidth="1.5" />
+
+        <!-- Bars -->
+        <Rect x="60"  y="120" width="50" height="60"
+              fill="#2563eb" :rx="2" />
+        <Rect x="130" y="80"  width="50" height="100"
+              fill="#7c3aed" :rx="2" />
+        <Rect x="200" y="40"  width="50" height="140"
+              fill="#dc2626" :rx="2" />
+        <Rect x="270" y="60"  width="50" height="120"
+              fill="#059669" :rx="2" />
+        <Rect x="340" y="100" width="50" height="80"
+              fill="#d97706" :rx="2" />
+
+        <!-- Labels -->
+        <Text x="75"  y="195" :style="{ fontSize: 8 }">Q1</Text>
+        <Text x="145" y="195" :style="{ fontSize: 8 }">Q2</Text>
+        <Text x="215" y="195" :style="{ fontSize: 8 }">Q3</Text>
+        <Text x="285" y="195" :style="{ fontSize: 8 }">Q4</Text>
+        <Text x="355" y="195" :style="{ fontSize: 8 }">Q5</Text>
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Icon With Gradient
+
+```vue
+<template>
+  <Document>
+    <Page size="A4">
+      <Svg :width="80" :height="80" viewBox="0 0 80 80">
+        <Defs>
+          <LinearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1">
+            <Stop offset="0%" stopColor="#dc2626" />
+            <Stop offset="100%" stopColor="#f97316" />
+          </LinearGradient>
+        </Defs>
+        <Circle cx="40" cy="40" r="35"
+                fill="url(#iconGrad)" />
+        <Path d="M40 20L50 35H30Z"
+              fill="#ffffff" />
+      </Svg>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Page Layout Example
+
+Source: https://vue-pdf.sanusi.dev/examples/layout
+
+> Vue-pdf layout examples — multi-column layouts, fixed headers/footers, and pagination.
+
+Examples of common page layouts with headers, footers, and multi-column designs.
+
+### Invoice Layout
+
+```vue [InvoiceDocument.vue]
+<template>
+  <Document>
+    <Page size="A4" :style="{ padding: 50, paddingTop: 80 }">
+      <!-- Fixed Header -->
+      <View :fixed="true" :style="{
+        position: 'absolute',
+        top: 30,
+        left: 50,
+        right: 50,
+        borderBottom: '1px solid #e5e7eb',
+        paddingBottom: 12,
+      }">
+        <Text :style="{ fontSize: 18, fontWeight: 'bold', color: '#dc2626' }">
+          INVOICE
+        </Text>
+        <Text :style="{ fontSize: 10, color: '#6b7280', marginTop: 4 }">
+          #INV-2024-001 | Date: Jan 15, 2024
+        </Text>
+      </View>
+
+      <!-- Fixed Footer -->
+      <View :fixed="true" :style="{
+        position: 'absolute',
+        bottom: 30,
+        left: 50,
+        right: 50,
+        borderTop: '1px solid #e5e7eb',
+        paddingTop: 12,
+      }">
+        <Text :style="{
+          fontSize: 8,
+          color: '#9ca3af',
+          textAlign: 'center',
+        }">
+          Page <Text render="{(p) => p.pageNumber}" /> | Company Name Inc.
+        </Text>
+      </View>
+
+      <!-- From / To -->
+      <View :style="{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 40,
+      }">
+        <View>
+          <Text :style="{ fontSize: 10, fontWeight: 'bold', marginBottom: 4 }">From:</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">Company Name Inc.</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">123 Business St</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">Commerce, CA 90001</Text>
+        </View>
+        <View>
+          <Text :style="{ fontSize: 10, fontWeight: 'bold', marginBottom: 4 }">To:</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">Client Name</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">456 Client Ave</Text>
+          <Text :style="{ fontSize: 10, color: '#6b7280' }">Business, NY 10001</Text>
+        </View>
+      </View>
+
+      <!-- Table -->
+      <View>
+        <!-- Header -->
+        <View :style="{
+          flexDirection: 'row',
+          backgroundColor: '#f3f4f6',
+          padding: 8,
+          borderBottom: '2px solid #e5e7eb',
+        }">
+          <Text :style="{ flex: 3, fontSize: 9, fontWeight: 'bold' }">Item</Text>
+          <Text :style="{ flex: 1, fontSize: 9, fontWeight: 'bold', textAlign: 'right' }">Qty</Text>
+          <Text :style="{ flex: 1, fontSize: 9, fontWeight: 'bold', textAlign: 'right' }">Rate</Text>
+          <Text :style="{ flex: 1, fontSize: 9, fontWeight: 'bold', textAlign: 'right' }">Amount</Text>
+        </View>
+
+        <!-- Rows -->
+        <View :style="{ flexDirection: 'row', padding: 8, borderBottom: '1px solid #e5e7eb' }">
+          <Text :style="{ flex: 3, fontSize: 9, color: '#374151' }">Web Design</Text>
+          <Text :style="{ flex: 1, fontSize: 9, color: '#374151', textAlign: 'right' }">1</Text>
+          <Text :style="{ flex: 1, fontSize: 9, color: '#374151', textAlign: 'right' }">$2,500</Text>
+          <Text :style="{ flex: 1, fontSize: 9, color: '#374151', textAlign: 'right' }">$2,500</Text>
+        </View>
+      </View>
+
+      <!-- Total -->
+      <View :style="{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginTop: 20,
+      }">
+        <Text :style="{
+          fontSize: 14,
+          fontWeight: 'bold',
+          color: '#dc2626',
+        }">
+          Total: $2,500.00
+        </Text>
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+---
+
+## Interactive Form Example
+
+Source: https://vue-pdf.sanusi.dev/examples/forms
+
+> A complete vue-pdf example — a fillable PDF form with text inputs, checkboxes, a dropdown, and a list.
+
+A fillable PDF form combining every form component — text inputs (including formatted, multiline, and read-only variants), checkboxes, a dropdown, and a multi-select list, grouped into sections with `<FieldSet>`.
+
+```vue [RegistrationForm.vue]
+<script setup lang="ts">
+import { StyleSheet } from '@vuepdf/renderer'
+
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: '#fafafa',
+    padding: 40,
+    fontSize: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1a1a1a',
+  },
+  subtitle: {
+    fontSize: 9,
+    color: '#888',
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 5,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    marginBottom: 8,
+  },
+  sectionLabel: {
+    fontSize: 8,
+    color: '#999',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 12,
+  },
+  fieldGroup: {
+    marginBottom: 12,
+  },
+  label: {
+    fontSize: 10,
+    color: '#333',
+    marginBottom: 4,
+  },
+  input: {
+    height: 24,
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+  },
+  textarea: {
+    height: 70,
+    fontSize: 9,
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+  },
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 8,
+  },
+  checkbox: {
+    width: 12,
+    height: 12,
+  },
+  select: {
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+  },
+  list: {
+    height: 56,
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+  },
+})
+<\/script>
+
+<template>
+  <Document title="Registration Form">
+    <Page size="A4" :style="styles.page">
+      <Text :style="styles.title">Registration</Text>
+      <Text :style="styles.subtitle">
+        Fill this form in your PDF reader and save a copy.
+      </Text>
+
+      <FieldSet name="applicant" :style="styles.card">
+        <Text :style="styles.sectionLabel">Applicant</Text>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Full name</Text>
+          <TextInput name="fullName" required :style="styles.input" />
+        </View>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Email</Text>
+          <TextInput name="email" no-spell :style="styles.input" />
+        </View>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Date of birth</Text>
+          <TextInput
+            name="dob"
+            :format="{ type: 'date', param: 'dd/mm/yyyy' }"
+            :style="styles.input"
+          />
+        </View>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Phone</Text>
+          <TextInput
+            name="phone"
+            :format="{ type: 'phone' }"
+            :style="styles.input"
+          />
+        </View>
+      </FieldSet>
+
+      <FieldSet name="address" :style="styles.card">
+        <Text :style="styles.sectionLabel">Address</Text>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Street</Text>
+          <TextInput name="street" :style="styles.input" />
+        </View>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">City</Text>
+          <TextInput name="city" :style="styles.input" />
+        </View>
+      </FieldSet>
+
+      <View :style="styles.card">
+        <Text :style="styles.sectionLabel">Preferences</Text>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Country</Text>
+          <Select
+            name="country"
+            :select="['', 'Nigeria', 'Ghana', 'Kenya', 'South Africa']"
+            value=""
+            default-value=""
+            :style="styles.select"
+          />
+        </View>
+
+        <View :style="styles.fieldGroup">
+          <Text :style="styles.label">Languages</Text>
+          <List
+            name="languages"
+            multi-select
+            sort
+            :select="['English', 'French', 'Hausa', 'Igbo', 'Yoruba']"
+            :style="styles.list"
+          />
+        </View>
+
+        <View :style="styles.checkboxRow">
+          <Checkbox name="newsletter" checked :style="styles.checkbox" />
+          <Text>Send me the monthly newsletter</Text>
+        </View>
+
+        <View :style="styles.checkboxRow">
+          <Checkbox name="terms" x-mark :style="styles.checkbox" />
+          <Text>I accept the terms and conditions</Text>
+        </View>
+      </View>
+
+      <View :style="styles.card">
+        <Text :style="styles.sectionLabel">Anything else?</Text>
+        <TextInput name="notes" multiline :max-length="500" :style="styles.textarea" />
+      </View>
+
+      <View :style="styles.card">
+        <Text :style="styles.sectionLabel">Office use only</Text>
+        <TextInput
+          name="reference"
+          value="REF-0001"
+          read-only
+          :style="styles.input"
+        />
+      </View>
+    </Page>
+  </Document>
+</template>
+```
+
+
+### Exported Data
+
+When the reader fills this form in and the data is read back, the fields inside a `<FieldSet>` are namespaced under it:
+
+- `applicant.fullName`, `applicant.email`, `applicant.dob`, `applicant.phone`
+
+- `address.street`, `address.city`
+
+- `country`, `languages`, `newsletter`, `terms`, `notes`, `reference`
+
+> `<Select>` and `<List>` are never namespaced by a `<FieldSet>`, which is why `country` and `languages` stay at the top level here even though the other preference fields sit alongside them.
+
+> Try this document in the [Playground](https://vue-pdf.sanusi.dev/playground) — the form components are available there, and you can see the fields become interactive in the embedded viewer.
